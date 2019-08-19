@@ -3,48 +3,26 @@
 \usepackage[dvipdfmx]{graphicx}
 \usepackage[top=20truemm,bottom=20truemm,left=30truemm,right=20truemm]{geometry}
 \usepackage{amsmath, amssymb}
-\usepackage{bm}
 \usepackage{fancybox}
 \usepackage{here}
-%\usepackage{boxedminipage}
 \usepackage{eclbkbox}
-%\usepackage{ascmac}
-%\usepackage{enumerate}
 \usepackage{tcolorbox}
 \usepackage{hyperref}
-
-%\renewcommand{\bibname}{参考文献}
-%\bibliographystyle{junsrt}
 
 \newcommand{\admin}{{\tt compexp@exa.phys.s.u-tokyo.ac.jp}}
 \newcommand{\nendo}{2018}
 
 \newcommand{\til}{\char`\~}
-\newcommand{\Machine}{{\tt exp-xs00}}
-\newcommand{\MachineFull}{{\tt alps.phys.s.u-tokyo.ac.jp}}
 \newcommand{\promptn}{\$}
 \newcommand{\prompt}{\$ }
-\newcommand{\promptECC}{[s001500@ecc\$ }
-\newcommand{\shellname}{bash}
-\newcommand{\shellbash}{bash}
 \newcommand{\pager}{{\bf less}}
-\newcommand{\ux}{ux101$>$}
 \newcommand{\ctrl}[1]{\ovalbox{\mathstrut ctrl}-\ovalbox{\mathstrut #1}}
 \newcommand{\esc}[1]{\leavevmode\ovalbox{\mathstrut Esc}-\ovalbox{\mathstrut #1}}
 \newcommand{\ret}{\ovalbox{\mathstrut Enter}}
 \newcommand{\spc}{\leavevmode\ovalbox{\mathstrut スペース}}
 \newcommand{\BS}{\ovalbox{\mathstrut Backspace}\ あるいは \ovalbox{\mathstrut Delete}キー}
 \newcommand{\cursor}{\vrule height8pt depth3pt width4pt\relax}
-\newcommand{\cursorone}{\vrule height8pt depth3pt width4pt\relax}
-\newcommand{\cursortwo}{\vrule height8pt depth3pt\relax}
-\newcommand{\destroymenu}{右}
-\newcommand{\rloginmenu}{真ん中}
-\newcommand{\killmenu}{Destroy window}
 \newcommand{\itemf}[1]{\item {\bf #1}}
-
-%\usepackage[T1]{fontenc}
-%\usepackage{tgpagella}
-%\usepackage{dtklogos}
 
 \newsavebox{\fminibox}
 \newenvironment{myframe}[2][\textwidth]%
@@ -126,20 +104,6 @@
 
 \def\clangpara#1{\paragraph{#1}\mbox{}\\}
 
-%% \newcounter{reidaii}[section]
-%% \def\thereidaii{\thesection.\arabic{reidaii}.}
-%% \newenvironment{reidaii}%
-%% {\refstepcounter{reidaii}%
-%%   \begin{myframe}{例題 \thereidaii}}%
-%% {\end{myframe}}
-
-%% \newcounter{kekkai}[section]
-%% \def\thekekkai{\thereidaii}
-%% \newenvironment{kekkai}%
-%% {\refstepcounter{kekkai}
-%%   \begin{myframe}{結果 \thekekkai}}%
-%% {\end{myframe}}
-
 \newenvironment{commandline}%
 {\vspace{6pt}\newline\hspace{26pt}\begin{minipage}{\textwidth}}%
 {\end{minipage}\vspace{6pt}}
@@ -149,17 +113,6 @@
 \makeatother
 
 \def\labelitemi{$\Rightarrow$}
-
-%
-% for algorithm
-%
-
-\newcommand{\pard}[3]{\frac{\partial^{#1}#2}{\partial #3^{#1}}}
-\newcommand{\normv}[1]{\lvert \bm{#1} \rvert}
-
-\newcommand{\shusseki}{\textbf{shusseki@nt.phys.s.u-tokyo.ac.jp}}
-
-
 
 \pagestyle{plain}
 
@@ -196,15 +149,5 @@
 
 \chapter{\LaTeX 入門}
 \input{latex}
-
-%\chapter{数値計算アルゴリズム}
-%\input{algorithm}
-
-%\chapter{Mathematica見よう見まね}
-
-%\addcontentsline{toc}{chapter}{\bibname}
-%\bibliography{main}
-%\begin{thebibliography}{99}
-%\end{thebibliography}
 
 \end{document}

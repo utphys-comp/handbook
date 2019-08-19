@@ -539,7 +539,6 @@ Tr\,A = A_{11} + A_{22} + A_{33} + \cdots + A_{ii} + \cdots + A_{nn}
   \end{equation*}
 \end{kekka}
 \noindent
-%ちなみに本当は、微分記号の $d$ も斜体ではなく立体で $\mathrm{d}$ と書くのが正統です。自然対数の底 $\mathrm{e}$、虚数単位 $\mathrm{i}$ など数学の分野で常識となっている量や記号には立体を、自分で定義した変数には斜体を使うことになっています。
 表\ref{tab:func}に主な数学関数を示す。
 \begin{table}[H]
   \begin{center}
@@ -783,51 +782,6 @@ J_{\mu}^{NC}(\nu) =
 
 \LaTeX では、{\tt gnuplot}などで生成した(\ref{sec:unix:gnuplot})節)図のファイル(ポストスクリプト、PDFなど)を文章中に貼り込むことが可能である。
 
-%% \subsection{EPS ファイルの作成}
-%% \label{sec:latex:make_eps}
-
-%% 最近では Tgif や xfig などさまざまな描画ソフトウェアが EPS 形式の図を
-%% 出力してくれます。ここでは、描画ツールの 1 つである GNUPLOT を使って
-%% EPS 形式のファイルを作る説明をします。 GNUPLOT はグラフを表示する機能が
-%% 秀でたソフトウェアです。
-
-%% まずは GNUPLOT を起動し、画面に図を表示させましょう。
-%% \begin{commandline}
-%% \begin{verbatim}
-%% example% gnuplot
-%% gnuplot> plot x*x
-%% \end{verbatim}
-%% \end{commandline}
-%% これで $y = x^2$ のグラフが表示されました。
-%% \begin{commandline}
-%% \verb|gnuplot> set term postscript|\\
-%% \verb|gnuplot> set output |\textrm{"\textit{filename}"}\\
-%% \verb|gnuplot> replot|
-%% \end{commandline}
-%% ここまでの操作で $y = x^2$ のグラフの絵が \textit{filename} という
-%% 名前のファイルに保存されます。 \textit{filename} は自分で
-%% 適当なものを決めます。ただし拡張子は \texttt{.ps} にしておきましょう。
-%% 以下では \textit{filename} は \texttt{test.ps} という名前にしたことにします。
-%% もう GNUPLOT は使わないので終了します。
-%% \begin{commandline}
-%% \begin{verbatim}
-%% gnuplot> quit
-%% example%
-%% \end{verbatim}
-%% \end{commandline}
-%% さて \texttt{test.ps} というファイルですがまだ EPS 形式にはなっておらず、
-%% PS という形式になっています。このファイルを EPS 形式にするには
-%% \texttt{ps2epsi} というコマンドを使います。
-%% \begin{commandline}
-%% \begin{verbatim}
-%% example% ps2epsi test.ps
-%% \end{verbatim}
-%% \end{commandline}
-%% これで \texttt{test.epsi} というファイルができます。
-%% \texttt{test.epsi} は EPS 形式になっていますので、これは \LaTeX の文章中に
-%% 貼り込むことができます。次の節では実際に図を貼り込む方法について
-%% 説明しましょう。
-
 \subsection{EPS ファイルの貼り込み}
 \label{sec:latex:include_eps}
 
@@ -1035,9 +989,6 @@ w(z) \equiv \mathrm{e}^{-z^2}\mathrm{erfc}(z)
   \noindent [2] The BELLE Collaboration, KEK Report 95-1 (1995)
 \end{kekka} \noindent
 文章中に書く \verb|\cite| では引用する論文の名前を指定する。論文の名前は自分が覚えやすいものであれば何でも構わないが、\verb|\bibitem| によって名前が定義されている必要がある。\verb|\bibitem| は \verb|\begin{thebibliography}| と \verb|\end{thebibliography}| とで囲まれた領域に書く。この領域は清書すると参考文献の章となる。
-%参考文献はふつうは論文の最後の方に書きますので、
-%\verb|\begin{thebibliography}| から \verb|\end{thebibliography}| までの
-%領域も最後に書くのが自然でしょう。
 \verb|\bibitem| に続く {\tt \{\}} の中には自分で決めた論文名を書く。この名前が \verb|\cite| によって参照されることになる。その後あとには、その論文の著者名や収録されている雑誌名などを書く。ここに書いたことは、参考文献の章が清書されるときにそのまま印刷される。
 
 \verb|\cite| と \verb|\ref| を、 \verb|\bibitem| と \verb|\label| を

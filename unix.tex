@@ -1,5 +1,3 @@
-%\nocite{Sakamoto1993}
-
 この章では、UNIXと呼ばれるOS (オペレーティングシステム)の操作法について学ぶ。通常、Mac OS XやWindowsでは、マウスを使って画面を操作する。実は、Mac OS Xの内部ではDarwinと呼ばれるUNIX系のOSが動作しており、「ターミナル」アプリケーションを立ち上げることにより、UNIXの様々な機能に直接アクセスすることができる。また、ワークステーションやスーパーコンピュータなど、より大きな規模の計算を行うことのできる計算機も、ほぼ全てLinuxなどのUNIX系OSである。
 
 UNIX系のOSの特徴としては、シンプル、柔軟かつオープンであり、ネットワークに強いことが挙げられる。シェルやスクリプト言語を組み合わせることにより、簡単なコマンドで複雑な処理を実現することができる。また、ネットワーク経由で使用することが前提となっており、実際に計算機がどこにあるかを意識することなしに、透過的に利用できる。UNIXを取得することにより、目の前のPCだけでなく世界中の計算機を利用することが可能となり、計算能力が一気に増えることになる。
@@ -11,8 +9,6 @@ UNIX系のOSの特徴としては、シンプル、柔軟かつオープンで�
 \subsection{ファイルの操作}
 \label{sec:unix:fileManagement}
 この節では、ファイルを作ったり、消したりといった基本的な操作を紹介する。ファイルというのは計算機が情報を書き込むための一つの単位である。ファイルには名前を付けることができて、その名前を指定することでファイルを編集したり消したりできる。
-
-%% %\newpage
 
 \subsubsection{ファイルの基本操作}
 ファイルをコピーするには{\tt cp}コマンド({\bf c}o{\bf p}yの略)を用いる。例えば、コマンドラインで
@@ -156,12 +152,6 @@ drwxr-xr-x  2 s001500 student      512 Apr 16 03:40 Desktop
 
 \subsubsection{ファイルの保護(2)}
 ファイルにプロテクションをかける方法がわかったところで、セキュリティの面から見たファイルの保護について説明しておこう。まず、特別な事情がないかぎり、ファイルに user 以外の書き込み許可を出してはならない。次に user 以外には読み取り許可(および実行許可)も出してはいけないディレクトリやファイルとしては、{\tt .Xauthority}、{\tt .ssh}などがある\footnote{``{\tt .}''で始まるファイルは隠しファイルである。ホームディレクトリで {\tt ls -a} とするとこれらのファイルを見ることができる。}。
-%また読み取り許可をあまり出すべきではないファイルには、
-%{\tt .mailrc}、
-%{\tt .forward}、
-%{\tt RMAIL}、
-%{\tt バックアップファイル}
-%などが考えられますので参考にしてください。
 
 ファイルのアクセス許可について不安がある場合は、{\tt .bashrc}などのファイルに
 \underline{\tt umask 077}の一行を入れておくとよい。こうしておくと、それ以後のログインで作られるファイルは、user 以外のアクセス許可がいっさいない状態で作られる。その後、許可を出してもよいと判断したファイルに限って、{\tt chmod}コマンドで許可を出すようにするとよいだろう。
@@ -207,10 +197,6 @@ rmdir (2)               - Removes a directory file
 \prompt \underline{man 2 rmdir}
 \end{commandline2} \noindent
 のように {\tt man}コマンドの後にセクション番号を書くことで指定することができる。
-%\footnote{man path の通っていない所にマニュアルのファイル({\tt manual.1}としましょう)を見付けたら、\\
-%{\tt \prompt \underline{nroff -man manual.1}}\\
-%のようにすれば画面で見ることができます。
-%}。
 
 \subsection{プロセスの管理とトラブル時の対策}
 \label{chap: recover}
@@ -257,34 +243,6 @@ rmdir (2)               - Removes a directory file
 \prompt \underline{kill -HUP 28123}
 \end{commandline2} \noindent
 としてみる。まだだめな場合は \underline{\tt -HUP} を \underline{\tt -QUIT }\footnote{\underline{\tt -QUIT} を使うとプロセス (この場合は {\tt a.out}) が実行中だったディレクトリに{\tt core} というとても大きなファイルができることがある。通常は必要ないので消してしまってかまわない。}にしてみよう。それでもうまくいかない場合は \underline{\tt -QUIT} を \underline{\tt -KILL} にするが、\underline{\tt -KILL} は最後の手段と考えて、無闇に使わないほうが無難である。
-
-%% 例外的に、それでもだめな場合\footnote{その「例外」のひとつに、プロセス名が {\tt $<$defunct$>$}になっているプロセスがある。これは {\tt kill} コマンドではどうやっても終了させられないが、とくに害がないので気にしなくて構わない。気になるならば一度ログアウトすれば消えるはずである。}があります。しばらく待って
-%% もう一度上の手順をやり直してもだめなときは、
-%% ルートウインドウを
-%% マウスの\destroymenu ボタンでドラッグして \killmenu の所で離します。
-%% するとマウスカーソルがドクロマークに変わりますから、そのドクロマークで、殺したいウインドウを
-%% クリックしてください。
-
-%% さらに上記の方法でも、正しいと思われる状態に復帰しない場合、閉じられるウインドウは閉じ、
-%% 閉じられそうもないウインドウは開けたままで、ルートウインドウでマウスの右ボタンをドラッグし、
-%% {\bf Exit X-Window} を選びます。こうすることで多くの実行中のプロセスは終了されるはずです。
-%% 少し待って、ログインパネルが戻って来たら、もう一度ログインして、{\tt who} や {\tt ps}などのコマンドで、
-%% 前のプロセスが残っていないかチェックして見てください。残っていた場合は、{\tt kill}コマンドで
-%% そのプロセスを殺します。
-
-%% いろいろやっても、どうにもしようがなくなった
-%% \footnote{深刻に悩むことはありません。}
-%% なら、\admin に連絡するか、
-%% 最後の手段、iMac端末の電源を一旦切って入れる
-%% \footnote{フロントパネルにあるのだけではなく、後ろにあるものをためしてもよいです。}
-%% という作業をして、端末をリセットしてください。しかし、その後もう一度ログインして、
-%% {\tt who}あるいは{\tt ps}を用いていらないプロセスが残っていないか確かめることを忘れないで下さい。
-
-%% また、プロセス管理に関連することですが、
-%% 自分が以前に発行したコマンドが、正常終了しないで
-%% いつまでも残ってしまうことがあります。
-%% \underline{\tt ps x} と打ってそのようなプロセスを発見したときは、
-%% やはり同じように {\tt kill} コマンドでプロセスを終了させてください。
 
 \subsection{パイプとリダイレクション}
 
@@ -353,13 +311,7 @@ emacs.doc   temp.out$\ast$
 \begin{commandline2}
 \prompt \underline{\tt chm}od \underline{o-rx ex}cellent-bitmaps
 \end{commandline2} \noindent
-と補完される。%% なぜ、\\
-%% \begin{tt}
-%% \prompt \underline{\tt chm}od \underline{o-rx e}\\
-%% \end{tt}
-%% の時点ではないのかといいますと、このディレクトリには、{\tt emacs.doc} というファイルもあるので、
-%% {\tt e}から始まるという条件では、一意にファイルを指定できないからです。\underline{\tt ex} まで打ってしまえば、
-%% もうほかに {\tt ex} で始まるファイルはありませんから一意に決まります。
+と補完される。
 これらの機能を利用すれば、これまで以上に効率よくUNIXとコミュニケーションを取れるはずである。
 
 \subsection{その他有用なコマンド}
@@ -410,81 +362,6 @@ emacs.doc   temp.out$\ast$
 \prompt \underline{gunzip {\it origin}.gz}
 \end{commandline2} \noindent
 のように実行する\footnote{{\tt tar} + {\tt gzip} ファイル(ファイル名の末尾が{\tt .tar.gz}になっているか、{\tt .tgz} になっている場合が多い)を解凍・展開するときには、{\tt \underline{gzip -cd archive.tar.gz $|$ tar xvf -}}のようにパイプをうまく使うと、中間ファイルの {\tt archive.tar} を生成せずにいきなりディレクトリに展開してくれる。また、\underline{\tt tar zxvf archive.tar.gz}でも同じ結果となる。逆に、\underline{\tt tar zcvf archive.tar.gz .}で、圧縮されたアーカイブを直接作成することができる。}。しばしば{\tt tar}と組み合わせて使われる。
-%% \itemf{compress (uncompress)}\\
-%% {\bf gzip} と同様にファイルを圧縮します。こちらは、
-%% \\
-%% \begin{tt}
-%% \prompt \underline{compress {\it origin}}\\
-%% \end{tt}
-%% とすれば、{\it origin} は消えて、{\it origin}{\tt .Z}
-%% \footnote{ファイルの最後が {\tt .Z} で終わります。
-%% ほかにもファイルの最後が {\tt .z} で終わるファイルを見かけるかもしれません。
-%% これは {\bf pack} というコマンドで圧縮されていて、{\bf unpack}というコマンドで解凍します。{\bf pack} は圧縮効率が
-%% あまりよくないので、圧縮のために自分で使う必要はないでしょう。}
-%% というファイルができます。解凍するには、
-%% \\
-%% \begin{tt}
-%% \prompt \underline{uncompress {\it origin}}\\
-%% \end{tt}
-%% と打ちます。こちらも、{\bf tar}と一緒によく使われます
-%% \footnote{{\bf tar}と一緒に使った場合、\underline{\tt zcat archive.tar.Z $|$ tar xvf -}のようにして、中間ファイルの
-%% {\tt archive.tar} を生成しないようにすることもあります。}$^{,}$\footnote{
-%% {\bf compress}が UNIX の標準ソフトウェアであるのに対し、
-%% {\bf gzip} はフリーソフトウェアであるため、場合によっては
-%% {\bf gzip}が使えないこともあります。
-%% }
-%% 。
-
-%% \itemf{uuencode}\\
-%% このコマンドは、バイナリ形式のファイルを送る際、一旦テキスト形式に変換する
-%% ためのものです。これを使えばバイナリファイルを 電子メールで送ることができるようになります。
-%% 使い方は、encode時が
-%% \\
-%% \begin{tt}
-%% \prompt \underline{uuencode {\it source destination} $>$ {\it output.uu}}\\
-%% \end{tt}
-%% のようにします。まず encode したいファイルが {\it source}で、decode したときに
-%% \footnote{つまりメール等の受け取り人が decode したときに}
-%% 、できるファイルの名前が{\it destination}
-%% \footnote{{\it source}と{\it destination} は同じでも構いません。}
-%% です。encode された内容は{\it output.uu} に書かれますのでこれを電子メールかなにかで、
-%% 相手先に送り届ければ OK です。反対に decode したいときには
-%% \\
-%% \begin{tt}
-%% \prompt \underline{uudecode {\it output.uu}}\\
-%% \end{tt}
-%% のようにします。するとこの例では {\it destination}というファイルが生成されます。この{\it destination}というファイルの
-%% 内容は、送り元のほうにあった {\it source}と同じものです。
-
-%% \itemf{quota}\\
-%% ハードディスクの使用量には最大値が決められています。
-%% {\bf quota} を
-%% \\
-%% \begin{tt}
-%% \prompt \underline{quota -v}\\
-%% \end{tt}
-%% のように使うことによりその最大値と自分の現在の使用量を知ることができます。
-%% 最大値を越えてしまうとファイルが新しく作れなくなってしまいます
-%% \footnote{
-%% 最大値を越えた状態でほうっておくと、
-%% (アカウントがなくなってしまうわけではありませんが)
-%% iMac 端末の利用が一時的にできなくなってしまうことがあります。}
-%% ので {\bf gzip} や {\bf compress} を利用したり、不要なファイル
-%% \footnote{
-%% とくに {\tt core} ファイルは積極的に使う理由がないかぎり消してしまいましょう。
-%% \ifx\shellname\shellbash
-%%   また {\tt .bashrc} に\\
-%%   \begin{tt}
-%%   \underline{ulimit -c 0}\\
-%%   \end{tt}
-%% \else
-%%   また {\tt .cshrc} に\\
-%%   \begin{tt}
-%%   \underline{limit coredumpsize 0}\\
-%%   \end{tt}
-%% \fi
-%% という行を入れておくと {\tt core} ファイルができなくなります。}
-%% を消したりして対応してください。
 
 \itemf{ln}
 
@@ -562,8 +439,6 @@ Are you sure you want to continue connecting (yes/no)?
 \end{commandline2} \noindent
 などとする。最後の{\tt .} (ドット)はカレントディレクトリを表す。
 
-%% %\newpage
-%% %\subsection{Emacs を使う}
 \section{Emacs を使う}
 
 C言語のプログラムや \LaTeX のソースコードなど、テキスト形式のファイルの編集には、エディタと呼ばれるソフトを用いる。UNIXで代表的なものとしては、viやEmacsがある。本節では Emacs の使い方を紹介しよう。
@@ -577,28 +452,19 @@ C言語のプログラムや \LaTeX のソースコードなど、テキスト�
 \prompt \underline{emacs \&}
 \end{commandline2} \noindent
 としておけば、Emacs を別ウィンドウで立ち上げた後、元のターミナル内で別の作業を続けることができる。
-%\subsubsection{チュートリアル}
 \subsection{チュートリアル}
 Emacs のコマンドの多くは
-%\footnote{実際は普通の文字も self-insert-command だそうですが...
-%GNU Emacs Zenith Guide for Programmers 亀井信義 技術評論社 より}
 \ctrl{なんとか} と \esc{なんとか}\footnote{\ovalbox{Esc} は \ovalbox{Control} と違い、一旦 \ovalbox{Esc} を押して離した後に、他のキーを押す。}にキー定義されている。
 
 Emacsのチュートリアル自体も、
-%本当は {\bf help-with-tutorial-for-mule}というコマンドなのですが、
-%いちいちこの長いコマンドを打たなくて済むように、
 \ctrl{h} \ovalbox{T} に割り当てられている。\ctrl{h} \ovalbox{T} を押すときは、まず\ctrl{h}を押してコントロールキーを離してから T を押す。ここで T は大文字なので \ovalbox{Shift} キーと同時に押すことを忘れないこと。また、本来のコマンド名 \esc{x} {\tt help-with-tutorial} と打ってももちろんかまわない。以下、キーバインドの後にカッコ中に太字で書いてあるのがコマンドで、すべてのコマンドは \esc{x} \underline{コマンド名} と打つことでも、実行が可能である。
 このチュートリアルは基本的な事柄を網羅しているので、載っているキー定義を覚えてしまえば相当 Emacs が使いやすくなるはずである。
 
 Emacs を使っていて何か困ったと思ったときは、まず \ctrl{g} ({\bf keyboard-quit})
 を押してみよう。それでもだめなら \ctrl{x} \ctrl{c} ({\bf save-buffers-kill-emacs})で Emacs から抜け出ればよい。
 
-%\subsubsection{編集作業}
 \subsection{編集作業}
 それでは Emacs の中から、何かファイルを編集してみよう。Emacs が立ち上がった状態からファイルを編集し始めるには、\ctrl{x} \ctrl{f} ({\bf find-file})
-%% \footnote{チュートリアルを見ればわかりますが、\ctrl{x} \ctrl{f}の代わりに、
-%% \esc{x} {\tt find-file} と打ってもよいです。またEmacs のウインドウの上の方にある {\bf File}の項目から Open File を
-%% マウスで選んでも構いません。}
 とする。
 \begin{commandline2}
 Find file: \til /
@@ -630,7 +496,6 @@ Wrote /home/s001500/trial.c
 
 さて、Emacs での作業も終ったので、Emacs から抜け出すことにしよう。Emacs から抜けるには、\ctrl{x} \ctrl{c} ({\bf save-buffers-kill-emacs})とする。
 
-%\subsubsection{Emacs の様々なコマンド}
 \subsection{Emacs の様々なコマンド}
 Emacs には実に様々なコマンドがあるが、その中でも使用頻度の高いコマンドをまとめておく。コマンドは、\esc{x}\ \underline{コマンド}と打つことでも実行できる。
 
@@ -676,63 +541,6 @@ Emacs には実に様々なコマンドがあるが、その中でも使用頻�
 \end{footnotesize} \\
 \noindent
 ある領域を削除、移動、コピーしたいときには領域の先端でマークし、領域の終端までカーソルを移動した後、\ctrl{w}を押して領域を削除する。移動したいときには、さらに移動先までカーソルを持って行き、そこで\ctrl{y}を押す。コピーしたいときには、削除した直後に\ctrl{y}を押して復旧し、さらにコピー先までカーソルを持って行って、\ctrl{y}を押してコピーする。つまり一旦\ctrl{w}でためておいてから\footnote{実は\esc{w}だと削除しないでためるだけなので、こちらの方が楽である。}、\ctrl{y}であちこちにコピーする。また、\ctrl{k}を連続して使って消した場合も、\ctrl{y}でまとめてペーストすることができる。そのほか便利な機能としては、\esc{x} {\tt goto-line}で指定行に飛ぶ等が挙げられる。
-
-%% Emacs他にもたくさんの機能がありますが、たくさんありすぎて紹介できません。
-%% Emacs について詳しく知りたい人は、GNU Emacs ソフトバンクや
-%% GNU Emacs Zenith Guide for Programmers 亀井信義 技術評論社 を参考にしてください。
-
-%\subsubsection{日本語変換}
-%% \subsection{日本語変換}
-%% \label{sect: Japa}
-%% かな漢字変換を開始するには、\ctrl{$\backslash$}を入力します。Emacs のモードラインの左の端に [あ] と出たと
-%% 思います。もう一度 \ctrl{$\backslash$} を入力すると、元の無変換のモードに戻ります。
-
-%% さて、漢字変換モードにはいったら、何か日本語を打ってみましょう。試しに「お魚くわえたドラ猫」と
-%% 打ってみましょう。
-%% \begin{verbatim}
-%% osakanakuwaetadoraneko
-%% \end{verbatim}
-%% とうつと、
-%% \begin{verbatim}
-%% |おさかなくわえたどらねこ|
-%% \end{verbatim}
-%% のように表示されたと思います。そこで \spc を一回叩くと、何かメッセージが流れた後、Emacs のミニバッファで
-%% \begin{verbatim}
-%% 頻度ファイルxxxが無いよ。作る?(y or n)
-%% \end{verbatim}
-%% と聞いて来ます。その後何度か同じような質問を受けますがすべて \underline{\tt y} と答えてゆきます(11 回答えることになると思います。)。すると、
-%% \begin{verbatim}
-%% |お-魚 加え 他-度 羅 寝 子|
-%% \end{verbatim}
-%% のような変換をしたと思います。両端の``$|$''はこの棒の間が変換中であることを示しています。
-
-%% ``お-魚''の部分はOKなので、\ctrl{f}でカーソルを``加''まで持って行きます。``くわえた''で一言なので、
-%% 文節を広げるために \ctrl{o}をうちます。すると
-%% \begin{verbatim}
-%% |お-魚 加えた 度 羅 寝 子|
-%% \end{verbatim}
-%% のように変わったと思います。``加えた''では駄目なので \spc を二回叩いて、``くわえた''と平仮名に直します。
-%% そこまで来たら、\ctrl{f} でまた一歩前進して、``度''のところまでカーソルを持って来て、
-%% また文節を広げるために \ctrl{o} を入力します。すると、
-%% \begin{verbatim}
-%% |お-魚 くわえた ドラ 猫|
-%% \end{verbatim}
-%% のように変わって目指す文字列になったので、\ret を打って変換を確定します。
-%% これでやっと「お魚くわえたドラ猫」とうつことができました。今は文節を広げる例しか出て来ませんでしたが、
-%% その反対に文節の長さを縮めるときには \ctrl{i} を使います。
-
-%% \spc で変換の次候補を \ctrl{p}で変換の前候補を呼び出せる点は覚えておいた方がよいでしょう。
-%% \esc{h} で現在変換中の文節が 平仮名にかわり、\esc{k} でカタカナに変わります。
-%%  (※\textbf{\Machine 内では、\ovalbox{Esc} の代わりに\ovalbox{Shift}を使って下さい。}) 
-
-%% また、小さな「っ」や「ゃ」や「ぁ」は、[xtu] や[xya] や [xa] と ``x'' をつけることで出すことができます。
-%% 子音に限っては重ねて打つ [ttu] とか[kka] のようにすることで 「っつ」とか「っか」と出したり、
-%% [shu] とか [hya] と打つことで「しゅ」とか「ひゃ」と出すことができます。
-
-%日本語を書けるようになったら、ホームディレクトリの下に {\tt .plan}という名前のファイルを
-%用意してそこに自分の所属やアピールしたい点を書いておくとよいかも知れません。
-%このファイルは後で出て来る(\S \ref{sect: finger})finger というコマンドで表示される情報を
-%書いておくためのファイルです。
 
 \section{Gnuplotを使う}
 \label{sec:unix:gnuplot}
@@ -1014,295 +822,3 @@ gnuplot> \underline{set output} \\
 gnuplot> \underline{set term pop}
 \end{commandline2} \noindent
 を実行する。
-
-%% %\newpage
-%% \section{プログラムの作成と実行}
-%% プログラム言語にはさまざまなものがあります。物理では歴史的にFORTRANを使用していましたが、最近、CやC++を使用することが次第に一般的になってきました。したがって、ここではC言語を中心に説明します。もちろん、FORTRANで記述された便利な関数もC言語から呼び出すことができます。
-
-%% \subsection{C言語}
-%% \subsubsection {コンパイル}
-%% {\tt trial.c} という C のプログラム
-%% \footnote{ソースコードといいます。}
-%% が用意できたとします。そうしたら、xterm 上で\\
-%% \begin{commandline2}
-%% \prompt \underline{gcc trial.c}\\
-%% \end{commandline2} \noindent
-%% のようにすれば、
-%% {\tt a.out} というファイルが実行形式のファイルができあがります。
-%% {\bf gcc} が C のコンパイラ
-%% \footnote{コンパイルとは人間が読めるプログラムを計算機が読める形式に
-%% 変換することです。また、コンパイラとして{\tt acc}だけではなく、{\tt cc, gcc}があります。{\tt gcc}が一般的によく使われます。{\bf cc} は古典的な形式の C 言語のソースコードをコンパイルするのに使い{\bf acc} は古典的な形式の C 言語のほかに ANSI 規格に沿った C 言語のソースコードをコンパイルするのにも使います。さらに、 {\bf gcc} は古典的な形式でも ANSI 形式でもコンパイルできます。}
-%% です。
-%% これを実行するには\\
-%% \begin{commandline2}
-%% \prompt \underline{./a.out}\\
-%% \end{commandline2} \noindent
-%% とします
-%% \footnote{
-%% 教育用計算機センターの標準の設定では、 \underline{./} を必ずつける必要があります。
-%% また、カレントディレクトリにできた実行ファイルは、たとえばそれが
-%% {\it executable} という名前だとすると、\\
-%% \begin{commandline2}
-%% \prompt \underline{./{\it executable}}\\
-%% \end{commandline2} \noindent
-%% のように入力することで実行できます。}
-%% 。
-
-%% {\tt a.out} というファイルに出力されるのが嫌なら、{\tt -o} オプションを使って、\\
-%% \begin{commandline2}
-%% \prompt \underline{gcc -o trial trial.c}\\
-%% \end{commandline2} \noindent
-%% のように指定します。この例では {\tt trial} というファイルに出力されます。実行するためには、\\
-%% \begin{commandline2}
-%% \prompt \underline{./trial}\\
-%% \end{commandline2} \noindent
-%% とします。
-
-%% \subsubsection {分割コンパイル}
-%% ソースコードが大きくなり過ぎると、何かと不便です。
-%% たとえば、大きなファイルの中から目的の編集箇所を
-%% 自分で探さなくてはいけなくなったり、
-%% コンパイルに時間がかかったりします。
-%% そのようなときはソースコードをいくつかのファイルにわけると
-%% よいでしょう。
-%% また、ソースコードが大きくなくても、プログラムの意味として
-%% まとまりのある部分ごとに 1 つのファイルを作っておくと
-%% あとあとのためによいかもしれません。
-%% プログラムを複数のファイルに分割して書いた場合、\\
-%% \begin{commandline2}
-%% \prompt \underline{gcc trial1.c trial2.c trial3.c}\\
-%% \end{commandline2} \noindent
-%% のように書いてコンパイルします。この場合も -o オプションで出力ファイルを指定することができます。
-
-%% また、いくつかのファイルだけをコンパイル
-%% \footnote{
-%% 分割コンパイルといいます。}
-%% することもできます。\\
-%% \begin{commandline2}
-%% \prompt \underline{gcc -c trial1.c}\\
-%% \end{commandline2} \noindent
-%% のようにすれば、{\tt trial1.c} だけがコンパイルされて {\tt trial1.o} がオブジェクトファイル
-%% \footnote{
-%% コンパイルが途中までできているファイルだと思ってください。
-%% }
-%% として生成されますし、\\
-%% \begin{commandline2}
-%% \prompt \underline{gcc -c trial1.c trial2.c trial3.c}\\
-%% \end{commandline2} \noindent
-%% のようにすれば 3 つのオブジェクトファイル {\tt trial1.o trial2.o trial3.o}
-%% が作られます。オブジェクトファイルができたら、\\
-%% 前者なら\\
-%% \begin{commandline2}
-%% \prompt \underline{gcc -o trial trial1.o trial2.f trial3.f}\\
-%% \end{commandline2} \noindent
-%% のような形で、コンパイルすればよいでしょうし、
-%% 後者なら\\
-%% \begin{commandline2}
-%% \prompt \underline{gcc -o trial trial1.o trial2.o trial3.o}\\
-%% \end{commandline2} \noindent
-%% のようにすればよいでしょう。
-%% 分割コンパイルの最大の利点は、コンパイル時間の短縮です。
-%% {\tt trial3.c} だけを変更したのに、\\
-%% 3 つのファイル {\tt trial1.c trial2.c trial3.c} をわざわざ
-%% コンパイルするのでは時間がかかってしまいます。
-%% そこで、オブジェクトファイルを作っておいて、
-%% 変更のあったものだけ再コンパイルすればよいのです。つまり、\\
-%% \begin{commandline2}
-%% \prompt \underline{gcc -c trial3.o}
-%% \end{commandline2} \noindent\\
-%% \begin{commandline2}
-%% \prompt \underline{gcc -o trial trial1.o trial2.o trial3.o}\\
-%% \end{commandline2} \noindent
-%% とすればいいということです。
-
-%% \subsubsection {リンク}
-%% オブジェクトファイルを最終的に {\tt a.out} などの実行形式のファイル
-%% にすることをリンクするといいます。
-%% オブジェクトファイルの間をうまくとりもって
-%% ひとつにまとめ上げる、というような意味です。
-
-%% また、ライブラリ
-%% \footnote
-%% {みんなが便利なように、だれかがプログラムをした
-%% ルーチン群のことです。
-%% オブジェクトファイル(をまとめたもの)の形で保管されています。
-%% }
-%% を使う場合も「ライブラリをリンクする」といいます。
-
-%% 算術ライブラリ\footnote{math.hをソースコードの中でインクルードして、sinやsqrtを使用しているときに使う標準的なライブラリです。}を使っている場合には、\\
-%% \begin{commandline2}
-%% \prompt \underline{gcc -o trial trial.c -lm}\\
-%% \end{commandline2} \noindent
-%% のように{\tt -lm}と書いて算術ライブラリもリンク\footnote{NAG ライブラリをリンクする場合は acc を使用して下さい。}して下さい。
-
-%% \subsubsection {C言語からFORTRANの関数や手続きを呼ぶ方法}
-%% CERN ライブラリやNAGなどの多くのルーチンがFORTRANで書かれています。これらと同等の機能を持つ関数をCやC++で作るとこともできますが、既に存在するのであればそれを使った方が便利です。そこで、ここではその方法を簡単に紹介します\footnote{詳細は「計算物理の新改訂分の提案」(著 : 渡辺尚貴)のp22以降の「4.FORTRANライブラリとのリンク」を参考にしてください。}。
-
-%% FORTRANの関数や手続きの名前をC言語から呼ぶためには、その名前をすべて小文字にして、最後に\_(下線)を付けなければいけません。また、関数などの引数の型も適切に読み変える必要があります。例えば、
-%% \begin{verbatim}
-%%       Real*8  CALC(I, X, Y)
-%%       Interger*4  I
-%%       Real*4      X
-%%       Real*8      Y
-%% \end{verbatim}
-%% という関数が存在するとします。このときCでは次のように使います。
-%% \begin{verbatim}
-%% extern double clac_(int*, float*, double*);
-%% int main(){
-%%     int    i =   10;
-%%     float  x = 20.0;
-%%     double y = 30.0;
-%%     double ret;
-
-%%     ret = calc_(&i, &x, &y);
-
-%%     retrun 0;
-%% }
-%% \end{verbatim}
-
-%% \subsection{C++}
-%% オブジェクト指向型プログラミング言語\footnote{他のオブジェクト指向型プログラミング言語としてJAVAがあります。また、Perlのバージョン5からもこの思想が採用されています。}です。C言語と似ていますが、プログラムを設計する考え方が大きく異なっています。
-
-%% \subsubsection {コンパイル}
-%% {\tt trial.cc} という C++ のプログラムが用意できたとします。
-%% これをコンパイルするためには\\
-%% \begin{commandline2}
-%% \prompt \underline{g++ trial.cc}
-%% \end{commandline2} \noindent\\
-%% とします。これで{\tt a.out} という実行形式のファイルができます。分割コンパイルなどはC言語の方法と全く同じです。
-
-%% \subsection{FORTRAN}
-
-%% \subsubsection{コンパイル}
-%% {\tt trial.f} という FORTRAN のプログラム
-%% が用意できたとします。そうしたら、xterm 上で\\
-%% \begin{commandline2}
-%% \prompt \underline{g77 trial.f}\\
-%% \end{commandline2} \noindent
-%% のようにすれば、
-%% {\tt a.out} というファイルが実行形式のファイルができあがります。
-%% {\bf g77} が FORTRAN のコンパイラです。
-%% これを実行するには\\
-%% \begin{commandline2}
-%% \prompt \underline{./a.out}\\
-%% \end{commandline2} \noindent
-%% と、します。分割コンパイルはC言語の方法と全く同じです。
-
-%% \subsubsection {リンク}
-%% VAX FORTRAN で書かれたプログラムの場合(「計算物理」に載っている多くのプログラム例がそうです。)\\
-%% \begin{commandline2}
-%% \prompt \underline{g77 -o trial trial.f -lV77}\\
-%% \end{commandline2} \noindent
-%% のように {\tt -lV77} オプションを追加した方がよい場合があります。
-
-%% NAG ライブラリを使っている場合には、\\
-%% \begin{commandline2}
-%% \prompt \underline{g77 -o trial trial.f -L\$NAG -lnagd}\\
-%% \end{commandline2} \noindent
-%% のように{\tt -L\$NAG -lnagd}と書いて NAG ライブラリもリンクして下さい。
-
-%% \subsection {インタープリタ言語}
-%% コンパイルをして計算機の言葉にするのではなくて、
-%% ソフトウェアがプログラムを直接理解してその内容を実行する仕組みがあります。
-%% この「プログラムを直接理解するソフトウェア」のことを
-%% インタープリタといい、「プログラム」のことをスクリプトといいます。
-%% {\bf sh} 、{\bf csh} 、{\bf bash} 、{\bf awk} 、{\bf perl} などは代表的なインタープリタです。
-%% たとえば、{\tt test.pl} という Perl スクリプトを作ったとしましょう。
-%% これを実行するには 2 通りの方法があります。\\
-%% 1 つ目は
-%% \\
-%% \begin{commandline2}
-%% \prompt \underline{perl test.pl}\\
-%% \end{commandline2} \noindent
-%% のようにインタープリタ
-%% \footnote{
-%% {\bf perl}が Perl言語のインタープリタです。}
-%% に {\tt test.pl} を読み取らせる方法です。
-%% この方法では {\tt test.pl} に読み取り許可がなくてはいけません。\\
-%% もう 1 つの方法は
-%% \\
-%% \begin{commandline2}
-%% \prompt \underline{test.pl}\\
-%% \end{commandline2} \noindent
-%% のように {\tt test.pl} を直接実行
-%% \footnote{
-%% 実はこっそり Perl インタープリタが起動されていて、
-%% それが {\tt test.pl} を読み取ります。なにが起動されるかは、
-%% スクリプトの先頭の {\tt \#!} のあとに何を書いたかで決まります。
-%% Perl インタープリタを起動する場合は
-%% \underline{\tt \#!/usr/local/bin/perl}と書きます。}
-%% してしまうやり方です。
-%% この方法では {\tt test.pl} に読み取り許可のほかに実行許可もなくてはいけません。
-
-%% %\appendix \label{appendix}
-
-%% \section{トラブルの処理}
-
-%% 以下に例を挙げてみますが、
-%% いろいろしても問題が残り、不具合な場合には、電子メール
-%% \footnote{
-%% 使えないときは直接居室へ。
-%% }で、
-%% \begin{quote}
-%% {\admin}
-%% \end{quote}
-%% に連絡してください。
-
-%% \subsection{マウスが反応しない}
-%% マウスを動かしても、マウスカーソル
-%% が動かなくなってしまった場合
-%% \footnote{フリーズしたとか凍ったとかいいます。}、
-%% 編集中のファイルや実行中のプログラムが止まってしまってもよいのであれば、
-%% iMac端末の電源を入れ直しても構いません
-%% \footnote{
-%% マウスが汚れているだけならば掃除をすると解決するかもしれません。}
-%% 。
-
-%% \subsection{ログインできない}
-%% {\bf Login incorrect} といわれてしまう場合は、パスワードか
-%% ユーザー名が間違っています。\ovalbox{CAPS}によって大文字入力モードに
-%% なっていないかどうか確認してください。
-
-%% %ログインパネルは一度消えるけれども、
-%% %すぐにまたログインパネルが現われてしまう、という場合は
-%% %ディスクの使用量が最大値を超えてしまっていることが
-%% %考えられます。このような場合は、友達に頼んで、自分のアカウントにtelnetを
-%% %して、不必要なファイルを削除しましょう。それでも、ログインできない場合はTAに尋ねて下さい。
-
-%% \subsection{キーボードの入力を受け付けない}
-%% キーボードから打っても反応がない場合等にはなにかの拍子に\ctrl{s}が押された可能性が
-%% ありますので、\ctrl{q}を押してみるとよいでしょう
-%% \footnote{逆に xterm で出力が流れて行ってしまうときなどには、\ctrl{s}で出力を一時止め、\ctrl{q}で
-%% 再開することもできます。}。それでもだめな場合は\S \ref{chap: recover}を参考にしてください。
-
-%% \subsection{日本語が文字化けする}
-%% \Machine 以外から持ってきたTeXファイルやCファイルが文字化けする場合は\\
-%% \begin{commandline2}
-%% \prompt nkf -eO${}^{\mathrm{[オー]}}$ file.tex file\verb/_/new.tex
-%% \end{commandline2} \noindent\\
-%% などとして、EUC-JPコードへ変換してください。
-
-
-%% \subsection{a.outが実行できない}
-%% プログラミング言語のところでも書いたように、カレントディレクトリに{\tt a.out}がある場合は、\\
-%% \begin{commandline2}
-%% \prompt \underline{./a.out}
-%% \end{commandline2} \noindent\\
-%% として実行して下さい。
-
-%% \subsection{コンパイルできない}
-%% プログラムの一部が、全角文字(日本語変換)で入力されているため、
-%% コンパイルできないことがあります。特に () や｛｝に注意しましょう。
-
-%% \subsection{プログラムが止まらない}
-%% xterm 上で、出力が延々と続くときや、計算がいつまで待っても終らない場合には、
-%% \ctrl{c}
-%% を押して実行を終了
-%% \footnote{Emacs の中なら \ctrl{g}を押してみることです。}
-%% してください
-%% \footnote{
-%% \S \ref{chap: recover}も参考にしてください。}。
-
-%% \subsection{その他}
-%% トラブルではないけれども、どうしたらよいか分からないようなときや、他の人にも
-%% 役にたちそうな質問等は、ニュースを活用して下さい。

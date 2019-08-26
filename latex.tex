@@ -1,3 +1,6 @@
+\chapter{\LaTeX 入門}
+
+\noindent
 \LaTeX はL. Lamportの開発した文書清書ソフトウェアである。もともとは、D. Knuthの開発した \TeX と呼ばれるソフトウェアで、これを使いやすく拡張したものである。近年では、数式関連の機能をさらに拡張したAMS\LaTeX も広く使われている。\LaTeX はワードプロセッサのようなソフトウェアではない。画面を見ながら文書を整形しその見たままの姿が印刷結果となるのがワードプロセッサである。例えば代表的なワードプロセッサであるMicrosoft Office Wordでは、段落や2段組、箇条書などの編集を画面を見ながら行えて、そして画面のイメージがほぼそのまま印刷される。一方、\LaTeX では見たままが印刷結果となるわけではないが、ワードプロセッサに匹敵する強力な清書機能を持っている。とくに、\LaTeX は数式の清書能力に長けている。
 
 \section{\LaTeX の実行}
@@ -21,7 +24,7 @@ f(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!}(x-a)^n
 \prompt \underline{platex ex.tex}\\
 \prompt \underline{dvipdfmx ex.dvi}
 \end{commandline2} \noindent
-一行目の \texttt{platex}コマンドでDVIファイル(\texttt{ex.dvi})が生成される。DVIは{\textbf{d}e\textbf{v}ice-\textbf{i}ndependent file format}の略で、最終的な出力形式(今の例ではPDF)に依存しない出力形式である。\texttt{dvipdfmx}コマンドは、このDVIファイルからPDF形式のファイルを生成する。これらのコマンドの実行後、\texttt{ex.pdf}というファイルができていれば成功である。では処理結果を見てみよう。Mac OS Xで作業している場合には、
+一行目の \texttt{platex}コマンドでDVIファイル(\texttt{ex.dvi})が生成される。DVIは{\textbf{d}e\textbf{v}ice-\textbf{i}ndependent file format}の略で、最終的な出力形式(今の例ではPDF)に依存しない出力形式である。\texttt{dvipdfmx}コマンドは、このDVIファイルからPDF形式のファイルを生成する。これらのコマンドの実行後、\texttt{ex.pdf}というファイルができていれば成功である。では処理結果を見てみよう。macOSで作業している場合には、
 \begin{commandline2}
 \prompt \underline{open ex.pdf}
 \end{commandline2} \noindent
@@ -47,7 +50,7 @@ $a$のまわりのテイラー展開
 \item \LaTeX を使うには、\verb|platex| コマンドを実行する。
 \item \texttt{platex}コマンドを実行すると、DVIファイル(拡張子は \texttt{.dvi})が生成される。
 \item DVIファイルをPDF形式に変換するには、\verb|dvipdfmx| コマンドを実行する。
-\item PDFファイルを見るには、``\verb|open PDFファイル名|'' (iMacの場合)、あるいは``\verb|evince PDFファイル名|'' (Linuxの場合)を実行する。
+\item PDFファイルを見るには、``\verb|open PDFファイル名|'' (macOSの場合)、あるいは``\verb|evince PDFファイル名|'' (Linuxの場合)を実行する。
 \end{itemize}
 
 \section{\LaTeX に関する全体的なこと}
@@ -65,30 +68,30 @@ $a$のまわりのテイラー展開
 
 \end{document}
 \end{verbatim}
-\end{reidai}
+\end{reidai} \noindent
 のところがかならず書かなくてはならないところである。特に \verb|\begin{document}|より前の部分をプリアンブルと呼ぶ。以下の例題では、このかならず書かなくてはいけない部分を省略してあるので注意すること。
 
 さて、 例\ref{reidai:latex:template}にはパーセント記号(\texttt{\%})で始まる行が書かれている。 \LaTeX では、\texttt{\%}で始まる行はコメントとみなされる。行の途中で\texttt{\%}が現われたときは、そこから行の最後までがコメントになる。コメントは\LaTeX の動作には影響を与えない。
 
-文章はソースファイルの中にそのまま書けばよい。ソースファイルの途中で改行しても清書の結果には影響を与えない。
+文章はソースファイルの中にそのまま書けばよい。ソースファイルの途中で改行しても清書の結果には影響を与えない。また、空行を挟むとそこで改段落される。
 \begin{reidai}
 \begin{verbatim}
-% Belle 実験の説明
-茨城県つくば市の高エネルギー加速器研究機構では、
-Belle 実験と呼ばれる素粒子実験が進められています。
-Belle 実験のもっとも重要な目標は
-現在の素粒子物理学を支える重要な理論である
-小林-益川理論の正当性を検証することです。
+スーパーカミオカンデ実験の説明
+
+スーパーカミオカンデは、世界最大の水チェレンコフ
+宇宙素粒子観測装置です。1991年に建設が始まり、
+5年間にわたる建設期間を経たのち、1996年4月より
+観測を開始しました。
 \end{verbatim}
-\end{reidai}
-この出力は
+\end{reidai} \noindent
+この出力は、
 \begin{kekka}
-% Belle 実験の説明
-茨城県つくば市の高エネルギー加速器研究機構では、
-Belle 実験と呼ばれる素粒子実験が進められています。
-Belle 実験のもっとも重要な目標は
-現在の素粒子物理学を支える
-重要な理論である小林-益川理論の正当性を検証することです。
+スーパーカミオカンデ実験の説明
+
+スーパーカミオカンデは、世界最大の水チェレンコフ
+宇宙素粒子観測装置です。1991年に建設が始まり、
+5年間にわたる建設期間を経たのち、1996年4月より
+観測を開始しました。
 \end{kekka} \noindent
 となる。出力は、もっとも美しく清書されるように、\LaTeX が自動的に改行を行なってくれる。逆にどうしても自分で改行させたいときは、\textbackslash \textbackslash をソースファイル中に書き込めばよい。
 \begin{reidai}
@@ -96,8 +99,8 @@ Belle 実験のもっとも重要な目標は
 東京大学物性研究所 \\ \\
 秋葉原からつくばエクスプレスに乗り、
 柏の葉キャンパス前で下車します。\\
-運賃は 670 円です。\\
-所要時間はおよそ 30 分です。
+運賃は670円です。\\
+所要時間はおよそ30分です。
 \end{verbatim}
 \end{reidai} \noindent
 結果は次のとおりである。
@@ -105,8 +108,8 @@ Belle 実験のもっとも重要な目標は
 東京大学物性研究所 \\ \\
 秋葉原からつくばエクスプレスに乗り、
 柏の葉キャンパス前で下車します。\\
-運賃は 670 円です。\\
-所要時間はおよそ 30 分です。
+運賃は670円です。\\
+所要時間はおよそ30分です。
 \end{kekka}
 
 \paragraph{この節のまとめ}
@@ -115,6 +118,7 @@ Belle 実験のもっとも重要な目標は
 \item ソースファイルには必ず書かなくてはいけない部分がある。
 \item \texttt{\%} から行の最後まではコメントである。
 \item 文章はソースファイル中に直接書き込む。その際、改行は無視される。
+\item 空行を挟むとそこで改段落される。
 \item 強制改行をするには \textbackslash \textbackslash を使う。
 \end{itemize}
 
@@ -123,7 +127,7 @@ Belle 実験のもっとも重要な目標は
 \section{フォント}
 \label{sec:latex:font}
 
-印刷される文字を強調するために、文字を太くしたり(ボールド体)、ななめにしたり(斜体)することがある。印刷される文字の形状のことをフォントといい、その形状を変更することをフォントを変更するといいます。ちなみに、通常のフォントは立体と呼ばれる。
+印刷される文字を強調するために、文字を太くしたり(ボールド体)、ななめにしたり(斜体)することがある。印刷される文字の形状のことをフォントといい、その形状を変更することをフォントを変更するといいう。ちなみに、通常のフォントは立体と呼ばれる。
 
 ボールド体はとくに強調したい言葉に使う。文章中でフォントを変更するには、
 \begin{reidai}
@@ -177,7 +181,6 @@ Belle 実験のもっとも重要な目標は
 
 \LaTeX には論文を清書するのに便利な機能が備わっている。
 
-
 \subsection{表題}
 \label{sec:latex:title}
 
@@ -190,7 +193,7 @@ Belle 実験のもっとも重要な目標は
 % 表題、著者、所属、提出日時
 \title{各種プログラミング言語に関する考察}
 \author{物理太郎\\東京大学大学院理学系研究科物理学専攻}
-\date{2015年4月8日}
+\date{2019年4月8日}
 \begin{document}
 
 % 表題の表示
@@ -200,14 +203,14 @@ Belle 実験のもっとも重要な目標は
 
 \end{document}
 \end{verbatim}
-\end{reidai}
+\end{reidai} \noindent
 レポート程度の簡単なものならば論文の要旨は不要であろう。結果は次のとおり。
 \begin{kekka}
   \begin{center}
     {\Large 各種プログラミング言語に関する考察} \\[1.5em]
     物理太郎\\
     東京大学大学院理学系研究科物理学専攻 \\
-    2015年4月8日
+    2019年4月8日
   \end{center}
 \end{kekka}
 
@@ -255,7 +258,6 @@ FORTRAN は FORmula TRANslator の名が示すとおり、
 \end{verbatim}
 \end{reidai} \noindent
 このように、章や節にタイトルを付けるには、\verb|\chapter{}|、\verb|\section{}|、\verb|\subsection{}|、\verb|\subsubsection{}|を使う。タイトルを\verb|{}|の中に書き、そのあとには本文となる文章を続ける。章や節の番号は\LaTeX が自動的に振ってくれる。
-
 結果は次のようになる。
 \begin{kekka}
   \begin{center}
@@ -276,7 +278,6 @@ FORTRAN は FORmula TRANslator の名が示すとおり、
 \label{sec:latex:itemize}
 
 論文の中では箇条書きを使うことは避けたほうがよいといわれている。特に、何かの処理の手順を説明するときは、箇条書きにするよりは言葉を使って説明するべきである。しかし、場合によっては箇条書きの方が説明が伝わりやすいこともある。単に項目を並列に並べたいときは箇条書きでもよいであろう。この節では箇条書きの方法を説明する。
-
 箇条書きにしたいときは次のように書く。
 \begin{reidai}
 \begin{verbatim}
@@ -393,7 +394,7 @@ FORTRAN は FORmula TRANslator の名が示すとおり、
 \begin{quotation}
   \verb-\begin{tabular}{|l|l|l|}-
 \end{quotation}
-の\verb-{|l|l|l|}-によって表現されている。 \texttt{l} は左詰めを意味し、それを3つ並べることで、1行に3つの要素が入ることを表現しています。左詰めの代わりに中央揃えがよければ\texttt{c}を、右詰めがよければ\texttt{r}を指定する。
+の\verb-{|l|l|l|}-によって表現されている。 \texttt{l} は左詰めを意味し、それを3つ並べることで、1行に3つの要素が入ることを表現している。左詰めの代わりに中央揃えがよければ\texttt{c}を、右詰めがよければ\texttt{r}を指定する。
 
 それぞれの\texttt{l}の両隣の縦棒は、要素と要素の間を縦線で区切って印刷してほしいということを\LaTeX に伝えている。この縦棒を取ってしまうと、要素間の縦線が引かれなくなる。
 
@@ -432,7 +433,24 @@ FORTRAN は FORmula TRANslator の名が示すとおり、
 \vspace*{-1.5em}
 \begin{kekka}
   \begin{center}
-    \includegraphics{table2.pdf}
+    表1: 代表的な粒子の質量 \\
+    \begin{tabular}{|c|r|}
+      \hline
+      粒子 & 質量 (MeV/$c^2$) \\
+      \hline \hline
+      $e ^ \pm$ & 0.5110 \\
+      \hline
+      $\mu ^ \pm$ & 105.7 \\
+      \hline
+      $\pi ^ \pm$ & 139.6 \\
+      \hline
+      $\pi ^ 0$ & 135.0 \\
+      \hline
+      $J/\psi$ & 3097 \\
+      \hline
+      $B ^ 0$ & 5279 \\
+      \hline
+    \end{tabular}
   \end{center}
 \end{kekka}
 
@@ -619,9 +637,7 @@ n! = \prod _{k=1} ^n k
   \begin{equation*}
     \overline{x + \mathrm{i}y} = x - \mathrm{i}y
   \end{equation*}
-  \vspace{0pt}
-\end{kekka}
-
+\end{kekka} \noindent
 同様にチルダ、ハット(演算子)、時間微分などは以下のように表現する。
 \begin{reidai}
 \begin{verbatim}
@@ -641,7 +657,6 @@ n! = \prod _{k=1} ^n k
   \begin{equation*}
     \dot{x}
   \end{equation*}
-  \vspace{0pt}
 \end{kekka}
 
 \subsection{ギリシャ文字}
@@ -782,15 +797,15 @@ J_{\mu}^{NC}(\nu) =
 
 \LaTeX では、{\tt gnuplot}などで生成した(\ref{sec:unix:gnuplot})節)図のファイル(ポストスクリプト、PDFなど)を文章中に貼り込むことが可能である。
 
-\subsection{EPS ファイルの貼り込み}
-\label{sec:latex:include_eps}
+\subsection{PDFファイルの貼り込み}
+\label{sec:latex:include_pdf}
 
 図を貼り込むには以下の雛型を用いる。
 \begin{reidai}
 \begin{verbatim}
 \begin{figure}
   \begin{center}
-    \includegraphics[width=8cm,clip]{test.eps}
+    \includegraphics[width=8cm]{figure.pdf}
     \caption{$y = x^2$ のグラフ}
   \end{center}
 \end{figure}
@@ -799,12 +814,13 @@ J_{\mu}^{NC}(\nu) =
 \vspace*{-1.5em}
 \begin{kekka}
   \begin{center}
-    \includegraphics{figure.pdf}
+    \includegraphics[width=8cm]{figure.pdf} \\
+    図1: $y = x^2$ のグラフ
   \end{center}
 \end{kekka} \noindent
 注意すべきところは
 \begin{quotation}
-  \verb|\includegraphics[width=8cm,clip]{test.eps}|
+  \verb|\includegraphics[width=8cm]{figure.pdf}|
 \end{quotation}
 という部分である。ファイル名は{\tt \{\}}の中で指定する。また \texttt{width=8cm} という記述により図の横幅を指定している。図の表題も表のときと同じく \verb|\caption| コマンドを使う。
 
@@ -819,7 +835,7 @@ J_{\mu}^{NC}(\nu) =
 \begin{document}
 \begin{figure}[H]
   \begin{center}
-    \includegraphics{test.epsi}
+    \includegraphics{figure.pdf}
     \caption{$y = x^2$ のグラフ}
   \end{center}
 \end{figure}
@@ -828,16 +844,24 @@ J_{\mu}^{NC}(\nu) =
 \end{reidai}
 
 \subsection{図の回転}
-\label{sec:latex:rotate_eps}
+\label{sec:latex:rotate_pdf}
 
 貼り込みたいファイル中の図が 90 度回転してしまっていることがある。\LaTeX では図を貼り込むときに回転させることができる。
 \begin{reidai}
 \begin{verbatim}
   \rotatebox{-90}{
-    \includegraphics[width=8cm,clip]{test.eps}
+    \includegraphics[width=8cm]{figure.pdf}
   }
 \end{verbatim}
 \end{reidai} \noindent
+\vspace*{-1.5em}
+\begin{kekka}
+  \begin{center}
+    \rotatebox{-90}{
+      \includegraphics[width=8cm]{figure.pdf}
+    }
+  \end{center}
+\end{kekka} \noindent
 このように、 \verb|\rotatebox{-90}| を使うことにより、図を -90 度回転させることができる。
 
 
@@ -924,7 +948,7 @@ $n$ は媒質の屈折率、$m$ は物質の質量、$p$ は物質の運動量�
 \end{table}
 表 \ref{destination} をよく読んで自分の目的地をきちんと確認し、
 遠足の目的地に相応しい準備をするように心がけてください。
-\\
+
 なお、おやつの持参は
 \begin{equation}
 \sum^{全おやつ} 各おやつの購入金額 \le 500 円 \label{oyatu}
@@ -935,9 +959,30 @@ $n$ は媒質の屈折率、$m$ は物質の質量、$p$ は物質の運動量�
 \end{reidai}
 \vspace*{-1.5em}
 \begin{kekka}
+本年度の遠足について、以下のとおり決定いたしましたのでお知らせします。
   \begin{center}
-    \includegraphics[bb=0 0 453 231,width=.9\textwidth]{ref.pdf}
+    表1: 遠足の目的地(学年別) \\
+    \begin{tabular}{|l|l|}
+      \hline
+      学年 & 目的地 \\
+      \hline \hline
+      4 年生 & 近くにある公園 \\
+      \hline
+      5 年生 & 遠くにある公園 \\
+      \hline
+      6 年生 & かなり遠くにある公園 \\
+      \hline
+    \end{tabular}
   \end{center}
+表1をよく読んで自分の目的地をきちんと確認し、
+遠足の目的地に相応しい準備をするように心がけてください。
+
+なお、おやつの持参は
+\begin{equation}
+\sum^{全おやつ} 各おやつの購入金額 \le 500 円
+\end{equation}
+を条件とします。
+ただし、バナナは式(1)にかかわらず好きなだけ持参して差しつかえありません。
 \end{kekka}
 
 

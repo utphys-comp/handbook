@@ -1,5 +1,7 @@
-この章では、UNIXと呼ばれるOS (オペレーティングシステム)の操作法について学ぶ。通常、Mac OS XやWindowsでは、マウスを使って画面を操作する。実は、Mac OS Xの内部ではDarwinと呼ばれるUNIX系のOSが動作しており、「ターミナル」アプリケーションを立ち上げることにより、UNIXの様々な機能に直接アクセスすることができる。また、ワークステーションやスーパーコンピュータなど、より大きな規模の計算を行うことのできる計算機も、ほぼ全てLinuxなどのUNIX系OSである。
+\chapter{UNIX入門}
 
+\noindent
+この章では、UNIXと呼ばれるOS (オペレーティングシステム)の操作法について学ぶ。通常、macOSやWindowsでは、マウスを使って画面を操作する。実は、macOSの内部ではDarwinと呼ばれるUNIX系のOSが動作しており、「ターミナル」アプリケーションを立ち上げることにより、UNIXの様々な機能に直接アクセスすることができる。また、ワークステーションやスーパーコンピュータなど、より大きな規模の計算を行うことのできる計算機も、ほぼ全てLinuxなどのUNIX系OSである。
 UNIX系のOSの特徴としては、シンプル、柔軟かつオープンであり、ネットワークに強いことが挙げられる。シェルやスクリプト言語を組み合わせることにより、簡単なコマンドで複雑な処理を実現することができる。また、ネットワーク経由で使用することが前提となっており、実際に計算機がどこにあるかを意識することなしに、透過的に利用できる。UNIXを取得することにより、目の前のPCだけでなく世界中の計算機を利用することが可能となり、計算能力が一気に増えることになる。
 
 \section{UNIX のコマンド}
@@ -331,7 +333,7 @@ emacs.doc   temp.out$\ast$
 
   \itemf{cal}
 
-  今月のカレンダーを表示する。\underline{\tt cal \nendo}とすれば今年のカレンダーを表示する。
+  今月のカレンダーを表示する。\underline{\tt cal \nendo}とすれば{\nendo}年のカレンダーを表示する。
   
   \itemf{du}
 
@@ -390,7 +392,33 @@ emacs.doc   temp.out$\ast$
 \section{リモートログインとファイル転送}
 \label{sec:ssh}
 
-ある計算機から別の計算機へネットワーク経由でログインし作業するには、{\tt ssh} ({\bf s}ecure {\bf sh}ellの略)あるいは{\tt slogin}コマンドを利用する\footnote{同様の機能を持つものに{\tt telnet}、{\tt rlogin}というコマンドがあるが、パスワードが平文でネットワーク上を流れるなど、セキュリティー上の問題があるので、今日では使われない。}。例えば、ホスト名が remote.phys.s.u-tokyo.ac.jp というマシンにログインしたい場合、
+UNIXでは、SSH ({\bf S}ecure {\bf SH}ellの略)という仕組みを使うことで、ある計算機(ログイン元、あるいはローカル計算機と呼ぶ)から別の計算機(ログイン先、あるいはリモート計算機と呼ぶ)にインターネット経由でリモートログインして作業することができる。例えば、ECCSの端末(iMac)から、物理学教室のワークステーション、あるいは地理的に離れた場所にあるスーパーコンピュータにログインして、あたかもその計算機が手元にあるかのように利用することができる。リモート計算機のホスト名やアカウントに関する情報は、あらかじめ、リモート計算機の管理者から入手しておく必要がある。
+
+SSHでは現在、二種類の認証方式が使われている。ユーザ名とパスワードの組による認証と、公開鍵暗号による認証である。後者の方がよりセキュリティーが高く、近年は公開鍵暗号のみに制限している計算機も多い。以下では、公開鍵暗号によるSSH接続について説明する。
+
+\subsection{公開鍵暗号方式}
+
+従来の暗号(共通鍵暗号)では、暗号化と復号化に同一の鍵を用いるが、公開鍵暗号では、単一の共通鍵ではなく秘密鍵と公開鍵をペアを使う。この二つの鍵は、秘密鍵で暗号化したデータは公開鍵でのみ復号化でき、逆に公開鍵で暗号化されたデータは秘密鍵でのみ復号化できるという著しい性質を持つ。公開鍵暗号にもとづくSSHでは、ローカル計算機であらかじめ秘密鍵と公開鍵のペアを作成し、そのうち公開鍵のみをログイン先のリモート計算機に登録しておく。実際の接続においては、まずリモート計算機側でユーザの公開鍵を使ってあるランダムな文字列が暗号化され、それが手元のローカル計算機に送られてくる。ローカル計算機で、その文字列をユーザの秘密鍵を使って復号してみせることで、そのユーザが登録された公開鍵の所有者であることを証明する。このようにして認証を行った上で、さらにその後の通信についても全て暗号化された上で行われる\footnote{公開鍵暗号の仕組みは、暗号化だけでなく電子署名にも用いられる}。
+
+重要な点は、リモート計算機に登録する公開鍵が仮に盗まれたり、他人に知られてしまっても、秘密鍵が知られない限り、なりすましや通信内容の傍受などの心配がないということである。一方、秘密鍵の方は絶対に人に知られてはならない。
+
+\subsection{鍵の作成と登録}
+
+秘密鍵と公開鍵の鍵ペアの作成は、ローカル計算機(ECCSのiMacなど)上で、{\tt ssh-keygen}コマンドにより行う。
+\begin{commandline2}
+\prompt \underline{ssh-keygen -t rsa} \\
+Generating public/private rsa key pair.\\
+Enter file in which to save the key (/xxx/.ssh/id\_rsa):\underline{(何も入力せずreturn)}\\
+Enter passphrase (empty for no passphrase):\underline{(パスフレーズを入力)}\\
+Enter same passphrase again:\underline{(パスフレーズを再度入力)}
+\end{commandline2} \noindent
+秘密鍵が {\tt \~{}/.ssh/id\_rsa}に、公開鍵が {\tt \~{}/.ssh/id\_rsa.pub}に作成される。ここで入力する「パスフレーズ」は、手元の計算機にログインするための「パスワード」とは別のものである。「パスフレーズ」は自分で決める文字列であり、「パスワード」とは異なるものでなければならない。また、設定した「パスフレーズ」は忘れずに覚えておく必要がある。
+
+作成された鍵のうち、公開鍵({\tt id\_rsa.pub})をログイン先の計算機に登録する。公開鍵の登録は、リモート計算機の管理者の指示にしたがって行う。繰り返しになるが、秘密鍵({\tt id\_rsa})は絶対に人に知られてはならない。公開鍵の代わりに間違えて秘密鍵を送ってしまわないよう、厳重な注意が必要である。
+
+\subsection{リモートログイン}
+
+リモート計算機へSSH接続するには、{\tt ssh}あるいは{\tt slogin}コマンドを利用する\footnote{同様の機能を持つものに{\tt telnet}、{\tt rlogin}というコマンドがあるが、通信内容が平文でネットワーク上を流れるなど、セキュリティー上の問題があるので、今日では使われない。}。例えば、ホスト名が remote.phys.s.u-tokyo.ac.jp という計算機にSSHログインしたい場合、
 \begin{commandline2}
 \prompt \underline{ssh -X remote.phys.s.u-tokyo.ac.jp}
 \end{commandline2} \noindent
@@ -398,7 +426,7 @@ emacs.doc   temp.out$\ast$
 \begin{commandline2}
 \prompt \underline{slogin -X remote.phys.s.u-tokyo.ac.jp}
 \end{commandline2} \noindent
-と入力する\footnote{{\tt -X}オプションはリモートマシン上で実行するEmacs、gnuplot、evinceなどのウィンドウを手元のマシンの画面で開くためのもの(X11 forwarding)である。}。現在ログインしているマシン(ログイン元)と接続しようとしているマシン(ログイン先)のアカウント名が異なるときは、
+などと入力する。現在ログインしている計算機とログイン先のアカウント名が異なるときは、
 \begin{commandline2}
 \prompt \underline{ssh -X remote.phys.s.u-tokyo.ac.jp -l {\it username}}
 \end{commandline2} \noindent
@@ -406,25 +434,30 @@ emacs.doc   temp.out$\ast$
 \begin{commandline2}
 \prompt \underline{slogin -X {\it username}@remote.phys.s.u-tokyo.ac.jp}
 \end{commandline2} \noindent
-とする。{\it username}はログイン先のアカウント名である。次にパスワードを入力すると、remote.phys.s.u-tokyo.ac.jp に接続され、プロンプトが表示される。ただし、初めて接続するマシンの場合、次のようなメッセージが
-出力される。
-\begin{quote}
-\begin{verbatim}
-Host key not found from the list of known hosts.
+のようにする。{\it username}はログイン先のアカウント名である。なお、{\tt -X}オプションは、リモート計算機上で実行するEmacs、gnuplot、evinceなどのウィンドウをローカル計算機の画面で開くためのもの(X11 forwarding)である。
+
+次に、パスフレーズを入力するように求められるので、鍵の作成時に設定したパスフレーズを入力すると、remote.phys.s.u-tokyo.ac.jp に接続され、プロンプトが表示される。ただし、初めて接続する計算機の場合、次のようなメッセージが出力される。
+\begin{commandline2}
+Host key not found from the list of known hosts.\\
 Are you sure you want to continue connecting (yes/no)?
-\end{verbatim}
-\end{quote}
-ここで、{\tt yes} と答えると、パスワードの入力に進むことができる。ログイン後、入力する命令は、すべてリモートホスト上で実行される。最後に 
+\end{commandline2} \noindent
+ここで、{\tt yes} と答えると、先に進むことができる。ログイン後、入力する命令は、すべてリモート計算機上で実行される。
+
+作業終了後は、
 \begin{commandline2}
 \prompt \underline{exit}
 \end{commandline2} \noindent
-と入力すると、接続が解除され、元のマシンのプロンプトに戻る。
+と入力すると、接続が解除され、ローカル計算機のプロンプトに戻る。
 
-ある計算機から別の計算機にファイルをコピーしたい場合には、{\tt scp} ({\bf s}ecure {\bf c}o{\bf p}yの略)コマンドを用いる。手元のマシンからリモートのマシン(例: remote.phys.s.u-tokyo.ac.jp)へファイル(report.pdf)を送る場合は、
+SSH接続をして作業していると、リモートとローカル、どちらの計算機の上で作業しているか分からなくなってしまうことがある。その際には、{\tt hostname}コマンドを実行することで、作業している計算機のホスト名を確認することができる。
+
+\subsection{ファイルの転送}
+
+ある計算機から別の計算機にファイルをコピーしたい場合には、{\tt scp} ({\bf s}ecure {\bf c}o{\bf p}yの略)コマンドを用いる。ローカル計算機からリモート計算機(例: remote.phys.s.u-tokyo.ac.jp)へファイル(report.pdf)を送る場合は、
 \begin{commandline2}
 \prompt \underline{scp report.pdf {\it username}@remote.phys.s.u-tokyo.ac.jp:\~{} }
 \end{commandline2} \noindent
-とする。最後の{\tt ~}(チルダ)はリモートマシンのホームディレクトリ({\tt /home/{\it username}})を表す。コピー元のファイル名や、コピー先のディレクトリ名は適宜変更すること。
+とする。最後の{\tt \~{}}(チルダ)はリモート計算機のホームディレクトリ({\tt /home/{\it username}}など)を表す。コピー元のファイル名や、コピー先のディレクトリ名は適宜変更すること。
 また、.pdfという拡張子のつくファイルをすべて送りたい場合は、
 \begin{commandline2}
 \prompt \underline{scp *.pdf {\it username}@remote.phys.s.u-tokyo.ac.jp:\~{} }
@@ -433,11 +466,24 @@ Are you sure you want to continue connecting (yes/no)?
 \begin{commandline2}
 \prompt \underline{scp -r report {\it username}@remote.phys.s.u-tokyo.ac.jp:\~{}}
 \end{commandline2} \noindent
-とする。逆に、リモートマシンのファイルをこちらへ取ってくる場合は、
+とする。逆に、リモート計算機のファイルをローカルへ取ってくる場合は、
 \begin{commandline2}
 \prompt \underline{scp {\it username}@remote.phys.s.u-tokyo.ac.jp:\~{}/report.pdf .}
 \end{commandline2} \noindent
-などとする。最後の{\tt .} (ドット)はカレントディレクトリを表す。
+などとする。最後の{\tt .} (ドット)はカレントディレクトリを表す。{\tt scp}コマンドは、ローカル計算機上で実行する必要があることに注意すること。
+
+ファイルの転送は、{\tt sftp} ({\bf s}ecure {\bf f}ile {\bf t}ransfer {\bf p}rogramの略)コマンドを用いて対話的に行うこともできる。
+\begin{commandline2}
+\prompt \underline{sftp {\it username}@remote.phys.s.u-tokyo.ac.jp} \\
+sftp>
+\end{commandline2} \noindent
+ここで、{\tt put}コマンドを実行することで、ローカル計算機からリモート計算機へ、逆に、{\tt get}コマンドでリモートからローカルへファイルをコピーすることができる。{\tt ls}コマンドでリモート計算機のファイル一覧を表示、{\tt cd}コマンドでリモート計算機上のディレクトリ移動、{\tt mkdir}コマンドでリモート計算機上のディレクトリ作成が行える。{\tt lls}、{\tt lcd}、{\tt lmkdir}コマンドのように先頭に「{\tt l}」を付けると、リモート計算機上ではなく、ローカル計算機上で一覧表示、ディレクトリ移動、ディレクトリ作成が行われる。リモート計算機とローカル計算機で今どのディレクトリにいるかを知るには、それぞれ{\tt pwd}、{\tt lpwd}コマンドを使う。
+
+コピー作業終了後は、
+\begin{commandline2}
+sftp> \underline{exit}
+\end{commandline2} \noindent
+で{\tt sftp}を終了する。
 
 \section{Emacs を使う}
 
@@ -589,7 +635,7 @@ gnuplot> \underline{plot 'data.dat'}
 \begin{commandline2}
 gnuplot> \underline{cd '{\it directory}'}
 \end{commandline2} \noindent
-でデータファイルの置いてあるディレクトリに移動した後、プロットすればよい。現在どのディレクトリにいるかを知るには{\tt pwd}コマンド({\bf p}resent {\bf w}orking {\bf d}irectoryの略)を使う。
+でデータファイルの置いてあるディレクトリに移動した後、プロットすればよい。現在どのディレクトリにいるかを知るには{\tt pwd}コマンド({\bf p}ring {\bf w}orking {\bf d}irectoryの略)を使う。
 \begin{commandline2}
 gnuplot> \underline{pwd}\\
 /Users/...  
@@ -806,19 +852,15 @@ gnuplot> \underline{set label '{\it text}' at x1,y1}
   $\chi^{\rm total}_{\rm e}$
 \end{itemize}
 
-\subsection{ファイルへの出力}
+\subsection{PDFファイルへの出力}
 
-図をポストスクリプト形式でファイルに出力するには、次のようにする。
+図をPDF形式でファイルに出力するには、次のようにする。
 \begin{commandline2}
-gnuplot> \underline{set term postscript eps color} \\
-gnuplot> \underline{set output 'figure.eps'} \\
-gnuplot> \underline{load 'figure.plt'}
-\end{commandline2} \noindent
-プロットの内容がポストスクリプト形式で{\tt figure.eps}に出力される。出力された図は、\LaTeX に取り込むことができる。
-
-なお、これ以降の操作も{\tt figure.eps}に上書きされるので注意が必要である。元の設定に戻すには
-\begin{commandline2}
+gnuplot> \underline{set terminal pdfcairo color enhanced} \\
+gnuplot> \underline{set output 'figure.pdf'} \\
+gnuplot> \underline{load 'figure.plt'} \\
 gnuplot> \underline{set output} \\
-gnuplot> \underline{set term pop}
+gnuplot> \underline{set terminal pop}
 \end{commandline2} \noindent
-を実行する。
+プロットの内容がPDF形式で{\tt figure.pdf}に出力される。出力された図は、\LaTeX に取り込むことができる。
+なお、最後の2行は元の設定(画面上での表示)に戻すためのコマンドである。これを実行しておかないと、以降の操作で{\tt figure.pdf}が上書きされてしまうので注意が必要である。

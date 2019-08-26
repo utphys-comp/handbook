@@ -9,8 +9,7 @@
 \usepackage{tcolorbox}
 \usepackage{hyperref}
 
-\newcommand{\admin}{{\tt compexp@exa.phys.s.u-tokyo.ac.jp}}
-\newcommand{\nendo}{2018}
+\newcommand{\nendo}{2019}
 
 \newcommand{\til}{\char`\~}
 \newcommand{\promptn}{\$}
@@ -112,7 +111,7 @@
 \@addtoreset{equation}{section}
 \makeatother
 
-\def\labelitemi{$\Rightarrow$}
+% \def\labelitemi{$\Rightarrow$}
 
 \pagestyle{plain}
 
@@ -130,24 +129,26 @@
 \end{center}
 \end{titlepage}
 \clearpage
-\pagestyle{plain}
+\pagestyle{empty}
+\cleardoublepage
+
+\input{preface}
+\clearpage
+\input{history}
 \cleardoublepage
 
 \setcounter{page}{1}
 \setcounter{tocdepth}{3}
 \tableofcontents
+
+\clearpage
+\pagestyle{plain}
 \cleardoublepage
 
-\chapter{はじめに}
-\input{introduction}
-
-\chapter{UNIX入門}
 \input{unix}
 
-\chapter{C言語入門}
 \input{clang}
 
-\chapter{\LaTeX 入門}
 \input{latex}
 
 \end{document}

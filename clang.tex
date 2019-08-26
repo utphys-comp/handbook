@@ -1,5 +1,7 @@
-プログラミング言語とは、コンピューターに仕事をさせるために、その作業内容を指示するための特別な言語である。この言語で書かれた作業の手順書を「プログラム」とよび、プログラムを作成することを「プログラミング」という。
+\chapter{C言語入門}
 
+\noindent
+プログラミング言語とは、コンピューターに仕事をさせるために、その作業内容を指示するための特別な言語である。この言語で書かれた作業の手順書を「プログラム」とよび、プログラムを作成することを「プログラミング」という。
 プログラミング言語には、さまざまな種類がある。C言語はもともと、UNIX (マルチユーザ、マルチタスクのオペレーティングシステム)を記述するためのシステム言語として開発された。現在は、システムソフトウエアの作成だけでなく、事務処理や科学技術計算、アプリケーションソフトウエア(表計算やワープロなど)の開発など、広く汎用プログラミング言語として使用されている。
 
 \section{C言語の基礎知識}
@@ -168,7 +170,7 @@ int main() {
 \end{tabular}
 \end{center}
 \end{table} \noindent
-ただし、値の範囲は処理系に依存する。2015年現在、\verb+int+ は 32bit が主流となっている。
+ただし、値の範囲は処理系に依存する。2019年現在、\verb+int+ は 32bit が主流となっている。
 
 \subsection {分割コンパイル}
 
@@ -212,7 +214,7 @@ C, C++, Fortranなどの言語は「コンパイル言語」と呼ばれる。�
 のように {\tt test.py} を直接実行\footnote{実はこっそりPythonインタープリタが起動されていて、それが {\tt test.py} を読み取り実行する。どのインタープリタが起動されるかは、スクリプトの先頭の {\tt \#!} のあとに何を書いたかで決まる。Pythonインタープリタを起動する場合は、スクリプトの先頭に{\tt \#!/usr/bin/python}と書けばよい。}する方法である。後者の場合、{\tt test.py} に読み取り許可だけでなく実行許可も必要である。
 
 \subsection{ライブラリのリンク}
-プログラムの中で $\sin x$ や $\cos x$ などの数学関数を用いた場合は、前述の方法ではコンパイルに失敗する。
+プログラムの中で $\sin x$ や $\cos x$ などの数学関数を用いた場合は、前述の方法ではコンパイルに失敗する\footnote{数学関数の場合、macOSではエラーにならない。しかし、一般的なライブラリの中で定義されている関数を使う場合には適切なリンクが必要。}。
 まずは、例\ref{ex:compile2} のプログラムを作成し、\ref{ex:compile2}c という名前で保存しよう。
 \begin{reidai}\label{ex:compile2}
 \begin{verbatim}
@@ -578,7 +580,7 @@ char s[] = "Hello";
 どこで終わるかという情報を持っていないからである(\ref{sec:C:pointer-array}節参照)。そのため、C言語では文字列の最後に必ず ``\verb|\0|"という特殊な文字をつけるという決まりがある。そうすることで、文字列の最後を判断することが可能になる。このような理由で、5ではなく6になるのである。
 \begin{figure}[H]
 \begin{center}
-\resizebox{0.80\textwidth}{!}{\includegraphics{hello.eps}}
+\resizebox{0.80\textwidth}{!}{\includegraphics{hello.pdf}}
 \end{center}
 \end{figure}
 
@@ -657,7 +659,7 @@ int main() {
 \end{reidai}
 \begin{figure}[H]
 \begin{center}
-\resizebox{0.60\textwidth}{!}{\includegraphics{pointer.eps}}
+\resizebox{0.50\textwidth}{!}{\includegraphics{pointer.pdf}}
 \end{center}
 \end{figure}
 
@@ -1128,39 +1130,6 @@ do {
 \end{quote}
 まずブロックを実行し、次にAをチェックして正しいならば、再びブロックを実行する。そして、再びAをチェックして正しいならば、ブロックを実行する。したがって、Aが最初から間違いであってもブロックは必ず一度は実行される。
 
-\subsection{{\tt goto}文}
-
-最近では\verb|goto|文はあまり好まれないが、\verb|for|文がたくさん入り組んである場合(ネストという)に、\verb|for|文全体を一気に抜けるときに必要になることがある。\verb|goto|文は無条件に指定された部分に飛んでそこから実行を続けるために使う。例\ref{ex:goto}は\verb|goto|文を使うには全く不適切な例だが、イメージをつかむための練習として使ってほしい。簡単に説明すると、\verb|while| 文は \verb|while (1)| のように使っているので無限に繰り返し続けるが、\verb|i==0| となった時点で \verb|goto| を使って強引に \verb|owari:| という部分まで飛んでそこから実行を続ける。
-\begin{reidai}\label{ex:goto}
-\begin{verbatim}
-#include <stdio.h>
-int main() {
-  int i = 100;
-  int sum = 0;
-  while (1) {
-    sum += i;
-    --i;
-    if (i == 0) {
-      goto owari;
-    }
-  }
-owari:
-  printf("sum of integers from 100 to 1 %d\n", sum);
-  return 0;
-}
-\end{verbatim}
-\end{reidai} \noindent
-\verb|goto|文の基本的な使い方は以下の通りである。
-\begin{quote}
-\begin{verbatim}
-  goto A;
-  ...
-A:
-  ブロック2
-\end{verbatim}
-\end{quote}
-\verb|goto A|の部分に来ると、\verb|A:|までジャンプしてその後のブロック2を実行する。例\ref{ex:goto}の \verb|owari:| を \verb|return 0;| の後にはそのままでは書けないことに注意しよう。なぜなら、\verb|owari:| の後には必ず何か実行するものが必要だからである。上の基本的な使い方の部分でも書いてあるように、\verb|A:|の後にはブロック(正確には``文'')が必要である。したがって、どうしても \verb|return 0;| の後に \verb|owari:| を書きたい場合は、\verb|owari:;|とする。
-
 \section{コマンドライン引数の受け渡し}
 {\tt main}文には、\verb|int main()| 以外に、\verb|int main(int, char**)|, あるいは \verb|int main(int, char*[])| という書き方がある。これらの書式を利用すれば、実行時に引数を与えてそれを利用することができる。つまり、今までは
 \begin{commandline2}
@@ -1373,7 +1342,7 @@ int main(int argc, char* argv[]) {
   int n_element = atoi(argv[1]);
   int i, j;
   for (j = 0; j < 3; ++j) {
-    if ((array = malloc(sizeof(int)*n_element) == NULL){
+    if ((array = malloc(sizeof(int)*n_element) == NULL) {
       printf("Can't allocate memory.\n");
       exit(1);
     }
@@ -1399,6 +1368,153 @@ int main(int argc, char* argv[]) {
 \end{verbatim}
 \end{reidai} \noindent
 もし仮に\verb|free| がない場合、\verb|j=1| のとき、\verb|malloc| に成功すると \verb|array| は新しく確保された領域の先頭アドレスを持つ。この時、\verb|j=0|で確保した領域はどうなったのだろうか? その領域は、このプログラム自身が確保した領域として、このプログラムが終了するまで解放されない。しかも、\verb|array| はすでに \verb|j=0| のときに確保した領域を忘れているので、このプログラムからもその領域に適切にアクセスすることはできない。つまり、\verb|j=0| のときの領域はこのプログラムが持っているが、使うことができない領域として存在し続けることになる\footnote{これを「メモリリーク」と呼ぶ}。これは非常に無駄なことである。これを回避するためにも、使わなくなった領域は \verb|free| することが重要である。もちろん、最近の計算機はメモリ(および、スワップ領域)をたくさん積んでいるので例\ref{ex:malloc-free}程度のプログラムなら\verb|free|がなくても平気で最後まで動くはずであるが、習慣として、\verb|malloc| した領域を使い終わったら必ず \verb|free| するのがよい。
+
+\subsection{動的な二次元配列}
+
+C言語において、二次元配列は 一元配列の先頭を指すポインタの配列として表すことができる。
+すなわち、各行をそれぞれ一次元配列として考え、各行の先頭を指すポインタを別の一次元配列に格納しておけばよい。
+この場合、後者の配列は要素がポインタ型の配列であるので、double型の二次元配列の場合には
+\begin{quote}
+\begin{verbatim}
+double** matrix;
+\end{verbatim}
+\end{quote}
+と宣言する必要がある。その後、各行に対応する一次元配列を \verb|malloc| する。
+\begin{reidai}\label{ex:malloc-2dim}
+\begin{verbatim}
+#include <stdio.h>
+#include <stdlib.h>
+int main() {
+  int m = 3;
+  int n = 4;
+  int i, j;
+  double** matrix;
+  if ((matrix = (double**)malloc(sizeof(double*)*m)) == NULL) {
+    printf("Can't allocate memory.\n");
+    exit(1);
+  }
+  for (i = 0; i < m; ++i) {
+    if ((matrix[i] = (double*)malloc(sizeof(double)*n)) == NULL) {
+      printf("Can't allocate memory.\n");
+      exit(1);
+    }
+  }
+  for (i = 0; i < m; ++i) {
+    for (j = 0; j < n; ++j) {
+      matrix[i][j] = (i+1)*(j+1);
+    }
+  }
+  for (i = 0; i < m; ++i) {
+    for (j = 0; j < n; ++j) {
+      printf("matrix[%d][%d] = %lf\n", i, j, matrix[i][j]);
+    }
+  }
+  for (i = 0; i < m; ++i) {
+    free(matrix[i]);
+  }
+  free(matrix);
+  return 0;
+}
+\end{verbatim}
+\end{reidai} \noindent
+この例では、$3 \times 4$の二次元配列(行列)を宣言している。まず、\verb|matrix| に長さ \verb|m| の一次元配列(要素はdoubleポインタ型)を確保する。さらに、各行を格納する長さ \verb|n| の一次元配列(要素はdouble型)を \verb|m| 個確保し、その先頭アドレスを \verb|matrix| に格納する。配列の$(i,j)$成分へのアクセスは、静的な二次元配列の場合と同じく \verb|matrix[i][j]| と書けばよい。\verb|matrix[i][j]| は \verb|*(*(matrix+i)+j)| と等価であることに注意せよ。\verb|*(matrix+i)| により $i$ 行目の先頭アドレスが得られ、それに $j$ を足したアドレスの中身を参照することで、$(i,j)$成分が得られる。確保したメモリの解放の際は、まず各行に対応する一次元配列を解放した後、最後にそれらの先頭先頭アドレスを格納していたdoubleポインタ型の一次元配列を解放する必要がある\footnote{解放の順番を間違うとエラーとなる。その理由を考えてみよ。}。
+
+上記の方法で動的な二次元配列を取り扱えるようになるが、実際に行列としてLAPACKなどの数値計算ライブラリと組み合わせて使うには、2つの問題がある。1つ目は行列の要素の連続性の問題、2つ目は要素の並ぶ順番である。
+
+LAPACKなどの数値計算ライブラリでは、行列の要素は全てメモリ上で連続であると仮定されている。しかし、上記の方法では、各行のデータは連続であるが、行と行の間が連続であるとは限らない。C言語では、連続した \verb|malloc| の呼び出しで連続したメモリ領域が割り当てられることは保証されていないためである。メモリ上で \verb|matrix[0][0]| の次には \verb|matrix[0][1]|、\verb|matrix[0][2]|、\verb|matrix[0][3]| と並ぶが、その次が \verb|matrix[1][0]| とは限らないのである。
+
+この問題を解決するには、それぞれの行に対して \verb|malloc| を行うのではなく、一度に$m \times n$の長さのメモリを確保した上で、$n$要素毎の要素(各行の先頭に対応)のポインタををポインタ型配列に格納していけばよい。具体的には、コードを以下のように修正する。
+\begin{reidai}\label{ex:malloc-2dim-continuous}
+\begin{verbatim}
+#include <stdio.h>
+#include <stdlib.h>
+int main() {
+  int m = 3;
+  int n = 4;
+  int i, j;
+  double** matrix;
+  if ((matrix = (double**)malloc(sizeof(double*)*m)) == NULL) {
+    printf("Can't allocate memory.\n");
+    exit(1);
+  }
+  if ((matrix[0] = (double*)malloc(sizeof(double)*m*n)) == NULL) {
+    printf("Can't allocate memory.\n");
+    exit(1);
+  }
+  for (i = 1; i < m; ++i) {
+    matrix[i] = matrix[i-1] + n;
+  }
+  for (i = 0; i < m; ++i) {
+    for (j = 0; j < n; ++j) {
+      matrix[i][j] = (i+1)*(j+1);
+    }
+  }
+  for (i = 0; i < m; ++i) {
+    for (j = 0; j < n; ++j) {
+      printf("matrix[%d][%d] = %lf\n", i, j, matrix[i][j]);
+    }
+  }
+  free(matrix[0]);
+  free(matrix);
+  return 0;
+}
+\end{verbatim}
+\end{reidai} \noindent
+修正前のコードと異なり、\verb|malloc| と \verb|free| は、それぞれ2回ずつしか呼び出されていないことに注意せよ。
+
+次に、2つ目の問題、要素の並ぶ順番について考える。LAPACKなどの数値計算ライブラリは、Fortran言語を用いて書かれていることが多い。Fortran言語では、二次元配列(行列)の要素は各列の要素がメモリ上で連続して並ぶ。例えば、$3 \times 3$行列では、要素はメモリ上で、$(0,0) \rightarrow (1,0) \rightarrow (2,0) \rightarrow (0,1) \rightarrow (1,1) \rightarrow (2,1) \rightarrow (0,2) \rightarrow (1,2) \rightarrow (2,2)$ の順に配置される。これを「列優勢 (column-major)」と呼ぶ。一方、C言語では、メモリ上で \verb|A[0][0]| の次に配置されるのは \verb|A[0][1]| である。こちらは「行優勢 (row-major)」と呼ぶ。
+\begin{figure}[H]
+\begin{center}
+\resizebox{0.60\textwidth}{!}{\includegraphics{major.pdf}}
+\end{center}
+\end{figure}
+C言語上で行列の$(i,j)$成分を \verb|A[i][j]| に代入したもの(row-major)をLAPACKライブラリに渡すと、LAPACK側では要素がcolumn-majorで並んでいると解釈して計算を行う。すなわち、入力行列が転置されてしまう。また、計算結果もC言語から見ると転置された状態で返されることになってしまう。
+
+これを防ぐには、行列の$(i,j)$成分を \verb|A[i][j]| ではなく \verb|A[j][i]| に格納するように決めてプログラムを書けばよいのだが、「常に順番を逆に書く」というのはプログラム作成時に混乱してしまう恐れがある。一つの解決方法は、C言語のマクロ機能を使い、プログラムの先頭で
+\begin{quote}
+\begin{verbatim}
+#define mat_elem(mat, i, j) (mat)[(j)][(i)]
+\end{verbatim}
+\end{quote}
+のように \verb|mat_elem| 関数を定義することである\footnote{一般的にC言語でのマクロの多用は勧められていないが、背に腹は代えられない。}。これにより、プログラム中で行列の$(i,j)$成分を \verb|mat_elem(A, i, j)| と書けるようになる。
+\begin{reidai}\label{ex:malloc-2dim-column-major}
+\begin{verbatim}
+#include <stdio.h>
+#include <stdlib.h>
+#define mat_elem(mat, i, j) (mat)[(j)][(i)]
+int main() {
+  int m = 3;
+  int n = 4;
+  int i, j;
+  double** matrix;
+  if ((matrix = (double**)malloc(sizeof(double*)*n)) == NULL) {
+    printf("Can't allocate memory.\n");
+    exit(1);
+  }
+  if ((matrix[0] = (double*)malloc(sizeof(double)*m*n)) == NULL) {
+    printf("Can't allocate memory.\n");
+    exit(1);
+  }
+  for (i = 1; i < n; ++i) {
+    matrix[i] = matrix[i-1] + m;
+  }
+  for (i = 0; i < m; ++i) {
+    for (j = 0; j < n; ++j) {
+      mat_elem(matrix, i, j) = (i+1)*(j+1);
+    }
+  }
+  for (i = 0; i < m; ++i) {
+    for (j = 0; j < n; ++j) {
+      printf("matrix[%d][%d] = %lf\n", i, j, mat_elem(matrix, i, j));
+    }
+  }
+  free(matrix[0]);
+  free(matrix);
+  return 0;
+}
+\end{verbatim}
+\end{reidai} \noindent
+プログラムの前半で、$m \times n$ではなく$n \times m$の二次元配列として配列を作成していることに注意せよ\footnote{列優勢(column-major)の二次元配列の確保や解放のための関数、および要素へのアクセス用のマクロ一式をまとめたものが、{\tt cmatrix.h} として{https://github.com/utphys-comp/cmatrix/}で公開されている。}。
 
 \section{練習問題の解答例}
 

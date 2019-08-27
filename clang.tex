@@ -58,14 +58,14 @@ Emacsなどのテキストエディタを使って例\ref{ex:hinagata1}の1行�
 先に進む前に、Cのプログラムの書式の慣例について、いくつか説明する。
 
 \clangpara{自由書式 (free format)}
-C言語では、1つの行に複数の文を書いたり、または1つの文を複数の行に書くことができる(自由書式)。
+C言語では、一つの行に複数の文を書いたり、または一つの文を複数の行に書くことができる(自由書式)。
 文の終わりは、記号 \verb+;+ で判別する。
 \begin{quote}
-  1つの行に2つの文を書く
+  一つの行に二つの文を書く
 \begin{verbatim}
 aaaaa; bbbbbbb;
 \end{verbatim}
-  1つの文を2つの行にわけて書く
+  一つの文を二つの行にわけて書く
 \begin{verbatim}
 aaaaaaaa
 aaaaaaa;
@@ -87,9 +87,9 @@ Cの文は、意味上のレベル(入れ子構造の階層)を持つ。意味�
 \begin{verbatim}
   aaaaa          /* ← 最上位のレベルの文 */
   aaaaa
-    bbbbb        /* ← 1つ深いレベルの文 */
+    bbbbb        /* ← 一つ深いレベルの文 */
     bbbbb
-      ccccc      /* ← もう1つ深いレベルの文 */
+      ccccc      /* ← もう一つ深いレベルの文 */
       ccccc
     bbbbb
   aaaaa
@@ -174,7 +174,7 @@ int main() {
 
 \subsection {分割コンパイル}
 
-一つのソースコードが大きくなり過ぎると、何かと不便である。たとえば、大きなファイルの中から目的の編集箇所を自分で探さなくてはいけなくなったり、コンパイルに時間がかかったりする。そのようなときはソースコードをいくつかのファイルにわけるとよいだろう。また、ソースコードがそれほど大きくなくても、意味としてまとまりのある部分ごとに1つのファイルを作っておくとあとあとのためにもよい。プログラムを複数のファイルに分割して書いた場合、
+一つのソースコードが大きくなり過ぎると、何かと不便である。たとえば、大きなファイルの中から目的の編集箇所を自分で探さなくてはいけなくなったり、コンパイルに時間がかかったりする。そのようなときはソースコードをいくつかのファイルにわけるとよいだろう。また、ソースコードがそれほど大きくなくても、意味としてまとまりのある部分ごとに一つのファイルを作っておくとあとあとのためにもよい。プログラムを複数のファイルに分割して書いた場合、
 \begin{commandline2}
 \prompt \underline{gcc trial1.c trial2.c trial3.c}
 \end{commandline2} \noindent
@@ -184,7 +184,7 @@ int main() {
 \prompt \underline{gcc -c trial2.c} \\
 \prompt \underline{gcc -c trial3.c}
 \end{commandline2} \noindent
-のようにすれば、{\tt trial1.c}, {\tt trial2.c}, {\tt trial3.c}がそれぞれ独立にコンパイルされ、{\tt trial1.o}, {\tt trial2.o}, {\tt trial3.o}の3つのオブジェクトファイル\footnote{コンパイルが途中まで完了しているファイルだと考えてよい。}が生成される。あるいは、
+のようにすれば、{\tt trial1.c}, {\tt trial2.c}, {\tt trial3.c}がそれぞれ独立にコンパイルされ、{\tt trial1.o}, {\tt trial2.o}, {\tt trial3.o}の三つのオブジェクトファイル\footnote{コンパイルが途中まで完了しているファイルだと考えてよい。}が生成される。あるいは、
 \begin{commandline2}
 \prompt \underline{gcc -c trial1.c trial2.c trial3.c}
 \end{commandline2} \noindent
@@ -192,7 +192,7 @@ int main() {
 \begin{commandline2}
 \prompt \underline{gcc -o trial trial1.o trial2.o trial3.o}
 \end{commandline2} \noindent
-のように最後に一つにまとめる(「リンクする」という)。分割コンパイルの最大の利点は、コンパイル時間の短縮である。{\tt trial3.c} だけを変更したのに、3つのファイル{\tt trial1.c trial2.c trial3.c}全てをわざわざコンパイルするのでは時間がかかってしまう。分割コンパイルでは、変更のあったものだけ再コンパイルすればよい。つまり、
+のように最後に一つにまとめる(「リンクする」という)。分割コンパイルの最大の利点は、コンパイル時間の短縮である。{\tt trial3.c} だけを変更したのに、三つのファイル{\tt trial1.c trial2.c trial3.c}全てをわざわざコンパイルするのでは時間がかかってしまう。分割コンパイルでは、変更のあったものだけ再コンパイルすればよい。つまり、
 \begin{commandline2}
 \prompt \underline{gcc -c trial3.o} \\
 \prompt \underline{gcc -o trial trial1.o trial2.o trial3.o}
@@ -203,18 +203,18 @@ int main() {
 
 プログラム言語にはC以外にもさまざまなものがある。物理の世界でも、最近はCやC++を使用することが一般的になってきたが、歴史的にはFortranが長く使われてきた。そのため、いまだにFortranで書かれたライブラリも広く使われている。Fortranで書かれたソースコード(拡張子 {\tt .f}, {\tt .F}, {\tt .f90}, {\tt .F90} など)をコンパイルするには、{\tt gcc}の代わりに{\tt gfortran}を用いる。C++の場合(拡張子 {\tt .C}, {\tt cpp}など)の場合には、{\tt g++}を用いる。分割コンパイルやリンクの方法はCの場合と同じである。
 
-C, C++, Fortranなどの言語は「コンパイル言語」と呼ばれる。一方、コンパイルして計算機の言葉にするのではなく、ソフトウェアがプログラムを直接理解してその内容を実行するプログラム言語(スクリプト言語)もある。この「プログラムを直接理解するソフトウェア」のことをインタープリタといい、「プログラム」のことをスクリプトという。{\tt sh}、{\tt perl}、{\tt ruby}、{\tt python}などが代表的なインタープリタである。たとえば、{\tt test.py} という Python スクリプトを作ったとしよう。これを実行するには 2 通りの方法がある。1つ目は、
+C, C++, Fortranなどの言語は「コンパイル言語」と呼ばれる。一方、コンパイルして計算機の言葉にするのではなく、ソフトウェアがプログラムを直接理解してその内容を実行するプログラム言語(スクリプト言語)もある。この「プログラムを直接理解するソフトウェア」のことをインタープリタといい、「プログラム」のことをスクリプトという。{\tt sh}、{\tt perl}、{\tt ruby}、{\tt python}などが代表的なインタープリタである。たとえば、{\tt test.py} という Python スクリプトを作ったとしよう。これを実行するには2通りの方法がある。一つ目は、
 \begin{commandline2}
 \prompt \underline{python test.py}
 \end{commandline2} \noindent
-のようにインタープリタ\footnote{{\tt python}がPython言語のインタープリタである。}に {\tt test.py} を読み取らせる方法である。もう1つの方法は
+のようにインタープリタ\footnote{{\tt python}がPython言語のインタープリタである。}に {\tt test.py} を読み取らせる方法である。もう一つの方法は
 \begin{commandline2}
 \prompt \underline{test.py}
 \end{commandline2} \noindent
 のように {\tt test.py} を直接実行\footnote{実はこっそりPythonインタープリタが起動されていて、それが {\tt test.py} を読み取り実行する。どのインタープリタが起動されるかは、スクリプトの先頭の {\tt \#!} のあとに何を書いたかで決まる。Pythonインタープリタを起動する場合は、スクリプトの先頭に{\tt \#!/usr/bin/python}と書けばよい。}する方法である。後者の場合、{\tt test.py} に読み取り許可だけでなく実行許可も必要である。
 
 \subsection{ライブラリのリンク}
-プログラムの中で $\sin x$ や $\cos x$ などの数学関数を用いた場合は、前述の方法ではコンパイルに失敗する\footnote{数学関数の場合、macOSではエラーにならない。しかし、一般的なライブラリの中で定義されている関数を使う場合には適切なリンクが必要。}。
+プログラムの中で $\sin x$ や $\cos x$ などの数学関数を用いた場合は、前述の方法ではコンパイルに失敗する\footnote{数学関数の場合、macOSではエラーにならない。しかし、一般的なライブラリの中で定義されている関数を使う場合には適切なリンクが必要である。}。
 まずは、例\ref{ex:compile2} のプログラムを作成し、\ref{ex:compile2}c という名前で保存しよう。
 \begin{reidai}\label{ex:compile2}
 \begin{verbatim}
@@ -444,7 +444,7 @@ int main() {
 \end{reidai}
 
 \clangpara{補足}
-ここまで説明をしなかったが、\verb|if| や \verb|for| や \verb|while| の条件の部分で使った``正しい(満足する)場合''と``間違いの(満足しない)場合''という表現に関して補足しておく。まず、実例をあげると、例\ref{ex:continue}の \verb|if (residual != 0)|の部分は、\verb|if (residual)| と書き換えることができる。つまり、条件判定にとって、``$\neq$0''の整数値は ``正しい(真値)''と判断され、``=0''の整数値は``間違い(偽値)''と判断される。簡単な例をあげると、\verb|while (1) {}|とすると、無限に\verb|while|の中を繰り返す。もちろん、この場合には{\tt break}等の適切な処理が\verb|while|の中で必要である。
+ここまで説明をしなかったが、\verb|if| や \verb|for| や \verb|while| の条件の部分で使った``正しい(満足する)場合''と``間違いの(満足しない)場合''という表現に関して補足しておく。まず、実例をあげると、例\ref{ex:continue}の \verb|if (residual != 0)|の部分は、\verb|if (residual)| と書き換えることができる。つまり、条件判定にとって、``$\neq$0''の整数値は ``正しい(真値)''と判断され、``=0''の整数値は``間違い(偽値)''と判断される。簡単な例をあげると、\verb|while (1) {}|とすると、無限に\verb|while|の中を繰り返す。もちろん、この場合には{\tt break}などの適切な処理が\verb|while|の中で必要である。
 
 \begin{renshuu}\label{prob:2-1}
 \verb|if|文の練習として、$ax+b=0$ の解を求めるプログラムを書け。
@@ -513,7 +513,7 @@ a[0][0], a[0][1], a[0][2]
 a[1][0], a[1][1], a[1][2]
 \end{verbatim}
 \end{quote}
-の6つの要素を持つ2次元配列が生成される。例\ref{ex:array2d}は、$2 \times 2$の行列の逆行列を求めている。
+の六つの要素を持つ2次元配列が生成される。例\ref{ex:array2d}は、$2 \times 2$の行列の逆行列を求めている。
 \begin{reidai}\label{ex:array2d}
 \begin{verbatim}
 #include <stdio.h>
@@ -625,7 +625,7 @@ int main() {
 
 \section{ポインタ}
 
-ポインタの習得はC言語の習得の中でひとつの大きな壁である。はじめは訳がわからないかもしれないが、C言語の基本的な部分の1つなので、いろいろな例に触れて慣れてほしい。慣れが一番である。
+ポインタの習得はC言語の習得の中で一つの大きな壁である。はじめは訳がわからないかもしれないが、C言語の基本的な部分の一つなので、いろいろな例に触れて慣れてほしい。慣れが一番である。
 
 \subsection{とりあえず(1)}
 
@@ -664,7 +664,7 @@ int main() {
 \end{figure}
 
 \subsection{とりあえず(2)}
-では、もう1つ例を示そう。例\ref{ex:pointer2}では、\verb|p = &q;| により \verb|p| というポインタで \verb|q| にアクセスできる。ここでは、\verb|q| に値を代入するかわりに、\verb|*p|を用いて値を代入している。\verb|p|はポインタで、\verb|*p| は \verb|p| が示しているアドレスにある値そのものである。
+では、もう一つ例を示そう。例\ref{ex:pointer2}では、\verb|p = &q;| により \verb|p| というポインタで \verb|q| にアクセスできる。ここでは、\verb|q| に値を代入するかわりに、\verb|*p|を用いて値を代入している。\verb|p|はポインタで、\verb|*p| は \verb|p| が示しているアドレスにある値そのものである。
 実行結果は、``{\tt q is 300 and *p is 300.}''となる。
 \begin{reidai}\label{ex:pointer2}
 \begin{verbatim}
@@ -711,7 +711,7 @@ int array[10];
 \end{quote}
 と宣言した場合、\verb|array[0]| や \verb|array[5]| などで配列の要素にアクセスすることができた。実は、\verb|array| だけでも意味を持つ。\verb|array| は配列型 (\verb|int[10]| 型) の変数で、プログラムコード中に登場した時は、大抵の状況では、自動的に ``配列の先頭要素のアドレス''に暗黙的に変換されて解釈される。つまり、\verb|array| は \verb|array[0]| へのポインタとして解釈され、\verb|*array| は \verb|array[0]|を意味する。さらに、ポインタに整数を足すとその数だけ先の要素を指すようになる。例えば\verb|array+2|は\verb|array[2]| へのポインタであり、\verb|*(array+2)| は \verb|array[2]|と等価である。
 
-では、例\ref{ex:pointer-array}を見てみよう。\verb|strlen| という関数は string.h 内で宣言されている文字列の長さを返す関数である。最初の \verb|for| 文は文字型の配列 \verb|str| の中身を順番に書き出している。次の \verb|for| 文がポイントである。まず、文字型のポインタ \verb|p| に文字型の配列 \verb|str| の先頭ポインタ \verb|str| を代入している。そして、文字型の実体である \verb|*p| が \verb|\0| でない場合はその \verb|*p| を表示し、ポインタ \verb|p| の指す部分をひとつ進めている。これを \verb|*p| が \verb|\0| になるまで繰り返すことで、最初の \verb|for| 文と同じ結果を表示している。
+では、例\ref{ex:pointer-array}を見てみよう。\verb|strlen| という関数は string.h 内で宣言されている文字列の長さを返す関数である。最初の \verb|for| 文は文字型の配列 \verb|str| の中身を順番に書き出している。次の \verb|for| 文がポイントである。まず、文字型のポインタ \verb|p| に文字型の配列 \verb|str| の先頭ポインタ \verb|str| を代入している。そして、文字型の実体である \verb|*p| が \verb|\0| でない場合はその \verb|*p| を表示し、ポインタ \verb|p| の指す部分を一つ進めている。これを \verb|*p| が \verb|\0| になるまで繰り返すことで、最初の \verb|for| 文と同じ結果を表示している。
 \begin{reidai}\label{ex:pointer-array}
 \begin{verbatim}
 #include <stdio.h>
@@ -784,7 +784,6 @@ int main() {
 double circle_area(double r) {
   return r*r*M_PI;
 }
-
 int main() {
   double radius = 2.0;
   double area = circle_area(radius);
@@ -798,14 +797,12 @@ int main() {
 #include <math.h>
 #include <stdio.h>
 double circle_area(double);
-
 int main() {
   double radius = 2.0;
   double area = circle_area(radius);
   printf("Radius: %lf, Area: %lf\n", radius, area);
   return 0;
 } 
-
 double circle_area(double r) {
   return r*r*M_PI;
 }
@@ -814,7 +811,7 @@ double circle_area(double r) {
 
 \subsection{ポインタを引数にする関数}
 
-例\ref{ex:function1}では関数の返り値が面積の1つだけであった。しかし、例えば割り算で商と余りを返したい場合、例\ref{ex:function1}のような関数ではうまく実現できない。なぜなら、戻り値は1個しか指定できないからである。これを解決するには、ポインタを引数とする関数を作る必要がある。答えを入れる箱をあらかじめ準備しておき、それを関数の引数にポインタとして渡し、関数内でそこに答えを入れてもらって、関数の外で受け取るという方法を用いる。重要な点は、ポインタでなければ関数内で代入した値を関数の外で使うことはできないということである。
+例\ref{ex:function1}では関数の返り値が面積の一つだけであった。しかし、例えば割り算で商と余りを返したい場合、例\ref{ex:function1}のような関数ではうまく実現できない。なぜなら、戻り値は1個しか指定できないからである。これを解決するには、ポインタを引数とする関数を作る必要がある。答えを入れる箱をあらかじめ準備しておき、それを関数の引数にポインタとして渡し、関数内でそこに答えを入れてもらって、関数の外で受け取るという方法を用いる。重要な点は、ポインタでなければ関数内で代入した値を関数の外で使うことはできないということである。
 
 例\ref{ex:function-pointer}では、まず{\tt main}で答えを入れてもらうための \verb|shou| と \verb|amari| という箱(変数)を準備している。次に、そのポインタ(アドレス)を関数\verb|division|に渡している。そして、\verb|division|内で答えを代入してもらい、関数の外で\verb|printf|を用いて答えを表示している。\verb|division| という関数の先頭にある\verb|void|という型は(返り値の形では)何も返さないことを示すためのものである。
 \begin{reidai}\label{ex:function-pointer}
@@ -824,7 +821,6 @@ void division(int divident, int divisor, int *quotient, int *residual) {
   *quotient = divident / divisor;
   *residual = divident % divisor;
 }
-
 int main() {
   int josuu = 3;
   int hi_josuu = 13;
@@ -843,7 +839,6 @@ void division(int divident, int divisor, int quotient, int residual) {
   quotient = divident / divisor;
   residual = divident % divisor;
 }
-
 int main() {
   int josuu = 3;
   int hi_josuu = 13;
@@ -857,7 +852,7 @@ int main() {
 
 \subsection {Fortranの関数や手続きの利用}
 
-LAPACK\footnote{行列の対角化、連立一次方程式の求解など線形計算を行うライブラリ。ほぼ全ての計算機で利用可能である。}などの多くのライブラリがFortranで書かれている。これらと同等の機能を持つ関数をCやC++で作ることもできるが、既に存在するのであればそちらを使った方が便利である。ここでは、C言語の中からFortranの関数や手続きを呼ぶ方法を簡単に紹介する。
+LAPACK\footnote{行列の対角化、連立1次方程式の求解など線形計算を行うライブラリ。ほぼ全ての計算機で利用可能である。}などの多くのライブラリがFortranで書かれている。これらと同等の機能を持つ関数をCやC++で作ることもできるが、既に存在するのであればそちらを使った方が便利である。ここでは、C言語の中からFortranの関数や手続きを呼ぶ方法を簡単に紹介する。
 
 Fortranの関数や手続きの名前をC言語から呼ぶためには、その名前をすべて小文字にして、最後に\_ (下線)を付けなければならない。また、関数などの引数の型も適切に読み変える必要がある。例えば、
 \begin{reidai}
@@ -872,7 +867,6 @@ Fortranの関数や手続きの名前をC言語から呼ぶためには、その
 \begin{reidai}
 \begin{verbatim}
 extern double clac_(int*, float*, double*);
-
 int main() {
   int i = 10;
   float x = 20.0;
@@ -887,7 +881,7 @@ int main() {
 \section{構造体}
 データ構造を取り扱うためには構造体を用いる。
 
-例\ref{ex:struct1}を見てほしい。個人のデータを取り扱うために \verb|personal_data| という1つの箱を準備している。これが構造体である。もし構造体を使わなければ、同じ内容のプログラムを実現するためには複数の配列を準備する必要が出てくる。これは見た目にも格好悪いし、拡張性も乏しく複雑になる。例\ref{ex:struct1}では、\verb|struct personal_data pdata;| で \verb|pdata| を構造体とし宣言している。少し分かりにくいかもしれないが、\verb|int n;|と比べてみると、\verb|int| と ``\verb|struct personal_data|''が同じ立場であって、\verb|int| と ``\verb|struct|''が同じ立場というわけではないことに注意してほしい。\verb|int| という型はあらかじめC言語で決められた型なのに対し、構造体は自分が好きなように使いやすいように決めた型だと考えても構わない。つまり、``\verb|struct personal_data|''型というものを自分で作ったと考えるのである。そうすれば、\verb|struct personal_data pdata;| という使い方も理解できるはずである。
+例\ref{ex:struct1}を見てほしい。個人のデータを取り扱うために \verb|personal_data| という一つの箱を準備している。これが構造体である。もし構造体を使わなければ、同じ内容のプログラムを実現するためには複数の配列を準備する必要が出てくる。これは見た目にも格好悪いし、拡張性も乏しく複雑になる。例\ref{ex:struct1}では、\verb|struct personal_data pdata;| で \verb|pdata| を構造体とし宣言している。少し分かりにくいかもしれないが、\verb|int n;|と比べてみると、\verb|int| と ``\verb|struct personal_data|''が同じ立場であって、\verb|int| と ``\verb|struct|''が同じ立場というわけではないことに注意してほしい。\verb|int| という型はあらかじめC言語で決められた型なのに対し、構造体は自分が好きなように使いやすいように決めた型だと考えても構わない。つまり、``\verb|struct personal_data|''型というものを自分で作ったと考えるのである。そうすれば、\verb|struct personal_data pdata;| という使い方も理解できるはずである。
 
 構造体内の各データには、ドット演算子 (\verb|.|) を使ってアクセスする。また、年齢を文字列 \verb|buffer[16]| として受け取っているため、\verb|atoi| 関数を用いて数字に変換している。\verb|atoi| は文字列を整数に変換する関数である。詳しくはコマンドラインで \verb|man atoi| としてみよ。
 \begin{reidai}\label{ex:struct1}
@@ -899,7 +893,6 @@ struct personal_data {
   char given_name[16];
   int age;
 };
-
 int main() {
   struct personal_data pdata;
   char buffer[16];
@@ -925,7 +918,6 @@ struct particle_data {
   double mass;
   double p[3]; /* Momentum */
 };
-
 int main() {
   struct particle_data pdata;
   struct particle_data *qdata;
@@ -964,7 +956,6 @@ fscanf(ファイル構造体のポインタ, "フォーマット", &変数1, &�
 double product(double x1, double y1, double x2, double y2) {
   return x1*y1 + x2*y2;
 }
-
 int main() {
   FILE *fp;
   char *filename = "vectors.txt";
@@ -1036,7 +1027,6 @@ fprintf(ファイル構造体のポインタ, "フォーマット", 変数1, 変
 double circle_area(double r) {
   return r*r*M_PI;
 }
-
 int main() {
   FILE *fp;
   char *filename = "circle_area.txt";
@@ -1181,7 +1171,7 @@ Name2 : C, Claire
 Name3 : D, David
 \end{verbatim}
 \end{quote}
-まず、\verb|name[0]| の型は \verb|char*| なので、\verb|name0| の値等を代入することができる。Aの時点で、\verb|name| というポインタ配列の各要素にアドレスの代入したことになる。つまり、
+まず、\verb|name[0]| の型は \verb|char*| なので、\verb|name0| の値などを代入することができる。Aの時点で、\verb|name| というポインタ配列の各要素にアドレスの代入したことになる。つまり、
 \begin{quote}
 \begin{verbatim}
 name[0] = "Alice"という文字列の先頭アドレス
@@ -1300,7 +1290,7 @@ argv[3] = "10"の先頭アドレス
 int main(int argc, char* argv[]) {
   int* array;
   int n_element = atoi(argv[1]);
-  if ((array = malloc(sizeof(int)*n_element)) == NULL) {
+  if ((array = (int*)malloc(sizeof(int)*n_element)) == NULL) {
     printf("Can't allocate memory.\n");
     exit(1);
   }
@@ -1315,13 +1305,7 @@ int main(int argc, char* argv[]) {
 }
 \end{verbatim}
 \end{reidai} \noindent
-なお、コンパイル時に、{\tt malloc}の部分で``型の不整合'' という警告が出る場合は、つぎのように明示的に型を変換すればよい。
-\begin{quote}
-\begin{verbatim}
-array = (int*)malloc(sizeof(int)*n_element)
-\end{verbatim}
-\end{quote}
-これをキャスト(型変換)という。
+なお、コンパイル時に、{\tt malloc}の部分で``型の不整合'' という警告が出ることを防ぐために、{\tt malloc}の返り値を明示的に{\tt int*}型に変換している。これをキャスト(型変換)という。
 
 \subsection{{\tt free}の使い方}
 
@@ -1342,7 +1326,7 @@ int main(int argc, char* argv[]) {
   int n_element = atoi(argv[1]);
   int i, j;
   for (j = 0; j < 3; ++j) {
-    if ((array = malloc(sizeof(int)*n_element) == NULL) {
+    if ((array = (int*)malloc(sizeof(int)*n_element) == NULL) {
       printf("Can't allocate memory.\n");
       exit(1);
     }
@@ -1369,17 +1353,17 @@ int main(int argc, char* argv[]) {
 \end{reidai} \noindent
 もし仮に\verb|free| がない場合、\verb|j=1| のとき、\verb|malloc| に成功すると \verb|array| は新しく確保された領域の先頭アドレスを持つ。この時、\verb|j=0|で確保した領域はどうなったのだろうか? その領域は、このプログラム自身が確保した領域として、このプログラムが終了するまで解放されない。しかも、\verb|array| はすでに \verb|j=0| のときに確保した領域を忘れているので、このプログラムからもその領域に適切にアクセスすることはできない。つまり、\verb|j=0| のときの領域はこのプログラムが持っているが、使うことができない領域として存在し続けることになる\footnote{これを「メモリリーク」と呼ぶ}。これは非常に無駄なことである。これを回避するためにも、使わなくなった領域は \verb|free| することが重要である。もちろん、最近の計算機はメモリ(および、スワップ領域)をたくさん積んでいるので例\ref{ex:malloc-free}程度のプログラムなら\verb|free|がなくても平気で最後まで動くはずであるが、習慣として、\verb|malloc| した領域を使い終わったら必ず \verb|free| するのがよい。
 
-\subsection{動的な二次元配列}
+\subsection{動的な2次元配列}
 
-C言語において、二次元配列は 一元配列の先頭を指すポインタの配列として表すことができる。
-すなわち、各行をそれぞれ一次元配列として考え、各行の先頭を指すポインタを別の一次元配列に格納しておけばよい。
-この場合、後者の配列は要素がポインタ型の配列であるので、double型の二次元配列の場合には
+C言語において、2次元配列は 1次元配列の先頭を指すポインタの配列として表すことができる。
+すなわち、各行をそれぞれ1次元配列として考え、各行の先頭を指すポインタを別の1次元配列に格納しておけばよい。
+この場合、後者の配列は要素がポインタ型の配列であるので、double型の2次元配列の場合には
 \begin{quote}
 \begin{verbatim}
 double** matrix;
 \end{verbatim}
 \end{quote}
-と宣言する必要がある。その後、各行に対応する一次元配列を \verb|malloc| する。
+と宣言する必要がある。その後、各行に対応する1次元配列を \verb|malloc| する。
 \begin{reidai}\label{ex:malloc-2dim}
 \begin{verbatim}
 #include <stdio.h>
@@ -1417,13 +1401,13 @@ int main() {
 }
 \end{verbatim}
 \end{reidai} \noindent
-この例では、$3 \times 4$の二次元配列(行列)を宣言している。まず、\verb|matrix| に長さ \verb|m| の一次元配列(要素はdoubleポインタ型)を確保する。さらに、各行を格納する長さ \verb|n| の一次元配列(要素はdouble型)を \verb|m| 個確保し、その先頭アドレスを \verb|matrix| に格納する。配列の$(i,j)$成分へのアクセスは、静的な二次元配列の場合と同じく \verb|matrix[i][j]| と書けばよい。\verb|matrix[i][j]| は \verb|*(*(matrix+i)+j)| と等価であることに注意せよ。\verb|*(matrix+i)| により $i$ 行目の先頭アドレスが得られ、それに $j$ を足したアドレスの中身を参照することで、$(i,j)$成分が得られる。確保したメモリの解放の際は、まず各行に対応する一次元配列を解放した後、最後にそれらの先頭先頭アドレスを格納していたdoubleポインタ型の一次元配列を解放する必要がある\footnote{解放の順番を間違うとエラーとなる。その理由を考えてみよ。}。
+この例では、$3 \times 4$の2次元配列(行列)を宣言している。まず、\verb|matrix| に長さ3の1次元配列(要素はdouble*型)を確保する。さらに、各行を格納する長さ4の1次元配列(要素はdouble型)を3個確保し、その先頭アドレスを \verb|matrix| に格納する。配列の$(i,j)$成分へのアクセスは、静的な2次元配列の場合と同じく \verb|matrix[i][j]| と書けばよい。\verb|matrix[i][j]| は \verb|*(*(matrix+i)+j)| と等価であることに注意せよ。\verb|*(matrix+i)| により $i$ 行目の先頭アドレスが得られ、それに $j$ を足したアドレスの中身を参照することで、$(i,j)$成分が得られる。確保したメモリの解放の際は、まず各行に対応する1次元配列を解放した後、最後にそれらの先頭先頭アドレスを格納していたdoubleポインタ型の1次元配列を解放する必要がある\footnote{解放の順番を間違うとエラーとなる。その理由を考えてみよ。}。
 
-上記の方法で動的な二次元配列を取り扱えるようになるが、実際に行列としてLAPACKなどの数値計算ライブラリと組み合わせて使うには、2つの問題がある。1つ目は行列の要素の連続性の問題、2つ目は要素の並ぶ順番である。
+上記の方法で動的な2次元配列を取り扱えるようになるが、実際に行列としてLAPACKなどの数値計算ライブラリと組み合わせて使うには、二つの問題がある。一つ目は行列の要素の連続性の問題、二つ目は要素の並ぶ順番である。
 
 LAPACKなどの数値計算ライブラリでは、行列の要素は全てメモリ上で連続であると仮定されている。しかし、上記の方法では、各行のデータは連続であるが、行と行の間が連続であるとは限らない。C言語では、連続した \verb|malloc| の呼び出しで連続したメモリ領域が割り当てられることは保証されていないためである。メモリ上で \verb|matrix[0][0]| の次には \verb|matrix[0][1]|、\verb|matrix[0][2]|、\verb|matrix[0][3]| と並ぶが、その次が \verb|matrix[1][0]| とは限らないのである。
 
-この問題を解決するには、それぞれの行に対して \verb|malloc| を行うのではなく、一度に$m \times n$の長さのメモリを確保した上で、$n$要素毎の要素(各行の先頭に対応)のポインタををポインタ型配列に格納していけばよい。具体的には、コードを以下のように修正する。
+この問題を解決するには、それぞれの行に対して \verb|malloc| を行うのではなく、一度に$3 \times 4=12$の長さの1次元配列をまとめて確保した上で、4要素毎の要素(各行の先頭に対応)のポインタををポインタ型配列に格納していけばよい。具体的には、コードを以下のように修正する。
 \begin{reidai}\label{ex:malloc-2dim-continuous}
 \begin{verbatim}
 #include <stdio.h>
@@ -1462,7 +1446,7 @@ int main() {
 \end{reidai} \noindent
 修正前のコードと異なり、\verb|malloc| と \verb|free| は、それぞれ2回ずつしか呼び出されていないことに注意せよ。
 
-次に、2つ目の問題、要素の並ぶ順番について考える。LAPACKなどの数値計算ライブラリは、Fortran言語を用いて書かれていることが多い。Fortran言語では、二次元配列(行列)の要素は各列の要素がメモリ上で連続して並ぶ。例えば、$3 \times 3$行列では、要素はメモリ上で、$(0,0) \rightarrow (1,0) \rightarrow (2,0) \rightarrow (0,1) \rightarrow (1,1) \rightarrow (2,1) \rightarrow (0,2) \rightarrow (1,2) \rightarrow (2,2)$ の順に配置される。これを「列優勢 (column-major)」と呼ぶ。一方、C言語では、メモリ上で \verb|A[0][0]| の次に配置されるのは \verb|A[0][1]| である。こちらは「行優勢 (row-major)」と呼ぶ。
+次に、二つ目の問題、要素の並ぶ順番について考える。LAPACKなどの数値計算ライブラリは、Fortran言語を用いて書かれていることが多い。Fortran言語では、2次元配列(行列)の要素は各列の要素がメモリ上で連続して並ぶ。例えば、$3 \times 3$行列では、要素はメモリ上で、$(0,0) \rightarrow (1,0) \rightarrow (2,0) \rightarrow (0,1) \rightarrow (1,1) \rightarrow (2,1) \rightarrow (0,2) \rightarrow (1,2) \rightarrow (2,2)$ の順に配置される。これを「列優勢 (column-major)」と呼ぶ。一方、C言語では、メモリ上で \verb|A[0][0]| の次に配置されるのは \verb|A[0][1]| である。こちらは「行優勢 (row-major)」と呼ぶ。
 \begin{figure}[H]
 \begin{center}
 \resizebox{0.60\textwidth}{!}{\includegraphics{major.pdf}}
@@ -1470,13 +1454,13 @@ int main() {
 \end{figure}
 C言語上で行列の$(i,j)$成分を \verb|A[i][j]| に代入したもの(row-major)をLAPACKライブラリに渡すと、LAPACK側では要素がcolumn-majorで並んでいると解釈して計算を行う。すなわち、入力行列が転置されてしまう。また、計算結果もC言語から見ると転置された状態で返されることになってしまう。
 
-これを防ぐには、行列の$(i,j)$成分を \verb|A[i][j]| ではなく \verb|A[j][i]| に格納するように決めてプログラムを書けばよいのだが、「常に順番を逆に書く」というのはプログラム作成時に混乱してしまう恐れがある。一つの解決方法は、C言語のマクロ機能を使い、プログラムの先頭で
+これを防ぐには、行列の$(i,j)$成分を \verb|A[i][j]| ではなく \verb|A[j][i]| に格納するように決めてプログラムを書けばよいのだが、「常に順番を逆に書く」というのはプログラム作成時に混乱してしまう恐れがある。一つの解決方法は、Cプリプロセッサのマクロ機能を使い、ソースコードの先頭で
 \begin{quote}
 \begin{verbatim}
 #define mat_elem(mat, i, j) (mat)[(j)][(i)]
 \end{verbatim}
 \end{quote}
-のように \verb|mat_elem| 関数を定義することである\footnote{一般的にC言語でのマクロの多用は勧められていないが、背に腹は代えられない。}。これにより、プログラム中で行列の$(i,j)$成分を \verb|mat_elem(A, i, j)| と書けるようになる。
+のように \verb|mat_elem| 関数を定義することである\footnote{一般的にCプロセッサのマクロの多用は勧められていないが、背に腹は代えられない。}。これにより、プログラム中で行列の$(i,j)$成分を \verb|mat_elem(A, i, j)| と書けるようになる。
 \begin{reidai}\label{ex:malloc-2dim-column-major}
 \begin{verbatim}
 #include <stdio.h>
@@ -1514,7 +1498,7 @@ int main() {
 }
 \end{verbatim}
 \end{reidai} \noindent
-プログラムの前半で、$m \times n$ではなく$n \times m$の二次元配列として配列を作成していることに注意せよ\footnote{列優勢(column-major)の二次元配列の確保や解放のための関数、および要素へのアクセス用のマクロ一式をまとめたものが、{\tt cmatrix.h} として{https://github.com/utphys-comp/cmatrix/}で公開されている。}。
+プログラムの前半で、$3 \times 4$ではなく$4 \times 3$の2次元配列として行列を作成していることに注意せよ\footnote{列優勢(column-major)の2次元配列の確保や解放のための関数、および要素へのアクセス用のマクロ一式をまとめたものが、{\tt cmatrix.h} として{https://github.com/utphys-comp/cmatrix/}で公開されている。}。
 
 \section{練習問題の解答例}
 

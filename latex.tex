@@ -24,7 +24,7 @@ f(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!}(x-a)^n
 \prompt \underline{platex ex.tex}\\
 \prompt \underline{dvipdfmx ex.dvi}
 \end{commandline2} \noindent
-一行目の \texttt{platex}コマンドでDVIファイル(\texttt{ex.dvi})が生成される。DVIは{\textbf{d}e\textbf{v}ice-\textbf{i}ndependent file format}の略で、最終的な出力形式(今の例ではPDF)に依存しない出力形式である。\texttt{dvipdfmx}コマンドは、このDVIファイルからPDF形式のファイルを生成する。これらのコマンドの実行後、\texttt{ex.pdf}というファイルができていれば成功である。では処理結果を見てみよう。macOSで作業している場合には、
+1行目の \texttt{platex}コマンドでDVIファイル(\texttt{ex.dvi})が生成される。DVIは{\textbf{d}e\textbf{v}ice-\textbf{i}ndependent file format}の略で、最終的な出力形式(今の例ではPDF)に依存しない出力形式である。\texttt{dvipdfmx}コマンドは、このDVIファイルからPDF形式のファイルを生成する。これらのコマンドの実行後、\texttt{ex.pdf}というファイルができていれば成功である。では処理結果を見てみよう。macOSで作業している場合には、
 \begin{commandline2}
 \prompt \underline{open ex.pdf}
 \end{commandline2} \noindent
@@ -50,7 +50,7 @@ $a$のまわりのテイラー展開
 \item \LaTeX を使うには、\verb|platex| コマンドを実行する。
 \item \texttt{platex}コマンドを実行すると、DVIファイル(拡張子は \texttt{.dvi})が生成される。
 \item DVIファイルをPDF形式に変換するには、\verb|dvipdfmx| コマンドを実行する。
-\item PDFファイルを見るには、``\verb|open PDFファイル名|'' (macOSの場合)、あるいは``\verb|evince PDFファイル名|'' (Linuxの場合)を実行する。
+\item PDFファイルを見るには、``\verb|open ファイル名|'' (macOSの場合)、あるいは``\verb|evince ファイル名|'' (Linuxの場合)を実行する。
 \end{itemize}
 
 \section{\LaTeX に関する全体的なこと}
@@ -93,7 +93,7 @@ $a$のまわりのテイラー展開
 5年間にわたる建設期間を経たのち、1996年4月より
 観測を開始しました。
 \end{kekka} \noindent
-となる。出力は、もっとも美しく清書されるように、\LaTeX が自動的に改行を行なってくれる。逆にどうしても自分で改行させたいときは、\textbackslash \textbackslash をソースファイル中に書き込めばよい。
+となる。出力は、もっとも美しく清書されるように、\LaTeX が自動的に改行を行ってくれる。逆にどうしても自分で改行させたいときは、\textbackslash \textbackslash をソースファイル中に書き込めばよい。
 \begin{reidai}
 \begin{verbatim}
 東京大学物性研究所 \\ \\
@@ -245,7 +245,7 @@ C 言語にはデータのまとまりを表す構造体と呼ばれるデータ
 \dots
 
 \subsubsection{機械指向型プログラミング言語}
-ひとつの C 言語の行なう命令は FORTRAN などに比べると簡潔であり
+C 言語の一つの命令は FORTRAN などに比べると簡潔であり
 計算機に与えられる命令に近い。
 これはプログラミング言語自体による副作用なしに
 計算機を思い通りに直接操作できることを意味する。\\
@@ -260,11 +260,48 @@ FORTRAN は FORmula TRANslator の名が示すとおり、
 このように、章や節にタイトルを付けるには、\verb|\chapter{}|、\verb|\section{}|、\verb|\subsection{}|、\verb|\subsubsection{}|を使う。タイトルを\verb|{}|の中に書き、そのあとには本文となる文章を続ける。章や節の番号は\LaTeX が自動的に振ってくれる。
 結果は次のようになる。
 \begin{kekka}
-  \begin{center}
-    \includegraphics[bb=0 0 453 569, width=.9\textwidth]{section.pdf}
-  \end{center}
-\end{kekka}
+\noindent{\bf \Large 1 \ C 言語} \\[.2em]
+  
+C 言語は、
+Brain Kernighan と Dennis Ritchie によって開発された
+プログラミング言語である。
+簡潔性と柔軟性の両方を備えたこの言語は、
+さまざまな分野のソフトウェア開発に広く利用されている。
+われわれが普段利用している UNIX オペレーティングシステムも
+この C 言語を用いて記述されたものである。\\
+\dots \\[.2em]
 
+\noindent{\bf \large 1.1 \ C 言語の歴史} \\[.2em]
+
+C 言語はベル研究所の Ritchie によって 1972 年頃開発された。
+C 言語は Algol と呼ばれるプログラミング言語の流れを受け継ぐ言語で、
+直接の母体は B 言語と呼ばれる言語である。\\
+\dots \\[.2em]
+
+\noindent{\bf \large 1.2 \ C 言語の特徴} \\[.2em]
+
+この節では C 言語の特徴について述べよう。 \\[.2em]
+
+\noindent{\bf 1.2.1 構造化プログラミング言語} \\[.2em]
+
+C 言語にはデータのまとまりを表す構造体と呼ばれるデータ型がある。
+データを集合として扱う構造データ型は FORTRAN にはなかった。\\
+\dots \\[.2em]
+
+\noindent{\bf 1.2.2 機械指向型プログラミング言語} \\[.2em]
+
+C 言語の一つの命令は FORTRAN などに比べると簡潔であり
+計算機に与えられる命令に近い。
+これはプログラミング言語自体による副作用なしに
+計算機を思い通りに直接操作できることを意味する。\\
+\dots \\[.2em]
+
+\noindent{\bf \Large 2 \ FORTRAN} \\[.2em]
+
+FORTRAN は FORmula TRANslator の名が示すとおり、
+科学技術計算の能力に長けたプログラミング言語である。\\
+\dots
+\end{kekka}
 
 \paragraph{この節のまとめ}
 
@@ -388,13 +425,13 @@ FORTRAN は FORmula TRANslator の名が示すとおり、
     \end{tabular}
   \end{center}
 \end{kekka} \noindent
-\verb|\hline| と書いたところには、横線が引かれる。\verb|\hline \hline|と2つ続けて書くと二重線になる。表の各行は、それぞれの要素の間を\texttt{\&}で区切り、最後に \texttt{\textbackslash \textbackslash} で改行して行が終わったことを\LaTeX に伝える。
+\verb|\hline| と書いたところには、横線が引かれる。\verb|\hline \hline|と二つ続けて書くと二重線になる。表の各行は、それぞれの要素の間を\texttt{\&}で区切り、最後に \texttt{\textbackslash \textbackslash} で改行して行が終わったことを\LaTeX に伝える。
 
-この表は横の1行に3つの要素を持つ表である。各要素は表の1マスに左詰めで書かれている。このことは
+この表は横の1行に三つの要素を持つ表である。各要素は表の1マスに左詰めで書かれている。このことは
 \begin{quotation}
   \verb-\begin{tabular}{|l|l|l|}-
 \end{quotation}
-の\verb-{|l|l|l|}-によって表現されている。 \texttt{l} は左詰めを意味し、それを3つ並べることで、1行に3つの要素が入ることを表現している。左詰めの代わりに中央揃えがよければ\texttt{c}を、右詰めがよければ\texttt{r}を指定する。
+の\verb-{|l|l|l|}-によって表現されている。 \texttt{l} は左詰めを意味し、それを三つ並べることで、1行に三つの要素が入ることを表現している。左詰めの代わりに中央揃えがよければ\texttt{c}を、右詰めがよければ\texttt{r}を指定する。
 
 それぞれの\texttt{l}の両隣の縦棒は、要素と要素の間を縦線で区切って印刷してほしいということを\LaTeX に伝えている。この縦棒を取ってしまうと、要素間の縦線が引かれなくなる。
 
@@ -403,7 +440,7 @@ FORTRAN は FORmula TRANslator の名が示すとおり、
   \verb|\caption{月刊誌の出版社と発売日}|
 \end{quotation}
 のように \verb|\caption| の後の \verb|{}| の中に書く。
-最後にもう1つ例を挙げておこう。
+最後にもう一つ例を挙げておこう。
 \begin{reidai}
 \begin{verbatim}
 \begin{table}
@@ -423,7 +460,7 @@ FORTRAN は FORmula TRANslator の名が示すとおり、
       \hline
       $J/\psi$ & 3097 \\
       \hline
-      $B ^ 0$ & 5279 \\
+      $B ^ 0$ & 5280 \\
       \hline
     \end{tabular}
   \end{center}
@@ -448,7 +485,7 @@ FORTRAN は FORmula TRANslator の名が示すとおり、
       \hline
       $J/\psi$ & 3097 \\
       \hline
-      $B ^ 0$ & 5279 \\
+      $B ^ 0$ & 5280 \\
       \hline
     \end{tabular}
   \end{center}
@@ -474,15 +511,14 @@ FORTRAN は FORmula TRANslator の名が示すとおり、
   $x$ の関数 $y = ax ^ 2 + bx + c$ のうち
   $a \ne 0$ であるものを $x$ の 2 次関数といいます。
 \end{kekka} \noindent
-\addtocounter{reidai}{-1}
-のように文章中にインラインで数式を書きたいこともあるだろう。そういう場合は、文章中に\texttt{\$}と\texttt{\$}で囲った数式を書けばよい。結果\ref{kekka:math}を与えるソースは、以下のとおりである。
+のように文章中にインラインで数式を書きたいこともあるだろう。そういう場合は、文章中に\texttt{\$}と\texttt{\$}で囲った数式を書けばよい。結果\ref{kekka:math}を与えるソースは、以下のとおりである。\addtocounter{reidai}{-1}
 \begin{reidai}
 \begin{verbatim}
 $x$の関数$y = ax ^ 2 + bx + c$のうち
 $a \ne 0$ であるものを$x$の2次関数といいます。
 \end{verbatim}
 \end{reidai} \noindent
-以降の例題中ではスペースの都合上、2つ以上の数式を並べて書いてある場合があるが、、実際には1つずつ\verb|\begin{equation}|と\verb|\end{equation}|とで囲むか、\texttt{\$}と\texttt{\$}とで囲まなくてならない。
+以降の例題中ではスペースの都合上、二つ以上の数式を並べて書いてある場合があるが、、実際には一つずつ\verb|\begin{equation}|と\verb|\end{equation}|とで囲むか、\texttt{\$}と\texttt{\$}とで囲まなくてならない。
 
 \subsection{添え字}
 \label{sec:latex:index}
@@ -795,7 +831,7 @@ J_{\mu}^{NC}(\nu) =
 \section{図の貼り込み}
 \label{sec:latex:picture}
 
-\LaTeX では、{\tt gnuplot}などで生成した(\ref{sec:unix:gnuplot})節)図のファイル(ポストスクリプト、PDFなど)を文章中に貼り込むことが可能である。
+\LaTeX では、Gnuplot~(\ref{sec:unix:gnuplot})節)などで生成した図のファイル(PDFなど)を文章中に貼り込むことが可能である。
 
 \subsection{PDFファイルの貼り込み}
 \label{sec:latex:include_pdf}
@@ -1025,9 +1061,9 @@ w(z) \equiv \mathrm{e}^{-z^2}\mathrm{erfc}(z)
   このアルゴリズムは、 BELLE 実験[2]で使用するプログラムの
   内部で利用されている。
 
-  \dots
+  \dots \\[.2em]
 
-  \noindent {\bf \Large 参考文献} \\
+  \noindent {\bf \Large 参考文献} \\[.2em]
 
   \noindent [1] Walter Gautschi, Comm ACM. \textbf{12} 635, (1969)
 

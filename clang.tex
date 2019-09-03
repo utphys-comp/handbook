@@ -866,7 +866,7 @@ Fortranの関数や手続きの名前をC言語から呼ぶためには、その
 というFortranの関数が存在するとする。このときCでは次のように使う。
 \begin{reidai}
 \begin{verbatim}
-extern double clac_(int*, float*, double*);
+extern double calc_(int*, float*, double*);
 int main() {
   int i = 10;
   float x = 20.0;
@@ -1498,7 +1498,7 @@ int main() {
 }
 \end{verbatim}
 \end{reidai} \noindent
-プログラムの前半で、$3 \times 4$ではなく$4 \times 3$の2次元配列として行列を作成していることに注意せよ\footnote{列優勢(column-major)の2次元配列の確保や解放のための関数、および要素へのアクセス用のマクロ一式をまとめたものが、{\tt cmatrix.h} として{https://github.com/utphys-comp/cmatrix/}で公開されている。}。
+プログラムの前半で、$3 \times 4$ではなく$4 \times 3$の2次元配列として行列を作成していることに注意せよ\footnote{列優勢(column-major)の2次元配列の確保や解放のための関数、および要素へのアクセス用のマクロ一式をまとめたものが、{\tt cmatrix.h} として https://github.com/utphys-comp/cmatrix/ で公開されている。}。
 
 \section{練習問題の解答例}
 
@@ -1535,7 +1535,7 @@ int main() {
 int main() {
   /* calculate "n!" */
   int n = 10;
-  if (n < 1){
+  if (n < 0){
     printf("Can't calculate n!.\n");
     printf("n = %d\n",n);
     exit(1);
@@ -1544,30 +1544,6 @@ int main() {
   int i;
   for (i = 1; i <= n; ++i) {
     ans *= i;
-  }
-  printf("%d! = %d\n",n,ans);
-  return 0;
-}
-\end{verbatim}
-\end{renshuu-answer}
-\begin{renshuu-answer}{prob:2-2}
-\baselineskip=12pt
-\begin{verbatim}
-#include <stdio.h>
-#include <stdlib.h>
-int main() {
-  /* calculate "n!" */
-  int n = 10;
-  if (n < 1) {
-    printf("Can't calculate n!.\n");
-    printf("n = %d\n",n);
-    exit(1);
-  }
-  int ans = 1;
-  int i = 1;
-  while (i <= n) {
-    ans *= i;
-    ++i;
   }
   printf("%d! = %d\n",n,ans);
   return 0;
@@ -1584,13 +1560,12 @@ int main() {
   printf("%d madeno sosuu = ", n);
   int ans = 2;
   while (ans <= n) {
-    int flag = 0;
+    int flag = 1;
     int i;
     for (i = 2; i < ans; ++i) {
       if (ans%i == 0) {
+        flag = 0;
         break;
-      } else if (i == ans - 1) {
-        flag = 1;
       }
     }
     if (flag == 1) {
@@ -1609,11 +1584,11 @@ int main() {
 #include <stdio.h>
 int main() {
   int a[5];
-  a[0] = 1.0;
-  a[1] = 2.0;
-  a[2] = 3.0;
-  a[3] = 4.0;
-  a[4] = 5.0;
+  a[0] = 1;
+  a[1] = 2;
+  a[2] = 3;
+  a[3] = 4;
+  a[4] = 5;
   int i;
   for (i = 0; i < 5; ++i) {
     printf("Start: a[%d] = %d\n", i, a[i]);
@@ -1678,7 +1653,7 @@ int main() {
   int n;
   printf("Input(int): ");
   scanf("%d",&n);
-  if (n < 1) {
+  if (n < 0) {
     printf("Can't calculate n!.\n");
     printf("n = %d\n", n);
     exit(1);

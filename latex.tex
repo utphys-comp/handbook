@@ -19,7 +19,9 @@ f(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(a)}{n!}(x-a)^n
 \end{document}
 \end{verbatim}
 \end{reidai} \noindent
-と入力してみよう。このファイルを \texttt{ex.tex} という名前で保存する。このファイルを \LaTeX で処理するには、\texttt{platex}コマンド\footnote{日本語版\LaTeX 。英語のみを含む文書を処理する場合には、\texttt{latex}コマンドを使えばよい。}と\texttt{dvipdfmx}コマンドを実行する。
+と入力してみよう。
+このファイルを \texttt{ex.tex} という名前で保存する。
+このファイルを \LaTeX で処理するには、\texttt{platex}コマンド\footnote{日本語版\LaTeX 。英語のみを含む文書を処理する場合には、\texttt{latex}コマンドを使えばよい。}と\texttt{dvipdfmx}コマンドを実行する\footnote{Overleafで日本語の文書を作成する際に必要となる設定については、 https://utphys-comp.github.io/latex を参照のこと。}。
 \begin{commandline2}
 \prompt \underline{platex ex.tex}\\
 \prompt \underline{dvipdfmx ex.dvi}

@@ -170,7 +170,7 @@ int main() {
 \end{tabular}
 \end{center}
 \end{table} \noindent
-ただし、値の範囲は処理系に依存する。2019年現在、\verb+int+ は 32bit が主流となっている。
+ただし、値の範囲は処理系に依存する。\nendo 年現在、\verb+int+ は 32bit が主流となっている。
 
 \subsection {分割コンパイル}
 
@@ -754,6 +754,37 @@ int main() {
 \end{verbatim}
 \end{quote}
 \end{renshuu}
+
+\section{複素数}
+\label{sec:C:complex}
+量子力学などの数値計算では複素数を用いることも多い。
+Cにおいても複素数変数を扱うための型が用意されている。
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{ll}
+  \verb+double complex+ & 倍精度複素数型 \\
+  \verb+float complex+ & 単精度複素数型 \\
+\end{tabular}
+\end{center}
+\end{table} \noindent
+複素数型を使うためには、プログラムの冒頭で\texttt{complex.h}ヘッダファイルを読み込む必要がある。また、\texttt{csin}, \texttt{cexp}, \texttt{clog}などの複素初等関数も用意されている\footnote{単精度複素数の場合は、\texttt{csinf}, \texttt{cexpf}, \texttt{clogf}のように関数名の後に \texttt{f}を付ける。}。以下の例では、$\exp(i\pi)$の計算を行っている。
+\begin{reidai}\label{ex:complex}
+\begin{verbatim}
+#include <complex.h>
+#include <math.h>
+#include <stdio.h>
+int main() {
+  double complex x, y;
+  x = 0 + 1 * I; /* 虚数単位 */
+  y = cexp(x * M_PI);
+  printf("i = (%lf,%lf)\n", creal(x), cimag(x));
+  printf("e^{i*pi} = (%lf,%lf)\n", creal(y), cimag(y));
+  return 0;
+}
+\end{verbatim}
+\end{reidai} \noindent
+虚数単位は大文字の \texttt{I} と書く。あるいは、\texttt{CMPLX}関数\footnote{単精度複素数の場合、\texttt{CMPLXF}。}を使って、\texttt{x = CMPLX(0,1)} のように表すこともできる。複素数の実部、虚部を取り出すにはそれぞれ、\texttt{creal}, \texttt{cimag}を使う。
+絶対値、偏角、複素共役はそれぞれ、\texttt{cabs}, \texttt{carg}, \texttt{conj}である\footnote{単精度複素数の場合、それぞれ \texttt{crealf}, \texttt{cimagf}, \texttt{cabsf}, \texttt{cargf}, \texttt{confj}である。}。
 
 \section{関数}
 \label{sec:C:function}

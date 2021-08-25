@@ -6,7 +6,65 @@ UNIX系のOSの特徴としては、シンプル、柔軟かつオープンで�
 
 \section{UNIX のコマンド}
 
-この節での操作はすべて、ターミナル(「シェル」とも呼ぶ)内でコマンドを打ち込み、最後にリターンキーを押すことより実行する。下線を引いた部分がキーボードからの入力である。行頭の``\texttt {\promptn}''はプロンプトと呼ばれる。UNIXのシェルがユーザからのコマンド入力待ちの状態であることを示すものであり、コマンド入力時にタイプする必要はない。
+この節での操作はすべて、ターミナル(「シェル」とも呼ぶ)内でコマンドを打ち込み、最後にリターンキーを押すことより実行する。下線を引いた部分がキーボードからの入力である。行頭の``\texttt {\promptn}''はプロンプトと呼ばれる。
+一般にプロンプトは``\texttt{user@host:\~{}\$}''のようにユーザ名やホスト名、カレントディレクトリを表す長い文字列であることが多いが、
+本書では省略して単に``\texttt{\$}''と書く\footnote{プロンプトの表示形式は自分でカスタマイズすることもできる。}。
+プロンプトはUNIXのシェルがユーザからのコマンド入力待ちの状態であることを示すものであり、コマンド入力時にタイプする必要はない。
+
+\subsection{コマンドと引数}
+\label{sec:unix:command}
+
+入力されたコマンドを解釈し適切なプログラムを実行するのがシェルの役割である。
+まずは、\texttt{\underline{date}}と入力して最後にリターンキーを押してみよう。
+\texttt{date}という名前のプログラムが実行され、(期待通り)現在の日時が表示される。
+\begin{commandline2}
+\prompt \underline{date}
+\vspace*{-.8em} 
+\begin{verbatim}
+Tue 17 Aug 2021 05:14:47 PM JST
+\end{verbatim}
+\end{commandline2} \noindent
+コマンドには引数(ひきすう)を指定することもできる。
+\begin{commandline2}
+\prompt \underline{echo hello}
+\vspace*{-.8em} 
+\begin{verbatim}
+hello
+\end{verbatim}
+\vspace*{-.8em} 
+\prompt \underline{echo this is a pen}
+\vspace*{-.8em} 
+\begin{verbatim}
+this is a pen
+\end{verbatim}
+\end{commandline2} \noindent
+\texttt{echo}は受け取った文字列を順番に出力するだけのプログラムである。
+最初の\texttt{echo}がプログラム名、2番目以降が引数(パラメータ)としてプログラムに渡される。
+
+コマンド入力は半角スペース(空白)で分割されて解釈される。
+連続する2つ以上のスペースは1つのスペースと等価である。
+\begin{commandline2}
+\prompt \underline{echo this is a pen}
+\vspace*{-.8em} 
+\begin{verbatim}
+this is a pen
+\end{verbatim}
+\vspace*{-.8em} 
+\prompt \underline{echo this is a \ \ \ pen}
+\vspace*{-.8em} 
+\begin{verbatim}
+this is a pen
+\end{verbatim}
+\end{commandline2} \noindent
+この例ではどちらも\texttt{this}, \texttt{is}, \texttt{a}, \texttt{pen}の4つの文字列がプログラム\texttt{echo}に渡される。
+スペースも含めて渡したいときは二重引用符等で囲み、一つの長い文字列として渡す。
+\begin{commandline2}
+\prompt \underline{echo "white space \ \ \ matters"}
+\vspace*{-.8em} 
+\begin{verbatim}
+white space    matters
+\end{verbatim}
+\end{commandline2}
 
 \subsection{ファイルの操作}
 \label{sec:unix:fileManagement}
@@ -45,7 +103,9 @@ drwxr-xr-x  2 s001500 student      512 Apr 16 03:40 Desktop
 -rw-r--r--  1 s001500 student      372 Apr 16 03:43 circle.c
 \end{verbatim}
 \end{commandline2} \noindent
-のように、より詳細な情報\footnote{表示の1行目は、左端の {\tt d} が、そのファイルがディレクトリであることを示し、次の{\tt rwx}はファイルの所有者が読み取り可能({\tt r})、書き込み可能({\tt w})、実行可能({\tt x})であることを示している。(ディレクトリが読み取り可能であるとは、そのディレクトリにどのようなファイルが入っているかを{\bf ls}コマンドで調べられることをいい、ディレクトリが書き込み可能とは、そのディレクトリに新しくファイルやディレクトリを新しく作ったり、すでにあるファイルなどを消したりできることをいう。さらに、ディレクトリが実行可能であるとは、そのディレクトリ内部のファイルを操作できたり、そのディレクトリに移動するとか、そのディレクトリの名前をパスに含めることができることを意味する。) 次の{\tt r-x}は同じグループに所属する人が、読み取りと実行可能であることを示し、その次の{\tt r-x}はそのほかすべての人が読み取りと実行可能であることを示している。隣のカラムの{\tt s001500}は、そのファイルの所有者が{\tt s001500}であることを示し、次のカラムは所有グループを示している。次の{\tt 512}は、そのファイルの大きさが512 byteであることを示している。{\tt Apr 16 03:40}は、そのファイルに最後に変更を加えた日時を示す。そして最後がファイルの名前である。}を得ることができる。この{\tt -l}をオプション(あるいはコマンドラインオプション)と呼ぶ。{\tt ls}コマンドには他にも様々なオプションが用意されている。{\tt -F} オプションをつければ、ファイルの名前の後にファイルの種別を表す文字をつけてくれる。ディレクトリには {\tt /} が、実行可能ファイルには{\tt $ \ast$} がつく。{\tt -R} オプションをつければ、カレントディレクトリ以下のすべてのディレクトリの中身を見ることができる。また、{\tt -a} とすると、通常表示されない . (ピリオド)から始まるファイルも見ることができるようになる。
+のように、より詳細な情報\footnote{表示の1行目は、左端の {\tt d} が、そのファイルがディレクトリであることを示し、次の{\tt rwx}はファイルの所有者が読み取り可能({\tt r})、書き込み可能({\tt w})、実行可能({\tt x})であることを示している。(ディレクトリが読み取り可能であるとは、そのディレクトリにどのようなファイルが入っているかを{\bf ls}コマンドで調べられることをいい、ディレクトリが書き込み可能とは、そのディレクトリに新しくファイルやディレクトリを新しく作ったり、すでにあるファイルなどを消したりできることをいう。さらに、ディレクトリが実行可能であるとは、そのディレクトリ内部のファイルを操作できたり、そのディレクトリに移動するとか、そのディレクトリの名前をパスに含めることができることを意味する。) 次の{\tt r-x}は同じグループに所属する人が、読み取りと実行可能であることを示し、その次の{\tt r-x}はそのほかすべての人が読み取りと実行可能であることを示している。隣のカラムの{\tt s001500}は、そのファイルの所有者が{\tt s001500}であることを示し、次のカラムは所有グループを示している。次の{\tt 512}は、そのファイルの大きさが512 byteであることを示している。{\tt Apr 16 03:40}は、そのファイルに最後に変更を加えた日時を示す。そして最後がファイルの名前である。}を得ることができる。この{\tt -l}をオプション(あるいはコマンドラインオプション)と呼ぶ。
+オプションを指定することでプログラムの動作を変えることができる。
+{\tt ls}コマンドには他にも様々なオプションが用意されている。{\tt -F} オプションをつければ、ファイルの名前の後にファイルの種別を表す文字をつけてくれる。ディレクトリには {\tt /} が、実行可能ファイルには{\tt $ \ast$} がつく。{\tt -R} オプションをつければ、カレントディレクトリ以下のすべてのディレクトリの中身を見ることができる。また、{\tt -a} とすると、通常表示されない . (ピリオド)から始まるファイルも見ることができるようになる。
 
 次にファイルの名前を変えてみよう。先の{\tt circle.c}を{\tt ring.c}に名前を変更するには、{\tt mv}コマンド({\bf m}o{\bf v}eの略)を使う。
 \begin{commandline2}
@@ -120,7 +180,7 @@ drwxr-xr-x  2 s001500 student      512 Apr 16 03:40 Desktop
 \end{commandline2} \noindent
 と打つことにより、ちょうどよい所で一旦止めてくれる。\fbox{\tt --More--(xx\%)} のような表示が左下に見えたら、\spc を叩いてみよう。次のページが表示されるはずである。\underline{\tt h}と打つと簡単なヘルプが見られる。\underline{\tt b}か\ctrl{B}で1ページ戻る。また\ret で1行進む。さらに、\underline{\tt /}の後に\underline{\tt 文字列}を打つことでファイル中の文字列を検索することができる。検索された文字列を含む行はウインドウの一番上に表示される。\underline{\tt n}と打てばもう一度同じ文字列を探してくれる。また、\underline{\tt 10d}のように数字を入れてから\underline{\tt d}を打てば、その数字分だけ進む。{\tt more}から抜けるには、\underline{\tt q}を入力する。
 
-{\tt more}と似ているが、もう少し使い勝手のよい{\tt less}\label{sect:less}というコマンドもある。{\tt less}では上向きにスクロールすることができる。\underline{\tt j}で1行下に、\underline{\tt k}で1行上\footnote{UNIX標準エディター {\tt vi} のキー操作と同じ。}に進む。{\tt more}と同じく、スペースバー、\underline{\tt h}、\underline{\tt b}、\underline{\tt d}、\underline{\tt /}、\underline{\tt n}、\underline{\tt q}のようなコマンドも使える。更に \underline{\tt g}でファイルの先頭に、\underline{\tt G}でファイルの最後尾にジャンプすることができる\footnote{{\tt \underline{tail circle.c}}のようにすれば、ファイルの最後だけ見ることができる。また \underline{\tt tail -30}のように指定することで最後から30行目以降を見ることができる。}。
+{\tt more}と似ているが、もう少し使い勝手のよい{\tt less}\label{sect:less}というコマンドもある。{\tt less}では上向きにスクロールすることができる。\underline{\tt j}で1行下に、\underline{\tt k}で1行上\footnote{UNIX標準エディター {\tt vim} のキー操作と同じ。}に進む。{\tt more}と同じく、スペースバー、\underline{\tt h}、\underline{\tt b}、\underline{\tt d}、\underline{\tt /}、\underline{\tt n}、\underline{\tt q}のようなコマンドも使える。更に \underline{\tt g}でファイルの先頭に、\underline{\tt G}でファイルの最後尾にジャンプすることができる\footnote{{\tt \underline{tail circle.c}}のようにすれば、ファイルの最後だけ見ることができる。また \underline{\tt tail -30}のように指定することで最後から30行目以降を見ることができる。}。
 
 次に、たくさんあるファイルの中に特定の文字列が含まれているか調べてみよう。
 \begin{commandline2}
@@ -199,6 +259,11 @@ rmdir (2)               - Removes a directory file
 \end{commandline2} \noindent
 のように {\tt man}コマンドの後にセクション番号を書くことで指定することができる。
 
+また、多くのコマンドでは \texttt{-h} オプション、あるいは \texttt{--help} オプションを指定するとマニュアルが表示される。
+\begin{commandline2}
+\prompt \underline{less --help}
+\end{commandline2} \noindent
+
 \subsection{プロセスの管理とトラブル時の対策}
 \label{chap: recover}
 この節では、ここではトラブル時の対策を含んだプロセスの管理について説明する。多少面倒な話なので読み飛ばしておいても構わない。
@@ -275,11 +340,15 @@ UNIX の設計思想の一つに小さなツールを組み合わせるという
 \begin{commandline2}
 \prompt \underline{{\tt !{\it string}}}
 \end{commandline2} \noindent
-とすれば、{\it string}\footnote{{\it string}は例である。もちろんどのような文字列でも構わない。}から始まる一番最近のコマンドを実行してくれる。さらに \ctrl{r}に続けて過去に打ったコマンドを頭から入力していくと、コマンドヒストリの中から逐次候補が表示される(インクリメンタルサーチ)。大昔に打ったコマンドを捜し出すのに便利である\footnote{実際のところ、\underline{\tt !{\it string}}では、そのままコマンドが実行されてしまうので、\ctrl{r}の方が便利である。}。
+とすれば、{\it string}\footnote{{\it string}は例である。もちろんどのような文字列でも構わない。}から始まる一番最近のコマンドを実行してくれる。さらに \ctrl{r}に続けて過去に打ったコマンドを頭から入力していくと、コマンドヒストリの中から逐次候補が表示される(逆インクリメンタルサーチ)。大昔に打ったコマンドを捜し出すのに便利である\footnote{実際のところ、\underline{\tt !{\it string}}では、そのままコマンドが実行されてしまうので、\ctrl{r}の方が便利である。}。
 \begin{commandline2}
 \prompt \underline{history}
 \end{commandline2} \noindent
-と打つと、これまでのコマンド一覧が表示される。その数は標準では 500 になっている\footnote{初期設定ファイルの {\tt .bashrc} に{\tt export HISTSIZE=1000} と書いておくと  最大 1000 個までの過去のコマンド履歴が記録される。また、次にログインしたときにも前回ログインした時のヒストリが残されている。}。
+と打つと、これまでに実行したコマンドの一覧が番号付きで表示される。
+``\texttt{!}+番号''で履歴中のコマンドを再度実行することができる。
+\begin{commandline2}
+\prompt \underline{!128}
+\end{commandline2} \noindent
 
 次は、コマンドライン補完である。例えば
 \begin{commandline2}
@@ -324,10 +393,6 @@ emacs.doc   temp.out$\ast$
   \itemf{clear}
 
   ターミナル画面で、画面をクリアする。
-
-  \itemf{date}
-
-  現在の日付と時間を表示する。
 
   \itemf{cal}
 
@@ -471,7 +536,7 @@ SSH接続して作業していると、リモートとローカル、どちら�
 \prompt \underline{sftp {\it username}@remote.phys.s.u-tokyo.ac.jp} \\
 sftp>
 \end{commandline2} \noindent
-\verb|sftp>|は、{\tt sftp}を実行中であることを示すプロンプとである。ここで、{\tt put}コマンドを実行することで、ローカル計算機からリモート計算機へ、逆に、{\tt get}コマンドでリモートからローカルへファイルをコピーすることができる。{\tt ls}コマンドでリモート計算機のファイル一覧を表示、{\tt cd}コマンドでリモート計算機上のディレクトリ移動、{\tt mkdir}コマンドでリモート計算機上のディレクトリ作成が行える。{\tt lls}、{\tt lcd}、{\tt lmkdir}コマンドのように先頭に「{\tt l}」を付けると、リモート計算機上ではなく、ローカル計算機上で一覧表示、ディレクトリ移動、ディレクトリ作成が行われる。リモート計算機とローカル計算機で今どのディレクトリにいるかを知るには、それぞれ{\tt pwd}、{\tt lpwd}コマンドを使う。
+\verb|sftp>|は、{\tt sftp}を実行中であることを示すプロンプトである。ここで、{\tt put}コマンドを実行することで、ローカル計算機からリモート計算機へ、逆に、{\tt get}コマンドでリモートからローカルへファイルをコピーすることができる。{\tt ls}コマンドでリモート計算機のファイル一覧を表示、{\tt cd}コマンドでリモート計算機上のディレクトリ移動、{\tt mkdir}コマンドでリモート計算機上のディレクトリ作成が行える。{\tt lls}、{\tt lcd}、{\tt lmkdir}コマンドのように先頭に「{\tt l}」を付けると、リモート計算機上ではなく、ローカル計算機上で一覧表示、ディレクトリ移動、ディレクトリ作成が行われる。リモート計算機とローカル計算機で今どのディレクトリにいるかを知るには、それぞれ{\tt pwd}、{\tt lpwd}コマンドを使う。
 
 コピー作業終了後は、
 \begin{commandline2}
@@ -481,7 +546,7 @@ sftp> \underline{exit}
 
 \section{Emacs を使う}
 
-C言語のプログラムや \LaTeX のソースコードなど、テキスト形式のファイルの編集には、エディタと呼ばれるソフトを用いる。UNIXで代表的なものとしては、viやEmacsがある。本節では Emacs の使い方を紹介しよう。
+C言語のプログラムや \LaTeX のソースコードなど、テキスト形式のファイルの編集には、エディタと呼ばれるソフトを用いる。UNIXで代表的なものとしては、VimやEmacsがある。本節では Emacs の使い方を紹介しよう。
 
 まず、Emacs を立ち上げるには
 \begin{commandline2}
@@ -506,41 +571,43 @@ Emacs を使っていて何か困ったと思ったときは、まず \ctrl{g} (
 \begin{table}[tbp]
 \renewcommand{\baselinestretch}{0.8}
 \begin{footnotesize}
-\hspace*{-1.0cm}
 \begin{tabular}{lll}
+\hline    
 キー定義 & コマンド & 動作\\
 \hline
-\ctrl{x} \ctrl{f} & find-file &新たにバッファを作り、そのバッファに読み込むファイルの名前を尋ねて読み込む。\\
-\ctrl{x} \ovalbox{i} & insert-file & 現在のカーソルの位置に指定したファイルを挿入する。\\
-\ctrl{x} \ctrl{c} & save-buffers-kill-emacs &Emacs を終了する。保存されていないバッファは保存するかどうか尋ねてくる。\\
-\ctrl{x} \ctrl{s} & save-buffer &バッファの内容をファイルに書き出す。\\
-\ctrl{x} \ctrl{w} & write-file &バッファの内容を書き出すファイルの名前を尋ねてから書き出す。\\
-\ctrl{g} & keyboard-quit &コマンドの入力を中断する。\\
-\ctrl{v} & scroll-up &画面1枚分上にスクロールする。\\
-\esc{v}  & scroll-down &画面1枚分下にスクロールする。\\
-\ctrl{s} & isearch-forward &下向きに文字列を検索する。検索モードから抜けるには、\ovalbox{Esc} を打つ。\\
-\ctrl{r} & isearch-backward &上向きに文字列を検索する。検索モードから抜けるには、\ovalbox{Esc} を打つ。\\
-\esc{\%} & query-replace & 文字列の置換を行う。スペースで実行、``n''で不実行。\\
-& & ! で合致するすべてを置換する。\\
-\ctrl{k} & kill-line & 現在いる行のカーソルより後ろを削除する。\\
-\ctrl{スペース} & set-mark-command &マークを設定する。\\
-\ctrl{w} & kill-region &マークから現在のカーソルの位置までを削除する。\\
-\ctrl{y} & yank &カーソルの位置に削除した内容を戻す。\\
-\ctrl{x} \ovalbox{u}& advertised-undo &アンドゥ、直前の操作を取り消す。\\
-\esc{$<$} & beginning-of-buffer &文章の始めに飛ぶ。\\
-\esc{$>$} & end-of-buffer & 文章の終りに飛ぶ。\\
-\ctrl{x} \ovalbox{2} & split-window-vertically &ウインドウを二つに分割する。\\
-\ctrl{x} \ovalbox{1} & delete-other-windows &今カーソルのいるウインドウを残し、他のウインドウを消す。\\
-\ctrl{x} \ovalbox{o} & other-window & ウインドウが分割されているとき、違うウインドウに飛ぶ。\\
-\ctrl{x} \ovalbox{5}\ovalbox{2} & make-frame & 新たにフレームを作る。\\
-\ctrl{x} \ovalbox{5}\ovalbox{0} & delete-frame & 現在のフレームを消す。\\
-\ctrl{x} \ovalbox{b} & switch-to-buffer & 他のバッファにスウィッチする。\\
-\ctrl{x} \ctrl{b} & list-buffers &現在のバッファ一覧を出す。\\
-\ctrl{l} & recenter &ウインドウをリフレッシュし、カーソル行をウインドウ中央に移動する。\\
-\ctrl{$\backslash$} & toggle-egg-mode &かな変換モードを on/off する。\\
-\ctrl{x} \ovalbox{(} & start-kbd-macro &キーボードマクロの定義を開始する。\\
-\ctrl{x} \ovalbox{)} & end-kbd-macro &キーボードマクロの定義を終了する。\\
-\ctrl{x} \ovalbox{e} & call-last-kbd-macro &一番最近定義したキーボードマクロを実行する。\\
+\hline
+\ctrl{x} \ctrl{f} & find-file &新たにバッファを作り、そのバッファに読み込むファイルの名前を尋ねて読み込む\\
+\ctrl{x} \ovalbox{i} & insert-file & 現在のカーソルの位置に指定したファイルを挿入する\\
+\ctrl{x} \ctrl{c} & save-buffers-kill-emacs &Emacs を終了する。保存されていないバッファは保存するかどうか尋ねてくる\\
+\ctrl{x} \ctrl{s} & save-buffer &バッファの内容をファイルに書き出す\\
+\ctrl{x} \ctrl{w} & write-file &バッファの内容を書き出すファイルの名前を尋ねてから書き出す\\
+\ctrl{g} & keyboard-quit &コマンドの入力を中断する\\
+\ctrl{v} & scroll-up &画面1枚分上にスクロールする\\
+\esc{v}  & scroll-down &画面1枚分下にスクロールする\\
+\ctrl{s} & isearch-forward &下向きに文字列を検索する。検索モードから抜けるには、\ovalbox{Esc} を打つ\\
+\ctrl{r} & isearch-backward &上向きに文字列を検索する。検索モードから抜けるには、\ovalbox{Esc} を打つ\\
+\esc{\%} & query-replace & 文字列の置換を行う。スペースで実行、``n''で不実行\\
+& & ! で合致するすべてを置換する\\
+\ctrl{k} & kill-line & 現在いる行のカーソルより後ろを削除する\\
+\ctrl{スペース} & set-mark-command &マークを設定する\\
+\ctrl{w} & kill-region &マークから現在のカーソルの位置までを削除する\\
+\ctrl{y} & yank &カーソルの位置に削除した内容を戻す\\
+\ctrl{x} \ovalbox{u}& advertised-undo &アンドゥ、直前の操作を取り消す\\
+\esc{$<$} & beginning-of-buffer &文章の始めに飛ぶ\\
+\esc{$>$} & end-of-buffer & 文章の終りに飛ぶ\\
+\ctrl{x} \ovalbox{2} & split-window-vertically &ウインドウを二つに分割する\\
+\ctrl{x} \ovalbox{1} & delete-other-windows &今カーソルのいるウインドウを残し、他のウインドウを消す\\
+\ctrl{x} \ovalbox{o} & other-window & ウインドウが分割されているとき、違うウインドウに飛ぶ\\
+\ctrl{x} \ovalbox{5}\ovalbox{2} & make-frame & 新たにフレームを作る\\
+\ctrl{x} \ovalbox{5}\ovalbox{0} & delete-frame & 現在のフレームを消す\\
+\ctrl{x} \ovalbox{b} & switch-to-buffer & 他のバッファにスウィッチする\\
+\ctrl{x} \ctrl{b} & list-buffers &現在のバッファ一覧を出す\\
+\ctrl{l} & recenter &ウインドウをリフレッシュし、カーソル行をウインドウ中央に移動する\\
+\ctrl{$\backslash$} & toggle-egg-mode &かな変換モードを on/off する\\
+\ctrl{x} \ovalbox{(} & start-kbd-macro &キーボードマクロの定義を開始する\\
+\ctrl{x} \ovalbox{)} & end-kbd-macro &キーボードマクロの定義を終了する\\
+\ctrl{x} \ovalbox{e} & call-last-kbd-macro &一番最近定義したキーボードマクロを実行する\\
+\hline    
 \end{tabular}
 \end{footnotesize} \\
 \caption{Emacsの主なコマンド}
@@ -614,7 +681,7 @@ gnuplot> \underline{help {\it command}}
 \end{commandline2} \noindent
 でコマンドの説明が表示される。
 
-次に、データをプロットしてみよう。Emacsやviなどのエディタを使って、data.datという名前で、中身が
+次に、データをプロットしてみよう。EmacsやVimなどのエディタを使って、data.datという名前で、中身が
 \begin{quote}
  1.0 2.0 \\
  2.0 4.0 \\
@@ -640,7 +707,7 @@ gnuplot> \underline{pwd}\\
 
 \subsection{スクリプトファイルの読み込み、書き出し}
 
-Gnuplotは1行ずつコマンドを実行しプロットしていく対話型スタイルが基本であるが、複雑なプロットの場合には、実行したいコマンドをスクリプトファイルの形でにあらかじめ用意しておき、一括して読み込む方が便利である。例えば、Emacsやviなどのエディタを使って、plot.pltという名前で、中身が
+Gnuplotは1行ずつコマンドを実行しプロットしていく対話型スタイルが基本であるが、複雑なプロットの場合には、実行したいコマンドをスクリプトファイルの形でにあらかじめ用意しておき、一括して読み込む方が便利である。例えば、EmacsやVimなどのエディタを使って、plot.pltという名前で、中身が
 \begin{quote}
 plot 'data.dat'
 \end{quote}

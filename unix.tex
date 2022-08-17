@@ -165,7 +165,7 @@ drwxr-xr-x  2 s001500 student      512 Apr 16 03:40 Desktop
 
 これで、自由にディレクトリ間を移動することができるようになった。例えば、すでに使った\texttt{ls}コマンドは、\texttt{/usr/bin}あるいは\texttt{/bin}ディレクトリに格納されている\footnote{\underline{\texttt{which ls}}とすることで、\texttt{ls}がどこにあるか調べることができる。}。\underline{\texttt{cd /usr/bin}} として、そこに移動してから\underline{\texttt{ls}}と打ってみよう。たくさんのファイルが置かれているが、\texttt{ls} というファイルは見付かっただろうか\footnote{例えば、\texttt{treasure.here}という名前のファイルを探したい場合、そのファイルがありそうなディレクトリよりも上のディレクトリに行って、\underline{\texttt{find . -name treasure.here -print}}とする。\texttt{find}の直後の \texttt{.} (ピリオド)は「そのファイルがありそうなディレクトリより上のディレクトリのパス」を指定する。またファイル名があやふやな場合でも、\underline{\texttt{find . -name 'tre\(\ast\).here' -print}}のように\(\ast\)を任意の文字列として合致するファイルを表示してくれる。\texttt{find}はとても多機能である。例えば\underline{\texttt{find . -name 'tre\(\ast\).here' -exec cat \textbraceleft \textbraceright} \(\backslash\);}のように、探し出したファイルに対してコマンドを実行することもできる。\texttt{-exec} 以下の書式は コマンドの引数となるファイル名が \textbraceleft \textbraceright となるように書き、最後に \texttt{\(\backslash\);} を加えればよい。\texttt{-exec} の代わりに \texttt{-ok} を使えばコマンドを実行する前に一々聞いて来るので \texttt{rm}などを \texttt{find} で実行したいときには安心である。\underline{\texttt{find\ .\ -ctime -1 -print}}のように\texttt{-ctime}で最終変更期日が1日前以内のものだけ表示させるようなことも可能である。\texttt{-ctime}の引数を\texttt{+1} にすると最終変更期日が1日以上前のものだけが表示される。}。
 
-なお、\underline{\texttt{cd}}とだけ打てば、いつでも自分のホームディレクトリに戻ってくることができる。ホームディレクトリは \(\tilde{\ }\) とも表されるので \underline{\texttt{cd \(\tilde{\ }\)}}としても同じである。他にも特殊な記法として``前のカレントディレクトリ''を表す\texttt{ - }が使用できる。
+なお、\underline{\texttt{cd}}とだけ打てば、いつでも自分のホームディレクトリに戻ってくることができる。ホームディレクトリは \(\tilde{\ }\) (チルダ)とも表されるので \underline{\texttt{cd \(\tilde{\ }\)}}としても同じである。他にも特殊な記法として``前のカレントディレクトリ''を表す \texttt{-} (ハイフン)が使用できる。
 
 \subsubsection*{ファイルの中を見る}
 
@@ -478,6 +478,7 @@ SSHでは現在、2種類の認証方式が使われている。ユーザ名と�
 
 作成された鍵のうち、公開鍵(\texttt{id\_rsa.pub})をログイン先の計算機に登録する。公開鍵の登録は、リモート計算機の管理者の指示にしたがって行う。繰り返しになるが、秘密鍵(\texttt{id\_rsa})は絶対に人に知られてはならない。公開鍵の代わりに間違えて秘密鍵を送ってしまわないよう注意が必要である。
 
+\texttt{ssh-keygen}をオプションの指定なしで複数回実行してしまうと、既存の鍵が置き換えられてしまい公開鍵の登録からすべてやり直しになるので十分注意すること。
 \subsection{リモートログイン}
 
 リモート計算機へSSH接続するには、\texttt{ssh} コマンドを利用する\footnote{同様の機能を持つものに\texttt{telnet}、\texttt{rlogin}というコマンドがあるが、通信内容が平文でネットワーク上を流れるなど、セキュリティー上の問題があるので、今日では使われない。}。例えば、ホスト名が remote.phys.s.u-tokyo.ac.jp という計算機にSSHログインしたい場合、

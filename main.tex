@@ -1,6 +1,9 @@
-\documentclass[a4j]{jsbook}
+\RequirePackage{plautopatch}
 
-\usepackage[dvipdfmx]{graphicx}
+% \documentclass[a4j,uplatex,dvipdfmx]{jsbook}
+\documentclass[a4j,dvipdfmx]{jsbook}
+
+\usepackage{graphicx}
 \usepackage[top=20truemm,bottom=20truemm,left=30truemm,right=20truemm]{geometry}
 \usepackage{amsmath, amssymb}
 \usepackage{fancybox}
@@ -8,21 +11,24 @@
 \usepackage{eclbkbox}
 \usepackage{tcolorbox}
 \usepackage{hyperref}
+\usepackage{pxjahyper}
+\usepackage{url}
+\usepackage[T1]{fontenc}
 
-\newcommand{\nendo}{2021}
-\newcommand{\hann}{2021年度(第2版)}
+\newcommand{\nendo}{2022}
+\newcommand{\hann}{2022年度}
 
 \newcommand{\til}{\char`\~}
 \newcommand{\promptn}{\$}
 \newcommand{\prompt}{\$ }
-\newcommand{\pager}{{\bf less}}
+\newcommand{\pager}{\textbf{less}}
 \newcommand{\ctrl}[1]{\ovalbox{\mathstrut ctrl}-\ovalbox{\mathstrut #1}}
 \newcommand{\esc}[1]{\leavevmode\ovalbox{\mathstrut Esc}-\ovalbox{\mathstrut #1}}
 \newcommand{\ret}{\ovalbox{\mathstrut Enter}}
 \newcommand{\spc}{\leavevmode\ovalbox{\mathstrut スペース}}
 \newcommand{\BS}{\ovalbox{\mathstrut Backspace}\ あるいは \ovalbox{\mathstrut Delete}キー}
 \newcommand{\cursor}{\vrule height8pt depth3pt width4pt\relax}
-\newcommand{\itemf}[1]{\item {\bf #1}}
+\newcommand{\itemf}[1]{\item \textbf{#1}}
 
 \newsavebox{\fminibox}
 \newenvironment{myframe}[2][\textwidth]%
@@ -97,8 +103,8 @@
   \end{myframe2}%
 }
 
-\newcommand{\esckey}{{\tt \ovalbox{Esc}}}
-\newcommand{\tabkey}{{\tt \ovalbox{Tab}}}
+\newcommand{\esckey}{\texttt{\ovalbox{Esc}}}
+\newcommand{\tabkey}{\texttt{\ovalbox{Tab}}}
 \newcommand{\typecom}[2][\ret]{\begin{quote}{\tt\prompt \underline{#2} }#1\end{quote}}
 \newcommand{\typeans}[1]{\begin{quote}\tt#1 \end{quote}}
 
@@ -120,14 +126,14 @@
 \thispagestyle{empty}
 \pagestyle{empty}
 \begin{titlepage}
-\vspace*{5cm}
-\begin{center}
-{\Huge\bf 計算機実験ハンドブック}\\
-\vspace*{14cm}
-{\LARGE\bf \hann}\\
-\vspace{1.0cm}
-{\LARGE\bf 東京大学理学部物理学科}
-\end{center}
+    \vspace*{5cm}
+    \begin{center}
+        \textbf{\Huge 計算機実験ハンドブック}\\
+        \vspace*{14cm}
+        \textbf{\LARGE \hann}\\
+        \vspace{1.0cm}
+        \textbf{\LARGE 東京大学理学部物理学科}
+    \end{center}
 \end{titlepage}
 \clearpage
 \pagestyle{empty}

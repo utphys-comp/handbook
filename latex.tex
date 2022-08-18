@@ -850,7 +850,7 @@ J_{\mu}^{NC}(\nu) =
 \end{reidai} \noindent
 以後断りなく\texttt{graphicx}の機能を使うので注意すること。
 
-\texttt{graphicx}以外にもよく使われるパッケージとして、様々な機能を追加し実質的に公式機能と見なされている\texttt{amsmath}・後に出てくる\texttt{here}・物理でよく使う表現を簡単に入力できる\texttt{physics}・ハイパーリンク機能を提供する\texttt{hyperref}などがある。これらのパッケージは\texttt{texlive-full}をインストールすれば特に何も設定をせずとも使えるはずだ。
+\texttt{graphicx}以外にもよく使われるパッケージとして、様々な機能を追加し実質的に公式機能と見なされている\texttt{amsmath}、後に出てくる\texttt{here}、物理でよく使う表現を簡単に入力できる\texttt{physics}、ハイパーリンク機能を提供する\texttt{hyperref}などがある。これらのパッケージは\texttt{texlive-full}をインストールすれば特に何も設定をせずとも使えるはずだ。
 
 \subsection{PDFファイルの貼り込み}
 \label{sec:latex:include_pdf}
@@ -956,7 +956,7 @@ J_{\mu}^{NC}(\nu) =
 
 さて、 \textbf{例題 \ref{reidai:latex:noref}} の式の前に別の式を挿入することになったとする。すると、式の番号はすべて 1 つずつ繰り下がるので、文章中で「式(1)」と書いているところをすべて「式(2)」に書き直さなければならない。このような番号の付け替えを手で行うのはとても大変であるし、間違いが起こりやすい。
 
-こういった手間を省くために、 \LaTeX には数式や表・図に名前を
+こういった手間を省くために、 \LaTeX には数式や表、図に名前を
 割り当てる機能が用意されている。
 \begin{reidai}
     \label{reidai:latex:ref}
@@ -973,7 +973,7 @@ J_{\mu}^{NC}(\nu) =
 \textbf{例題 \ref{reidai:latex:ref}} は\textbf{例題 \ref{reidai:latex:noref}} と
 同じ清書結果を与える。
 
-数学環境中で \verb|\label| を使うとその数式に名前が付けられる。付ける名前は \verb|\label| の後の \verb|\{\}| の中に記述する。\textbf{例題 \ref{reidai:latex:ref}} では \texttt{cherenkov} という名前が付けられている。
+数学環境中で \verb|\label| を使うとその数式に名前が付けられる。付ける名前は \verb|\label| の後の \verb|{}| の中に記述する。\textbf{例題 \ref{reidai:latex:ref}} では \texttt{cherenkov} という名前が付けられている。
 
 さて、名前の付けられた数式をその名前で参照すると、その箇所が数式の番号に展開される。参照は \verb|\ref| コマンドを使う。\textbf{例題 \ref{reidai:latex:ref}} では \verb|\ref{cherenkov}| として参照している。\verb|\label{cherenkov}| によって名前付けした数式の番号は 1 だったので、 \verb|\ref{cherenkov}| の参照によってこれが 1 に展開されることになる。
 
@@ -1101,7 +1101,7 @@ J_{\mu}^{NC}(\nu) =
 
 \LaTeX を何回コンパイルする必要があるかは状況によって異なるので、自分の手で管理するのでは手間がかかって仕方がない。この問題を解決する\texttt{latexmk}というツールを紹介する。
 
-\texttt{latexmk}が動作するためには\texttt{.latexmkrc}というファイルが適切な場所に配置されている必要がある。グローバルに設定を行う方法もあるが、今回は別の方法を紹介する。
+\texttt{latexmk}が動作するためには\texttt{.latexmkrc}という名前の設定ファイルが適切な場所に配置されている必要がある\footnote{設定ファイルの名前は、\texttt{latexmkrc} (先頭に \texttt{.} (ピリオド)なし)でもよい。}。グローバルに設定を行う方法もあるが、今回は別の方法を紹介する。
 
 以下の2ファイルをそれぞれ\texttt{example.tex}と\texttt{.latexmkrc}という名前で同じディレクトリに保存しよう。
 

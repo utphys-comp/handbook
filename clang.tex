@@ -406,7 +406,7 @@ for (A; B; C) {
 \clangpara{新しく出てきた概念について}
 \begin{description}
     \item[\texttt{++}]\mbox{}\\
-          \texttt{++i} は \texttt{i = i + 1} と同じ意味を持っている。この \texttt{++} をインクリメント演算子という。同様に、\texttt{i = i - 1} と同じ意味を持つものとして \texttt{--i} がある。これをデクリメント演算子という。この他にも、\texttt{i++} と \texttt{i--} という書き方もある。これらの違いは、インクリメントされたりデクリメントされたりするタイミングが異なることにある。もし、
+          \texttt{++i} は \texttt{i = i + 1} と同じ意味を持っている。この \texttt{++} をインクリメント演算子という。同様に、\texttt{i = i - 1} と同じ意味を持つものとして \texttt{{-}{-}i} がある。これをデクリメント演算子という。この他にも、\texttt{i++} と \texttt{i{-}{-}} という書き方もある。これらの違いは、インクリメントされたりデクリメントされたりするタイミングが異なることにある。もし、
           \begin{quote}
               \begin{verbatim}
 int i = 10;
@@ -421,9 +421,9 @@ int j = ++i;
 \end{verbatim}
           \end{quote}
           ならば、\texttt{j} の値は10ではなく11となる。(\texttt{i}を1増やしてから\texttt{j}に代入する。)
-          特別な理由がない限り、\texttt{++i} と \texttt{--i} を使うのがよい\footnote{\texttt{i++}は一度もとの\texttt{i}の値を別の場所に保存しておく必要があるので少しだけ計算量が多い。}。
+          特別な理由がない限り、\texttt{++i} と \texttt{{-}{-}i} を使うのがよい\footnote{\texttt{i++}は一度もとの\texttt{i}の値を別の場所に保存しておく必要があるので少しだけ計算量が多い。}。
     \item[複合代入]\mbox{}\\
-          今回使用した\texttt{a += b}は\texttt{a = a + b}と同じ意味の式である。\texttt{+=}を使ったほうが短く書ける上、場合によっては前者のほうが高速になる場合もある\footnote{前者は\texttt{a}を直接置き換えて良いからである。Cでは残念ながら大きな影響はない。}ので、可能な限りこちらを使うほうがよい。
+          今回使用した\texttt{a += b}は\texttt{a = a + b}と同じ意味の式である。\texttt{+=}を使ったほうが短く書ける上、場合によっては前者のほうが高速になる場合もある\footnote{前者は\texttt{a}を直接置き換えてよいからである。Cでは残念ながら大きな影響はない。}ので、可能な限りこちらを使うほうがよい。
 
           全く同様の記法が加減乗除と剰余全てについて使用できる。
 \end{description}
@@ -996,7 +996,7 @@ int main(void)
 }
 \end{verbatim}
 \end{reidai} \noindent
-ポインタを使う理由がはっきりと分からない場合は、例\ref{ex:function-non-pointer}を作って実行してみてほしい。間違った答えが表示されるだろう。なぜなら、この場合 \texttt{division} という関数では、\texttt{quotient}と\texttt{residual}という二つの一時変数が生成され、それらに計算結果が代入された直後に破棄されるからである。一時変数は関数の処理が終了すると同時に破棄され、値は \texttt{main} の中の \texttt{shou} と \texttt{amari} には引き継がれない\footnote{ブロック中での変数定義の挙動を思い出そう。}。このため、関数に外部から値を渡すだけであれば、例\ref{ex:function-non-pointer}のような引数の宣言方法で良い(「値渡し」とよぶ)が、内での計算結果を関数の外で使いたい場合は、ポインタを使って変数のアドレスを渡す(「ポインタ渡し」とよぶ)必要がある。
+ポインタを使う理由がはっきりと分からない場合は、例\ref{ex:function-non-pointer}を作って実行してみてほしい。間違った答えが表示されるだろう。なぜなら、この場合 \texttt{division} という関数では、\texttt{quotient}と\texttt{residual}という二つの一時変数が生成され、それらに計算結果が代入された直後に破棄されるからである。一時変数は関数の処理が終了すると同時に破棄され、値は \texttt{main} の中の \texttt{shou} と \texttt{amari} には引き継がれない\footnote{ブロック中での変数定義の挙動を思い出そう。}。このため、関数に外部から値を渡すだけであれば、例\ref{ex:function-non-pointer}のような引数の宣言方法でよい(「値渡し」とよぶ)が、内での計算結果を関数の外で使いたい場合は、ポインタを使って変数のアドレスを渡す(「ポインタ渡し」とよぶ)必要がある。
 \begin{reidai}\label{ex:function-non-pointer}
     \begin{verbatim}
 #include <stdio.h>
@@ -1528,7 +1528,7 @@ int main(int argc, char* argv[])
 \begin{verbatim}
      free(array);
 \end{verbatim}
-と1行書けば良い\footnote{\texttt{free}を同じ対象に対して複数回呼んではならない。}。例\ref{ex:malloc}を若干変更し、\texttt{free}が重要となる例を考えよう。なお、今回は\texttt{assert.h}を用いて簡易的な\texttt{argc}のチェック機構をつけてある。(\texttt{argc == 2}が満たされないとエラーメッセージを表示したのち異常終了する。)
+と1行書けばよい\footnote{\texttt{free}を同じ対象に対して複数回呼んではならない。}。例\ref{ex:malloc}を若干変更し、\texttt{free}が重要となる例を考えよう。なお、今回は\texttt{assert.h}を用いて簡易的な\texttt{argc}のチェック機構をつけてある。(\texttt{argc == 2}が満たされないとエラーメッセージを表示したのち異常終了する。)
 \texttt{assert}機能はデバッグの際極めて重宝するので、覚えておくとよい\footnote{もちろんチェックにはそれなりの計算コストがかかるが、\texttt{-DNDEBUG}をつけてコンパイルするとまとめて除去できるので安心してたくさん使ってほしい。}。
 \begin{reidai}\label{ex:malloc-free}
     \begin{verbatim}
@@ -1765,7 +1765,7 @@ int main(void)
 ソースコードを見直す。(例えば1次元配列\texttt{a[N]}に対して参照可能な領域は\texttt{a[0], a[1]..., a[N-1]}だけである。)
 
 \subsection*{ダングリングポインタの参照}
-代入を行っていないポインタ・\texttt{NULL}ポインタ・すでに解放済みの動的配列にアクセスするとクラッシュすることがある。\texttt{fopen}や\texttt{malloc}でよく発生する。
+代入を行っていないポインタや\texttt{NULL}ポインタ、すでに解放済みの動的配列にアクセスするとクラッシュすることがある。\texttt{fopen}や\texttt{malloc}でよく発生する。
 
 \clangpara{対処法}
 ポインタにアクセスする前に、そのポインタがきちんと有効な対象を指しているかを確認する。\texttt{NULL}チェックを行う。
@@ -1775,7 +1775,7 @@ int main(void)
 
 \subsection{外部ヘッダの利用}
 既に何度か出てきているが、\texttt{.h}で終わるファイルをヘッダという。
-ヘッダの役割の一つとして関数の宣言・定義\footnote{定義を書く場合にはやや特殊な工夫が必要になるので、自作する場合には気をつけよ。}を書くというものがある。
+ヘッダの役割の一つとして関数の宣言や定義\footnote{定義を書く場合にはやや特殊な工夫が必要になるので、自作する場合には気をつけよ。}を書くというものがある。
 今回は先程出てきた\hyperlink{cmatrix}{\texttt{cmatrix.h}}を例として、外部ヘッダに書かれた関数の使用方法を説明する。
 
 \url{https://github.com/utphys-comp/cmatrix/}から\texttt{cmatrix.h}をダウンロードしてきて、以下の例\ref{ex:ext_header}と\textbf{同じディレクトリ}に配置しよう。

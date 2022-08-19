@@ -425,7 +425,7 @@ archive/    TeX/
           \begin{commandline2}
               \prompt \underline{gunzip \textit{origin}.gz}
           \end{commandline2} \noindent
-          のように実行する\footnote{\texttt{tar} + \texttt{gzip} ファイル(ファイル名の末尾が\texttt{.tar.gz}になっているか、\texttt{.tgz} になっている場合が多い)を解凍・展開するときには、\texttt{\underline{gzip -cd archive.tar.gz \(|\) tar xvf -}}のようにパイプをうまく使うと、中間ファイルの \texttt{archive.tar} を生成せずにいきなりディレクトリに展開してくれる。また、\underline{\texttt{tar zxvf archive.tar.gz}}でも同じ結果となる。逆に、\underline{\texttt{tar zcvf archive.tar.gz .}}で、圧縮されたアーカイブを直接作成することができる。}。しばしば\texttt{tar}と組み合わせて使われる。
+          のように実行する\footnote{\texttt{tar} + \texttt{gzip} ファイル(ファイル名の末尾が\texttt{.tar.gz}になっているか、\texttt{.tgz} になっている場合が多い)を解凍・展開するときには、\texttt{\underline{gzip -cd archive.tar.gz \(|\) tar xvf -}}のようにパイプをうまく使うと、中間ファイルの \texttt{archive.tar} を生成せずにいきなりディレクトリに展開してくれる。また、\underline{\texttt{tar zxvf archive.tar.gz}}でも同じ結果となる。逆に、\underline{\texttt{tar zcvf ../archive.tar.gz .}}で、圧縮されたアーカイブを直接作成することができる。}。しばしば\texttt{tar}と組み合わせて使われる。
 
     \itemf{ln}
 
@@ -515,17 +515,13 @@ SSH接続して作業していると、リモートとローカル、どちら�
 セキュリティの関係上、複数回のSSHを繰り返すことでしかログインできないこともある。この場合、途中経由する踏み台のリモートに対してローカルにある公開鍵を転送する必要がある。
 
 例として2段SSHの場合を示すと、
-
 \begin{commandline2}
     \prompt \underline{ssh -X -A \textit{username1}@remote1.phys.s.u-tokyo.ac.jp}
 \end{commandline2} \noindent
-
 のようにして\texttt{ -A }をつけて1段目のSSHを行い、更にそこから
-
 \begin{commandline2}
     \prompt \underline{ssh -X \textit{username2}@remote2.phys.s.u-tokyo.ac.jp}
 \end{commandline2} \noindent
-
 のようにして2段目のSSHを行えばよい。最終段では\texttt{ -A }がなくても構わない。
 
 \subsection{ファイルの転送}
@@ -769,7 +765,7 @@ Gnuplotは1行ずつコマンドを実行しプロットしていく対話型ス
 
 一方、データファイル内のデータをプロットするには、引用符内にデータファイル名を指定する。
 \begin{commandline2}
-    gnuplot> plot '\textit{filename}'
+    gnuplot> \underline{plot '\textit{filename}'}
 \end{commandline2} \noindent
 \texttt{plot}コマンドには様々なオプションが指定できる。以下、代表的なものを挙げる。
 \begin{itemize}

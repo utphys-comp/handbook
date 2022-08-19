@@ -16,10 +16,11 @@ FortranやCくらいしかなかった時代と違い、最近では様々な(�
 \clangpara{機能が必要最低限で把握しやすい}
 Cの言語機能は非常に限定的であり(もちろんそれに起因する苦労もあるのだが)全体を比較的簡単に眺めることができる。エラーログも簡素で読みやすい。
 
-\clangpara{素直に実装できる}
-低速な高級言語\footnote{Pythonなど。}では少々無理矢理にでもうまく計算が重い部分を外部ライブラリ(多くの場合Cで書かれている)に押し付ける工夫が必要になるし、高速な高級言語\footnote{Juliaなど。}であってもバックエンドとして走るコンパイラにとって分かりやすい書き方をしなければ急速にパフォーマンスが落ちる。つまり、高効率なプログラムを書きたいときには``ただ考えた内容をそのままプログラムにする''だけではうまく行かないのである。
+\clangpara{様々な環境で利用できる}
+PCだけではなく、ワークステーションやスーパーコンピュータ上でも利用可能である。環境依存性も少なく安心して利用できる。また、実験装置・解析装置でも使われるFPGAや組み込みコンピュータ環境においても利用できる。メモリの管理についてもユーザからよく見えるので、メモリ量が限られた環境での利用にも適している。
 
-対照的に、Cは基本的にあらゆる操作が充分高速であるのでこういった特殊な気遣いをする必要はあまりない。ただやりたいことをそのままプログラムに焼き直せば大抵の場合うまくいく。
+\clangpara{素直に実装できる}
+低速な高級言語\footnote{Pythonなど。}では少々無理矢理にでもうまく計算が重い部分を外部ライブラリ(多くの場合Cで書かれている)に押し付ける工夫が必要になる。また、高速な高級言語\footnote{Juliaなど。}であってもバックエンドとして走るコンパイラにとって分かりやすい書き方をしなければ急速にパフォーマンスが落ちる。つまり、高効率なプログラムを書きたいときには``ただ考えた内容をそのままプログラムにする''だけではうまく行かないのである。対照的に、Cは基本的にあらゆる操作が充分高速であるのでこういった特殊な気遣いをする必要はあまりない。ただやりたいことをそのままプログラムに焼き直せば大抵の場合うまくいく。
 
 \subsection{まずはコンパイル}
 
@@ -83,18 +84,19 @@ Cのプログラムの最小単位は関数である。``Cのプログラムは�
           \end{itemize}
           という制約がある。
     \item[引数]\mbox{}\\
-          関数には引数(パラメタ)を渡すことができるが、その型は予め指定しておかねばならない。(具体的な例については\ref{sec:C:function}節参照)
+          関数には引数(パラメタ)を渡すことができるが、その型はあらかじめ指定しておかねばならない(具体的な例については\ref{sec:C:function}節参照)。
           渡さない場合には\texttt{void}と書く。
     \item[型]\mbox{}\\
-          関数は何かを処理して最後に値を返す(関数値)もののことである。C言語の関数は予め決められた型の値しか返すことができない。
+          関数は何かを処理して最後に値を返す(関数値)もののことである。C言語の関数はあらかじめ決められた型の値しか返すことができない。
     \item[処理]\mbox{}\\
           この中で、1) 関数が行う処理内容を書き、2) 最後に関数値を返す。
           関数値を返すには
           \begin{quote}
-              \begin{verbatim}return 関数値;
-            \end{verbatim}
+\begin{verbatim}
+return 関数値;
+\end{verbatim}
           \end{quote}
-          と書く。最終的にどれかに到達することさえ確約できていれば\texttt{return}が複数個あっても構わない。
+          と書く。最終的にどれかに到達することさえ保証さていれば\texttt{return}が複数個あっても構わない。
 \end{description}
 プログラム中に関数は複数作ることができるが、必ず\texttt{main}という\texttt{int}を返す関数が必要である。この事情については後ほど説明することとして、ひとまずCにおける関数の例を示す。
 \begin{reidai}\label{ex:hinagata1}
@@ -125,13 +127,15 @@ C言語において必ず必要になる\texttt{main}は``そのプログラム�
 \clangpara{自由書式 (free format)}
 C言語では基本的に書式に制限がない(自由書式)。
 文の終わりは、記号 \texttt{;} で判別する。
+一つの行に二つの文を書くこともできるし、
 \begin{quote}
-    一つの行に二つの文を書くこともできるし、
-    \begin{verbatim}
+\begin{verbatim}
 aaaaa; bbbbbbb;
 \end{verbatim}
-    一つの文を二つの行にわけて書くのでも問題ない。
-    \begin{verbatim}
+\end{quote}
+一つの文を二つの行にわけて書いても問題ない。
+\begin{quote}
+\begin{verbatim}
 aaaaaaaa
 aaaaaaa;
 \end{verbatim}
@@ -171,7 +175,7 @@ Cの文は、意味上のレベル(入れ子構造の階層)を持つ。意味�
     \begin{verbatim}
 int main(void)
 {
-    /* これもコメント。
+    /* これはコメント。
     複数行にわたっても OK。 */
     return 0;
 }
@@ -196,7 +200,7 @@ int main(void)
 }
 \end{verbatim}
 \end{reidai} \noindent
-例\ref{ex:compile1}のプログラムを Emacs などで作成し、\ref{ex:compile1}cという名前で保存する。ここで、\texttt{printf} は、文字を出力する標準ライブラリ関数である。(詳細については後ほど説明する。)この例は``Hello, C!''を出力するもので、\texttt{\textbackslash n}は改行を表す特殊文字である。
+例\ref{ex:compile1}のプログラムを Emacs などで作成し、\ref{ex:compile1}cという名前で保存する。ここで、\texttt{printf} は、文字を出力する標準ライブラリ関数である(詳細については後ほど説明する)。この例は``Hello, C!''を出力するもので、\texttt{\textbackslash n}は改行を表す特殊文字である。
 
 それでは、保存したプログラムを、\texttt{gcc} を用いてコンパイルし、実行してみよう。
 \begin{commandline2}
@@ -218,7 +222,7 @@ int main(void)
 
 \clangpara{新しく出てきた概念について}
 \begin{description}
-    \item[\texttt{\#include <file>}]\mbox{}\\ \texttt{file}の中身をこの場所に展開する。ファイルを探索しに行く場所は予め決められており、そこに同名のファイルがなければエラーとなる。
+    \item[\texttt{\#include <file>}]\mbox{}\\ \texttt{file}の中身をこの場所に展開する。ファイルを探索しに行く場所はあらかじめ決められており、そこに同名のファイルがなければエラーとなる。
     \item[\texttt{stdio.h}]\mbox{}\\ 標準ライブラリ関数\texttt{printf}関数を使う際に必要なファイル。
           システムの奥深くにある特別な場所に配置されており、特になんの対策も講じることなく使用できる。
 \end{description}
@@ -245,13 +249,11 @@ int main(void)
     \prompt \underline{gcc \ref{ex:compile2}c -lm -Wall -Wextra}
 \end{commandline2} \noindent
 \texttt{-lm}という部分は、\texttt{m} (libm のうち lib を削除した残り)を \texttt{-l} というオプション引数を使って \texttt{gcc} に渡す構文である。例えば、libsocket を使いたい場合は、\texttt{-lsocket} と指定する。\texttt{math.h} の中には sin や cos だけでなく、例\ref{ex:compile2}で使われている \(\pi\) (=3.1415...)も \texttt{M\_PI}として定義されている。
-この機能はCの標準機能ではないため、\texttt{gcc}以外のコンパイラを使用/\texttt{gcc}にオプションをつけて使用すると動作しないことがあるので注意せよ。
+定数\texttt{M\_PI}はCの標準機能ではないため、\texttt{gcc}以外のコンパイラを使用したり、\texttt{gcc}にオプションをつけて使用するとエラーとなることがあるので注意せよ。
 
 \clangpara{ライブラリについて}
 ライブラリとは、大雑把に言うと``既にコンパイルがほぼ済んだ状態で準備された関数''を呼び出すために必要なファイルである。
-今回使用したlibmは数学関数をまとめて定義したもので、\texttt{math.h}とはまた別の特別な場所に格納されており特になんの設定もなしに呼び出すことができる。
-
-コンパイルが既に終わっているため、\texttt{\#include}によって呼び出すことが原理的にできないことに注意せよ。わざわざコンパイラにオプションを渡す必要があるのはこのためである。
+今回使用したlibmは数学関数をまとめて定義したもので、\texttt{math.h}とはまた別の特別な場所に格納されており、\texttt{-l} オプションでリンクするだけで呼び出すことができるようになる。
 
 \clangpara{新しく出てきた概念について}
 \begin{description}
@@ -269,7 +271,7 @@ int main(void)
                   剰余 & \texttt{\%}
               \end{tabular}
           \end{table} \noindent
-          整数を整数で割るとあまりを切り捨てる整数の割り算になることと、冪乗演算子は存在しないことに注意せよ。
+          整数を整数で割るとあまりを切り捨てる整数の割り算になることと\footnote{例えば、\texttt{3.0/2}は\text{1.5}となるが、\texttt{3/2}は\texttt{1}になる。}、冪乗演算子は存在しないことに注意せよ。
     \item[変数定義] \mbox{}\\
           \texttt{const double angle = 60.0 * M\_PI / 180.0;}の部分で\texttt{angle}という変数を定義して代入している。今回は先頭に\texttt{const}をつけたのでこれ以降この変数を変更することはできない\footnote{変更する予定のない変数には積極的に\texttt{const}をつけるようにしよう。これだけでかなりデバッグがしやすくなる。}。
 \end{description}
@@ -298,9 +300,9 @@ printf("フォーマット", 変数1, 変数2,......)
 
 \section{制御文}
 \subsection{Cにおける論理値}
-古い規格のCには真(\texttt{true})と偽(\texttt{false})の2値しかとらない論理型(いわゆる\texttt{bool})がない\footnote{新しい規格では一応存在することになっているが、言語機能として備わっているとは言い難い。}。そこで真の代わりに\(\neq 0\)(典型的に\(1\)を用いるが、それ以外でも構わない)、偽の代わりに\(0\)を用いる。
+古い規格のCには真(\texttt{true})と偽(\texttt{false})の2値しかとらない論理型(いわゆる\texttt{bool})がない\footnote{新しい規格では一応存在することになっているが、言語機能として備わっているとは言い難い。}。そこで真の代わりに\(\neq 0\) (典型的に\(1\)を用いるが、それ以外でも構わない)、偽の代わりに\(0\)を用いる。
 
-以下の比較・関係・演算子が使用できる。
+以下の比較演算子・関係演算子が使用できる。
 \begin{table}[H]
     \centering
     \begin{tabular}{ll}
@@ -325,8 +327,8 @@ printf("フォーマット", 変数1, 変数2,......)
 \end{table}
 
 \subsection{ブロックについて}
-\texttt{\{\}}で囲われた部分をブロックという\footnote{既に関数定義の書式として出てきた。}。新しい規格のC言語では変数の宣言をあらゆる場所に書くことができ、この中で定義した変数はこの中でしか使えないが、逆に外にある変数をブロックの中で参照したり、変更することはできる。
-この性質をうまく用いることで、プログラム中のごく限られた領域でしか使用しないはずの変数を誤って他の場所で使ってしまう厄介なバグをかなり抑制することができる。
+\texttt{\{\}}で囲われた部分をブロックという\footnote{既に関数定義の書式として出てきた。}。新しい規格のC言語では変数の宣言をあらゆる場所に書くことができる。あるブロックの中で定義された変数はそのブロックの中でしか使えないが、逆に外にある変数をブロックの中で参照したり、変更することはできる。
+この性質をうまく用いることで、プログラム中のごく限られた領域でしか使用しないはずの変数を誤って他の場所で使ってしまうという厄介なバグをかなり抑制することができる。
 
 \subsection{\texttt{if}文}
 「...ならば...を実行して、それ以外なら...を実行する」
@@ -355,28 +357,31 @@ int main(void)
 
 \texttt{if} 文は一般に以下のような形をとる。
 \begin{quote}
-    \begin{verbatim}
-if (A) {
+\begin{verbatim}
+if (A)
+{
     ブロック A
 }
-else if (B) {
+else if (B)
+{
     ブロック B
 }
 ...
-else {
+else
+{
     ブロック C
 }
 \end{verbatim}
 \end{quote} \noindent
-処理が\texttt{if}に到達すると上から順番に\texttt{()}の中身がチェックされていき、一番最初に条件を満たしたブロックの中を実行してそれ以降は無視する。(\texttt{else}まで来たらブロック Cを実行する。)\texttt{else if}はいくつあってもよいし、\texttt{else}はなくても構わない。
+処理が\texttt{if}に到達すると上から順番に\texttt{()}の中身がチェックされていき、一番最初に条件を満たしたブロックの中を実行してそれ以降は無視する(\texttt{else}まで来たらブロック Cを実行する)。\texttt{else if}はいくつあってもよいし、\texttt{else}はなくても構わない。
 
-単純な\texttt{if}をより簡潔に書くための構文として三項演算子(\texttt{?:})というものがあるので、調べてみよ。
+単純な\texttt{if}をより簡潔に書くための構文として三項演算子(\texttt{?:})というものがある。調べてみよ。
 
 \subsection{\texttt{for}文}
 繰り返しを行うためには、\texttt{for}を用いる。
 次の例は1から100までの和を計算するものである。
 \begin{reidai}\label{ex:for}
-    \begin{verbatim}
+\begin{verbatim}
 #include <stdio.h>
 
 int main(void)
@@ -393,13 +398,14 @@ int main(void)
 \end{reidai} \noindent
 \texttt{for}文は以下のような形になる。
 \begin{quote}
-    \begin{verbatim}
-for (A; B; C) {
+\begin{verbatim}
+for (A; B; C)
+{
     ブロック
 }
 \end{verbatim}
 \end{quote}
-処理が\texttt{for}に到達するとまず\texttt{A}が実行され、それ以降は``\texttt{B}をチェック\(\rightarrow\)\texttt{B}が真ならブロックの中身を実行し、偽なら\texttt{for}から抜ける\(\rightarrow\)\texttt{C}を実行''の組み合わせを繰り返す。\texttt{A,B,C}は空欄でも構わない。
+処理が\texttt{for}に到達するとまず\texttt{A}が実行され、それ以降は``\texttt{B}を評価\(\rightarrow\) \texttt{B}が真ならブロックの中身を実行し、偽なら\texttt{for}から抜ける\(\rightarrow\) \texttt{C}を実行''の組み合わせを繰り返す。\texttt{A,B,C}は空欄でも構わない。
 
 例\ref{ex:for}における\texttt{int i}のような、\texttt{for}ループのカウンターとして使用する変数は\texttt{A}の部分で定義するのが好ましい\footnote{ここで定義した変数は\texttt{for}のブロック中でのみ有効なので、他の場所で誤って参照したり名前が衝突する心配がなくなる。}。
 
@@ -413,14 +419,14 @@ int i = 10;
 int j = i++;
 \end{verbatim}
           \end{quote}
-          ならば、\texttt{j}の値は11ではなく10となる。(\texttt{j}に代入した後で\texttt{i}を1増やす。)ところが、
+          ならば、\texttt{j}の値は11ではなく10となる(\texttt{j}に代入した後で\texttt{i}を1増やす)。ところが、
           \begin{quote}
               \begin{verbatim}
 int i = 10;
 int j = ++i;
 \end{verbatim}
           \end{quote}
-          ならば、\texttt{j} の値は10ではなく11となる。(\texttt{i}を1増やしてから\texttt{j}に代入する。)
+          ならば、\texttt{j} の値は10ではなく11となる(\texttt{i}を1増やしてから\texttt{j}に代入する)。
           特別な理由がない限り、\texttt{++i} と \texttt{{-}{-}i} を使うのがよい\footnote{\texttt{i++}は一度もとの\texttt{i}の値を別の場所に保存しておく必要があるので少しだけ計算量が多い。}。
     \item[複合代入]\mbox{}\\
           今回使用した\texttt{a += b}は\texttt{a = a + b}と同じ意味の式である。\texttt{+=}を使ったほうが短く書ける上、場合によっては前者のほうが高速になる場合もある\footnote{前者は\texttt{a}を直接置き換えてよいからである。Cでは残念ながら大きな影響はない。}ので、可能な限りこちらを使うほうがよい。
@@ -432,7 +438,7 @@ int j = ++i;
 \subsection{\texttt{while}文}
 ある条件が満たされている間、何かを繰り返し実行したいときは、\texttt{while}を使う。次の例は、\texttt{i}が0より大きい間は\texttt{while}ブロックを実行し、その結果として、1から100までの和を求めるものである\footnote{今回は\texttt{while}を用いたが、本来は\texttt{for}で実装するべき操作である。}。
 \begin{reidai}\label{ex:while}
-    \begin{verbatim}
+\begin{verbatim}
 #include <stdio.h>
 
 int main(void)
@@ -451,17 +457,18 @@ int main(void)
 \end{reidai} \noindent
 \texttt{while} 文は次のように動作する。
 \begin{quote}
-    \begin{verbatim}
-while (A) {
+\begin{verbatim}
+while (A)
+{
     ブロック
 }
 \end{verbatim}
 \end{quote}
-\texttt{while}に処理が到達すると、``\texttt{A}をチェック\(\rightarrow\)Aが真ならブロックを実行''の組み合わせを繰り返す。(初回チェックで\texttt{A}が偽ならブロックの中身は一度も実行されない。)
+\texttt{while}に処理が到達すると、``\texttt{A}を評価\(\rightarrow\) \texttt{A}が真ならブロックを実行''の組み合わせを繰り返す(初回チェックで\texttt{A}が偽ならブロックの中身は一度も実行されない)。
 \texttt{while(1)}と書くとAが常に正しいとして扱われるので、次に説明する\texttt{break}を呼ぶまで何度でもループし続ける。
 
 \subsection{\texttt{break}文}
-\texttt{for}や\texttt{while}のような繰り返しを行う文の中から途中で抜けたい場合には、\texttt{break}を用いる。例\ref{ex:break}では、\(\cos\)の値が負になったとき強引に\texttt{for}文を抜けている。
+\texttt{for}や\texttt{while}のような繰り返しを行う文の中から途中で抜けたい場合には、\texttt{break}を用いる。例\ref{ex:break}では、\(\cos\)の値が負になったとき強制的に\texttt{for}文を抜けている。
 \begin{reidai}\label{ex:break}
     \begin{verbatim}
 #include <math.h>
@@ -485,7 +492,7 @@ int main(void)
 \end{reidai}
 
 \subsection{\texttt{continue} 文}
-ある条件を満たした場合に\texttt{for}や\texttt{while}の先頭に戻り、次の繰り返しに進みたい場合には、\texttt{continue}を用いる。(より正確には、\texttt{continue}から後を実行せずに、次の条件判定を行う。) 例\ref{ex:continue}では、割り切れない場合には\texttt{continue}を実行してすぐに \texttt{i <= number} の判定を行っている。割り切れる場合は \texttt{printf(...)} を実行してから \texttt{i <= number} の判定を行っている。ちなみに、このプログラムは80の全ての約数を出力するものである。
+ある条件を満たした場合に\texttt{for}や\texttt{while}の先頭に戻り、次の繰り返しに進みたい場合には、\texttt{continue}を用いる(より正確には、\texttt{continue}から後を実行せずに、次の条件判定を行う)。 例\ref{ex:continue}では、割り切れない場合には\texttt{continue}を実行してすぐに \texttt{i <= number} の判定を行っている。割り切れる場合は \texttt{printf(...)} を実行してから \texttt{i <= number} の判定を行っている。ちなみに、このプログラムは80の全ての約数を出力するものである。
 \begin{reidai}\label{ex:continue}
     \begin{verbatim}
 #include <stdio.h>
@@ -509,7 +516,7 @@ int main(void)
 \end{reidai}
 \begin{renshuu}\label{prob:2-1}
     \texttt{if}文の練習として、\(ax+b=0\) の解を求めるプログラムを書け。
-    \(a\),\(b\),\(x\) を表示させて終了させること。また、\(a\),\(b\) はあらかじめプログラムの中で決めてよい。
+    \(a\), \(b\), \(x\) を表示させて終了させること。また、\(a\), \(b\) はあらかじめプログラムの中で決めてよい。
 \end{renshuu}
 
 \begin{renshuu}\label{prob:2-2}
@@ -542,7 +549,7 @@ int n = 10;
 int a[n];
 \end{verbatim}
 \end{quote}
-はコンパイルエラーとなる。この記法を使うとき、配列の大きさを動的(プログラム実行中)に変化させることはできないからである\footnote{1999年改訂のC標準規格C99では認められているが、2011年改訂のC11で必須機能ではなくなってしまった。}。動的に変化させたい場合は、\texttt{malloc}と\texttt{free} (\ref{sec:clang:malloc}節)を用いる。
+はコンパイルエラーとなる。この記法を使うときは、配列のサイズを動的(プログラム実行時)に決めることはできない\footnote{1999年改訂のC標準規格C99では認められているが、2011年改訂のC11では必須機能でなくなってしまった。}。入力値などに応じてサイズを動的に決めたい場合は、\texttt{malloc}と\texttt{free} (\ref{sec:clang:malloc}節)を用いる。
 
 なお、大きすぎる配列(概ね 8MB 以上が目安)を確保するとクラッシュすることがあるので注意せよ。
 \begin{reidai}\label{ex:array1d}
@@ -613,7 +620,6 @@ int main(void)
 }
 \end{verbatim}
 \end{reidai}
-
 初期化は括弧を用いることでまとめて行うことができる。
 
 \begin{renshuu}\label{prob:3-1}
@@ -649,7 +655,7 @@ char s[] = "Hello";
 \end{quote}
 後者は自動的に \texttt{[]} の中は 6 になる。(前者の 10 の部分は適当な数字でよいが、\texttt{Hello} 5文字を記憶するためには 6 以上の数字を用いる必要がある。) では、なぜ \texttt{[]} の中は6になるのか? なぜ5でないのか? という疑問が生じるだろう。これには以下のような事情が関係している。
 
-文字列を使う場合、どこでその文字列が終了したかを判断しなければならない。ところが、ここで使っている \texttt{s} という変数は単にその文字列の先頭を示しているだけで、
+文字列を使う場合、どこでその文字列が終了するかが判断できなければならない。ところが、ここで使っている \texttt{s} という変数は単にその文字列の先頭を示しているだけで、
 どこで終わるかという情報を持っていない(\ref{sec:C:pointer-array}節参照)。そのため、C言語では文字列の最後に必ず ``\texttt{\textbackslash 0}''という特殊な文字をつけるという決まりがある。そうすることで、文字列の最後を判断することが可能になるわけだ。このような理由で、5ではなく6になるのである。
 \begin{figure}[H]
     \centering
@@ -674,8 +680,7 @@ int main(void)
 \end{reidai}
 
 \subsection{標準入力(2) : \texttt{scanf}関数}
-例\ref{ex:gets}ではたとえ数字(19桁以下)を入力してもそれは文字列として扱われるため、数字として足し算などに用いるためには \texttt{atoi}などの関数を用いる必要がある。別の方法として、\texttt{scanf} を用いて入力した数字をそのまま数字として扱う方法を例\ref{ex:scanf}に示す。(ソースコード中の \texttt{\&i} や \texttt{\&x} についている \texttt{\&} については後述する。)
-今度は何も警告文が出ないはずだが、依然として\texttt{char[]}への入力時にはみ出しが発生するリスクは残されているので注意すること。
+例\ref{ex:gets}ではたとえ数字(19桁以下)を入力してもそれは文字列として扱われるため、数字として足し算などに用いるためには \texttt{atoi}などの関数を用いる必要がある。別の方法として、\texttt{scanf} を用いて入力した数字をそのまま数字として扱う方法を例\ref{ex:scanf}に示す(ソースコード中の \texttt{\&i} や \texttt{\&x} についている \texttt{\&} については後述する)。
 \begin{reidai}\label{ex:scanf}
     \begin{verbatim}
 #include <stdio.h>
@@ -718,9 +723,9 @@ int *p;
 int* p;
 \end{verbatim}
 \end{quote}
-と宣言したほうがイメージしやすいかもしれない。つまり、\texttt{p} は \texttt{int*} 型(\texttt{int} のポインタ)ということである。(しかし、2個以上のポインタを宣言するためには、\texttt{int *p, *q;} としなければならない。\texttt{int* p, q;} とすると\texttt{q}は\texttt{int}型になってしまう。)
+と宣言したほうがイメージしやすいかもしれない。つまり、\texttt{p} は \texttt{int*} 型(\texttt{int} のポインタ)ということである(しかし、2個以上のポインタを宣言するためには、\texttt{int *p, *q;} としなければならない。\texttt{int* p, q;} とすると\texttt{q}は\texttt{int}型になってしまう)。
 
-例\ref{ex:pointer1}の \texttt{q} に格納されている\(200\)はコンピュータのメモリーのどこかに電気的に存在するはずである。その物の場所を示すものがアドレス(言うなればメモリー上の住所)であり、これを\texttt{\&q}で表す。今回はこれを\texttt{p}へと代入したので、\texttt{p}は\texttt{q}が存在する場所を指し示すようになる。
+例\ref{ex:pointer1}の \texttt{q} に格納されている\(200\)はコンピュータのメモリーのどこかに電気的に存在するはずである。その格納場所を示すものがアドレス(言うなればメモリー上の住所)であり、これを\texttt{\&q}で表す。今回はこれを\texttt{p}へと代入したので、\texttt{p}は\texttt{q}が存在する場所を指し示すようになる。
 
 変数からそのアドレスを抽出する\texttt{\&}と対照的なのが\texttt{*}であり、これは逆にポインタからその指している先そのものを抽出する\footnote{\texttt{*}は型から1つアスタリスクを剥がし、逆に\texttt{\&}は1つ増やす、と覚えるとよい。}。\texttt{p}はあくまで\texttt{q}を指し示しているだけ(\texttt{q}が存在するアドレスの情報しか持っていない)なので、実体\texttt{q}を利用する際には\texttt{*p}とせねばならないのである。
 
@@ -839,10 +844,9 @@ int main(void)
 
 少し難しい概念ではあるが、バグを防ぐ上で非常に強力であるので困ったときにはぜひ使ってみてほしい。
 \begin{renshuu}\label{prob:5-1}
-    次のプログラムの \texttt{printf} の部分を配列ではなく、ポインタを使ったものに書き換えなさい。(\texttt{array} を使っても、あるいは、\texttt{int *p;} を加えてもよい。)
-
-    \begin{quote}
-        \begin{verbatim}
+    次のプログラムの \texttt{printf} の部分を配列ではなく、ポインタを使ったものに書き換えなさい(\texttt{array} を使っても、あるいは、\texttt{int *p;} を加えてもよい)。
+\begin{quote}
+\begin{verbatim}
 #include <stdio.h>
 
 int main(void)
@@ -859,7 +863,7 @@ int main(void)
     return 0;
 }
 \end{verbatim}
-    \end{quote}
+\end{quote}
 \end{renshuu}
 
 \section{複素数}
@@ -996,7 +1000,7 @@ int main(void)
 }
 \end{verbatim}
 \end{reidai} \noindent
-ポインタを使う理由がはっきりと分からない場合は、例\ref{ex:function-non-pointer}を作って実行してみてほしい。間違った答えが表示されるだろう。なぜなら、この場合 \texttt{division} という関数では、\texttt{quotient}と\texttt{residual}という二つの一時変数が生成され、それらに計算結果が代入された直後に破棄されるからである。一時変数は関数の処理が終了すると同時に破棄され、値は \texttt{main} の中の \texttt{shou} と \texttt{amari} には引き継がれない\footnote{ブロック中での変数定義の挙動を思い出そう。}。このため、関数に外部から値を渡すだけであれば、例\ref{ex:function-non-pointer}のような引数の宣言方法でよい(「値渡し」とよぶ)が、内での計算結果を関数の外で使いたい場合は、ポインタを使って変数のアドレスを渡す(「ポインタ渡し」とよぶ)必要がある。
+ポインタを使う理由がはっきりと分からない場合は、例\ref{ex:function-non-pointer}を作って実行してみてほしい。間違った答えが表示されるだろう。なぜなら、この場合 \texttt{division} という関数では、\texttt{quotient}と\texttt{residual}という二つの一時変数が生成され、それらに計算結果が代入された直後に破棄されるからである。一時変数は関数の処理が終了すると同時に破棄され、値は \texttt{main} の中の \texttt{shou} と \texttt{amari} には引き継がれない\footnote{ブロック中での変数定義の挙動を思い出そう。}。このため、関数に外部から値を渡すだけであれば、例\ref{ex:function-non-pointer}のような引数の宣言方法でよい(「値渡し」と呼ぶ)が、内での計算結果を関数の外で使いたい場合は、ポインタを使って変数のアドレスを渡す(「ポインタ渡し」と呼ぶ)必要がある。
 \begin{reidai}\label{ex:function-non-pointer}
     \begin{verbatim}
 #include <stdio.h>
@@ -1052,7 +1056,7 @@ int main(void)
 }
 \end{verbatim}
 \end{reidai} \noindent
-全ての引数をポインタ渡しとしなければならないことに特に注意せよ。コンパイルはC(\texttt{gcc})とFortran(\texttt{gfortran})で別々に行い、最後にリンクすればよい\footnote{LAPACKはすでにコンパイル済みなので\texttt{gfortran}は必要ない。リンクの方法については\ref{ex:ext_lib}を見よ。}。
+全ての引数をポインタ渡しとしなければならないことに特に注意せよ。コンパイルはC (\texttt{gcc})とFortran (\texttt{gfortran})で別々に行い、最後にリンクすればよい\footnote{LAPACKはすでにコンパイル済みなので\texttt{gfortran}は必要ない。リンクの方法については\ref{ex:ext_lib}を見よ。}。
 
 \section{構造体}
 データ構造を取り扱うためには構造体を用いる。
@@ -1456,7 +1460,7 @@ int main(int argc, char* argv[])
     \prompt \underline{./sumXY}\\
     Usage: sumXY InputFile OutputFile
 \end{commandline2} \noindent
-このとき\texttt{InputFile}, \texttt{OutputFile}の二つのコマンドライン引数が必要であるという警告が表示される。例\ref{ex:new-main}のAの部分を変更することで、警告メッセージは変更することができる。次のように実行しても同じメッセージが出力されるはずである。
+このとき\texttt{InputFile}, \texttt{OutputFile}の二つのコマンドライン引数が必要であるというエラーが表示される。例\ref{ex:new-main}のAの部分を変更することで、エラーメッセージは変更することができる。次のように実行しても同じメッセージが出力されるはずである。
 \begin{commandline2}
     \prompt \underline{./sumXY input.dat}
 \end{commandline2} \noindent
@@ -1467,7 +1471,7 @@ int main(int argc, char* argv[])
 \begin{commandline2}
     \prompt \underline{./sumXY input.dat output.dat 10}
 \end{commandline2} \noindent
-は3個の引数だからエラーが出るのはおかしい、と考えるかもしれない。しかし、これは正しい動作である。なぜなら、引数としてプログラム名(\texttt{./sumXY})も1個と数えられるからである\footnote{\texttt{argv[0]}を用いると、例\ref{ex:new-main}のAのエラーメッセージは \texttt{printf("Usage: \%s InputFile OutputFile\textbackslash n", argv[0]);}と書くことができる。このようにしておくと、プログラム名をあらかじめソースコードに明示的に書き込む(「ハードコーディング」とよぶ)必要がなくなる。}。つまり、二番目の例では、\texttt{argc}の値は4であり、\texttt{argv}の中身は
+は3個の引数だからエラーが出るのはおかしい、と考えるかもしれない。しかし、これは正しい動作である。なぜなら、引数としてプログラム名(\texttt{./sumXY})も1個と数えられるからである\footnote{\texttt{argv[0]}を用いると、例\ref{ex:new-main}のAのエラーメッセージは \texttt{printf("Usage: \%s InputFile OutputFile\textbackslash n", argv[0]);}と書くことができる。このようにしておくと、プログラム名をあらかじめソースコードに明示的に書き込む(「ハードコーディング」と呼ぶ)必要がなくなる。}。つまり、二番目の例では、\texttt{argc}の値は4であり、\texttt{argv}の中身は
 \begin{quote}
     \begin{verbatim}
 argv[0] = "./sumXY"の先頭アドレス
@@ -1528,7 +1532,7 @@ int main(int argc, char* argv[])
 \begin{verbatim}
      free(array);
 \end{verbatim}
-と1行書けばよい\footnote{\texttt{free}を同じ対象に対して複数回呼んではならない。}。例\ref{ex:malloc}を若干変更し、\texttt{free}が重要となる例を考えよう。なお、今回は\texttt{assert.h}を用いて簡易的な\texttt{argc}のチェック機構をつけてある。(\texttt{argc == 2}が満たされないとエラーメッセージを表示したのち異常終了する。)
+と1行書けばよい\footnote{\texttt{free}を同じ対象に対して複数回呼んではならない。}。例\ref{ex:malloc}を若干変更し、\texttt{free}が重要となる例を考えよう。なお、今回は\texttt{assert.h}を用いて簡易的な\texttt{argc}のチェック機構をつけてある(\texttt{argc == 2}が満たされないとエラーメッセージを表示したのち異常終了する)。
 \texttt{assert}機能はデバッグの際極めて重宝するので、覚えておくとよい\footnote{もちろんチェックにはそれなりの計算コストがかかるが、\texttt{-DNDEBUG}をつけてコンパイルするとまとめて除去できるので安心してたくさん使ってほしい。}。
 \begin{reidai}\label{ex:malloc-free}
     \begin{verbatim}

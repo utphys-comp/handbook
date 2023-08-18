@@ -143,8 +143,7 @@ aaaaaaa;
 例えば、例\ref{ex:hinagata1}は、以下のようにも書くことができる。
 \begin{reidai}\label{ex:hinagata2}
     \begin{verbatim}
-int main(void)
-{
+int main(void) {
     return 0;
 }
 \end{verbatim}
@@ -173,8 +172,7 @@ Cの文は、意味上のレベル(入れ子構造の階層)を持つ。意味�
 例えば、例\ref{ex:hinagata2}にコメントを挿入してみると、
 \begin{reidai}
     \begin{verbatim}
-int main(void)
-{
+int main(void) {
     /* これはコメント。
     複数行にわたっても OK。 */
     return 0;
@@ -193,8 +191,7 @@ int main(void)
     \begin{verbatim}
 #include <stdio.h>
 
-int main(void)
-{
+int main(void) {
     printf("Hello, C!\n");
     return 0;
 }
@@ -235,8 +232,7 @@ int main(void)
 #include <math.h>
 #include <stdio.h>
 
-int main(void)
-{
+int main(void) {
     const double angle = 60.0 * M_PI / 180.0;
     printf("cos(%lf) is %lf\n", angle, cos(angle));
     return 0;
@@ -337,16 +333,12 @@ printf("フォーマット", 変数1, 変数2,......)
     \begin{verbatim}
 #include <stdio.h>
 
-int main(void)
-{
+int main(void) {
     const int a = 10;
     const int b = 20;
-    if (a == b)
-    {
+    if (a == b) {
         printf("a is equal to b\n");
-    }
-    else
-    {
+    } else {
         printf("a is not equal to b\n");
     }
     return 0;
@@ -358,17 +350,13 @@ int main(void)
 \texttt{if} 文は一般に以下のような形をとる。
 \begin{quote}
 \begin{verbatim}
-if (A)
-{
+if (A) {
     ブロック A
-}
-else if (B)
-{
+} else if (B) {
     ブロック B
-}
-...
-else
-{
+} else if ... {
+  ...
+} else {
     ブロック C
 }
 \end{verbatim}
@@ -384,11 +372,9 @@ else
 \begin{verbatim}
 #include <stdio.h>
 
-int main(void)
-{
+int main(void) {
     int sum = 0;
-    for (int i = 1; i <= 100; ++i)
-    {
+    for (int i = 1; i <= 100; ++i) {
         sum += i;
     }
     printf("sum of integers from 1 to 100 is %d\n", sum);
@@ -399,8 +385,7 @@ int main(void)
 \texttt{for}文は以下のような形になる。
 \begin{quote}
 \begin{verbatim}
-for (A; B; C)
-{
+for (A; B; C) {
     ブロック
 }
 \end{verbatim}
@@ -441,12 +426,10 @@ int j = ++i;
 \begin{verbatim}
 #include <stdio.h>
 
-int main(void)
-{
+int main(void) {
     int i = 100;
     int sum = 0;
-    while (i > 0)
-    {
+    while (i > 0) {
         sum += i;
         --i;
     }
@@ -474,15 +457,12 @@ while (A)
 #include <math.h>
 #include <stdio.h>
 
-int main(void)
-{
-    for (int i = 0; i <= 180; i += 20)
-    {
+int main(void) {
+    for (int i = 0; i <= 180; i += 20) {
         const double angle = i * M_PI / 180.0;
         const double cosval = cos(angle);
         printf("cos(%lf) is %lf\n", angle, cosval);
-        if (cosval < 0.0)
-        {
+        if (cosval < 0.0) {
             break;
         }
     }
@@ -497,15 +477,12 @@ int main(void)
     \begin{verbatim}
 #include <stdio.h>
 
-int main(void)
-{
+int main(void) {
     const int number = 80;
-    for (int i = 1; i <= number; ++i)
-    {
+    for (int i = 1; i <= number; ++i) {
         /* 'a % b' yields the residual of a/b */
         const int residual = number % i;
-        if (residual != 0)
-        {
+        if (residual != 0) {
             continue;
         }
         printf("%d is a measure(YAKUSUU) of %d\n", i, number);
@@ -555,17 +532,15 @@ int a[n];
 \begin{reidai}\label{ex:array1d}
     \begin{verbatim}
 #include <stdio.h>
+
 #define N_ELEMENT 10
 
-int main(void)
-{
+int main(void) {
     int array[N_ELEMENT];
-    for (int i = 0; i < N_ELEMENT; ++i)
-    {
+    for (int i = 0; i < N_ELEMENT; ++i) {
         array[i] = i * i * i;
     }
-    for (int i = 0; i < N_ELEMENT; ++i)
-    {
+    for (int i = 0; i < N_ELEMENT; ++i) {
         printf("array[%d] = %d\n", i, array[i]);
     }
     return 0;
@@ -592,23 +567,16 @@ a[1][0], a[1][1], a[1][2]
     \begin{verbatim}
 #include <stdio.h>
 
-int main(void)
-{
-    const double matrix[2][2]
-        = { { 10.0, 5.0 },
-              { 8.0, 14.0 } };
+int main(void) {
+    const double matrix[2][2] = { { 10.0, 5.0 }, { 8.0, 14.0 } };
     /* matrix =
     | 10.0 5.0 |
     | 8.0 14.0 | */
-    const double det = matrix[0][0] * matrix[1][1]
-        - matrix[0][1] * matrix[1][0];
-    if (det == 0.0)
-    {
+    const double det = matrix[0][0] * matrix[1][1]- matrix[0][1] * matrix[1][0];
+    if (det == 0.0) {
         printf("inverse matrix does not exist\n");
-    }
-    else
-    {
-        const double inverse[2][2]
+    } else {
+        const double [2][2]
             = { { matrix[1][1] / det, -matrix[0][1] / det },
                   { -matrix[1][0] / det, matrix[0][0] / det } };
         printf("inverse[0][0] = %lf\n", inverse[0][0]);
@@ -668,8 +636,7 @@ char s[] = "Hello";
     \begin{verbatim}
 #include <stdio.h>
 
-int main(void)
-{
+int main(void) {
     char str[20];
     printf("Input: ");
     gets(str);
@@ -686,8 +653,7 @@ int main(void)
 #include <stdio.h>
 #include <string.h>
 
-int main(void)
-{
+int main(void) {
     int i;
     printf("Input(int): ");
     scanf("%d", &i);
@@ -733,8 +699,7 @@ int* p;
     \begin{verbatim}
 #include <stdio.h>
 
-int main(void)
-{
+int main(void) {
     /* qを初期化 */
     int q = 200;
     /* qのアドレスをpに代入する */
@@ -757,8 +722,7 @@ int main(void)
     \begin{verbatim}
 #include <stdio.h>
 
-int main(void)
-{
+int main(void) {
     int q;
     int* p = &q;
     /* 値を取得するだけでなく書き換えることもできる */
@@ -808,23 +772,19 @@ int array[10];
 #include <stdio.h>
 #include <string.h>
 
-int main(void)
-{
+int main(void) {
     const char str[] = "ABCDE";
     const int num = strlen(str);
-    for (int i = 0; i < num; ++i)
-    {
+    for (int i = 0; i < num; ++i) {
         printf("%c", str[i]);
     }
     printf("\n");
-    for (const char* p = str; *p != '\0'; ++p)
-    {
+    for (const char* p = str; *p != '\0'; ++p) {
         printf("%c", *p);
     }
     printf("\n");
     return 0;
 }
-
 \end{verbatim}
 \end{reidai}
 
@@ -852,12 +812,10 @@ int main(void)
 int main(void)
 {
     int array[10];
-    for (int i = 0; i < 10; ++i)
-    {
+    for (int i = 0; i < 10; ++i) {
         array[i] = i * i;
     }
-    for (int i = 0; i < 10; ++i)
-    {
+    for (int i = 0; i < 10; ++i) {
         printf("array[%d] = %d\n", i, array[i]);
     }
     return 0;
@@ -884,8 +842,7 @@ Cにおいても複素数変数を扱うための型が用意されている\foo
 #include <math.h>
 #include <stdio.h>
 
-int main(void)
-{
+int main(void) {
     const double complex x = 0 + 1 * I; /* 虚数単位 */
     const double complex y = cexp(x * M_PI);
     printf("i = (%lf,%lf)\n", creal(x), cimag(x));
@@ -912,8 +869,7 @@ C言語では関数名に重複があってはならないので、数学関数�
 #include <math.h>
 #include <stdio.h>
 
-int main(void)
-{
+int main(void) {
     const double radius = 2.0;
     const double area = radius * radius * M_PI;
     printf("Radius: %lf, Area: %lf\n", radius, area);
@@ -930,13 +886,11 @@ int main(void)
 #include <math.h>
 #include <stdio.h>
 
-double circle_area(double r)
-{
+double circle_area(double r) {
     return r * r * M_PI;
 }
 
-int main(void)
-{
+int main(void) {
     const double radius = 2.0;
     const double area = circle_area(radius);
     printf("Radius: %lf, Area: %lf\n", radius, area);
@@ -958,16 +912,14 @@ int main(void)
 
 double circle_area(double);
 
-int main(void)
-{
+int main(void) {
     const double radius = 2.0;
     const double area = circle_area(radius);
     printf("Radius: %lf, Area: %lf\n", radius, area);
     return 0;
 }
 
-double circle_area(double r)
-{
+double circle_area(double r) {
     return r * r * M_PI;
 }
 \end{verbatim}
@@ -982,15 +934,13 @@ double circle_area(double r)
     \begin{verbatim}
 #include <stdio.h>
 
-void division(int divident, int divisor,
-    int* const quotient, int* const residual)
-{
+void division(int divident, int divisor, int* const quotient,
+    int* const residual) {
     *quotient = divident / divisor;
     *residual = divident % divisor;
 }
 
-int main(void)
-{
+int main(void) {
     const int josuu = 3;
     const int hi_josuu = 13;
     int shou, amari;
@@ -1005,14 +955,12 @@ int main(void)
     \begin{verbatim}
 #include <stdio.h>
 
-void division(int divident, int divisor, int quotient, int residual)
-{
+void division(int divident, int divisor, int quotient, int residual) {
     quotient = divident / divisor;
     residual = divident % divisor;
 }
 
-int main(void)
-{
+int main(void) {
     const int josuu = 3;
     const int hi_josuu = 13;
     int shou, amari;
@@ -1046,8 +994,7 @@ Fortranの関数や手続きの名前をC言語から呼ぶためには、その
     \begin{verbatim}
 extern double calc_(int*, float*, double*);
 
-int main(void)
-{
+int main(void) {
     int i = 10;
     float x = 20.0F;
     double y = 30.0;
@@ -1069,15 +1016,13 @@ int main(void)
 #include <stdio.h>
 #include <stdlib.h>
 
-struct personal_data
-{
+struct personal_data {
     char family_name[16];
     char given_name[16];
     int age;
 };
 
-int main(void)
-{
+int main(void) {
     struct personal_data pdata;
     char buffer[16];
     printf("Input family name: ");
@@ -1099,19 +1044,17 @@ int main(void)
     \begin{verbatim}
 #include <stdio.h>
 
-struct particle_data
-{
+struct particle_data {
     double mass;
     double p[3]; /* Momentum */
 };
 
-int main(void)
-{
+int main(void) {
     const struct particle_data pdata = { 0.14, { 1.2, 1.3, 1.4 } };
     const struct particle_data* const qdata = &pdata;
     printf("Mass = %lf\n", qdata->mass);
-    printf("Momentum = (%lf, %lf, %lf)\n",
-        qdata->p[0], qdata->p[1], qdata->p[2]);
+    printf("Momentum = (%lf, %lf, %lf)\n", qdata->p[0], qdata->p[1],
+        qdata->p[2]);
     return 0;
 }
 \end{verbatim}
@@ -1139,17 +1082,14 @@ fscanf(ファイル構造体のポインタ, "フォーマット", &変数1, &�
 #include <stdio.h>
 #include <stdlib.h>
 
-double product(double x1, double y1, double x2, double y2)
-{
+double product(double x1, double y1, double x2, double y2) {
     return x1 * x2 + y1 * y2;
 }
 
-int main(void)
-{
+int main(void) {
     const char filename[] = "vectors.txt";
     FILE* fp = fopen(filename, "r");
-    if (fp == NULL)
-    {
+    if (fp == NULL) {
         printf("Can't open file %s\n", filename);
         exit(1);
     }
@@ -1180,20 +1120,17 @@ int main(void)
 
 #define N_DATA 100
 
-int main(void)
-{
+int main(void) {
     const char filename[] = "vectors.txt";
     FILE* fp = fopen(filename, "r");
-    if (fp == NULL)
-    {
+    if (fp == NULL) {
         printf("Can't open file %s\n", filename);
         exit(1);
     }
     double x[N_DATA][2];
     int index = 0;
     /* read data */
-    while (fscanf(fp, "%lf %lf\n", &x[index][0], &x[index][1]) != EOF)
-    {
+    while (fscanf(fp, "%lf %lf\n", &x[index][0], &x[index][1]) != EOF) {
         printf("Data %d : (%lf, %lf)\n", index, x[index][0], x[index][1]);
         ++index;
     }
@@ -1218,22 +1155,18 @@ fprintf(ファイル構造体のポインタ, "フォーマット", 変数1, 変
 #include <stdio.h>
 #include <stdlib.h>
 
-double circle_area(double r)
-{
+double circle_area(double r) {
     return r * r * M_PI;
 }
 
-int main(void)
-{
+int main(void) {
     const char filename[] = "circle_area.txt";
     FILE* fp = fopen(filename, "w");
-    if (fp == NULL)
-    {
+    if (fp == NULL) {
         printf("Can't open file %s\n", filename);
         exit(1);
     }
-    for (int i = 1; i <= 10; ++i)
-    {
+    for (int i = 1; i <= 10; ++i) {
         const double radius = i;
         const double area = circle_area(radius);
         fprintf(fp, "%lf -> %lf\n", radius, area);
@@ -1256,14 +1189,12 @@ int main(void)
 #include <stdio.h>
 #include <string.h>
 
-int main(void)
-{
+int main(void) {
     int i;
     printf("Input(int): ");
     scanf("%d", &i);
     printf("%d / 3 no amari ha ", i);
-    switch (i % 3)
-    {
+    switch (i % 3) {
     case 1:
         printf("1 desu.\n");
         break;
@@ -1299,12 +1230,10 @@ switch (X) {
     \begin{verbatim}
 #include <stdio.h>
 
-int main(void)
-{
+int main(void) {
     int i = 100;
     int sum = 0;
-    do
-    {
+    do {
         sum += i;
         --i;
     } while (i != 0);
@@ -1317,8 +1246,7 @@ int main(void)
 \texttt{do}-\texttt{while} 文の基本的な動作は次のようになる。
 \begin{quote}
     \begin{verbatim}
-do
-{
+do {
   ブロック
 } while (A);
 \end{verbatim}
@@ -1343,8 +1271,7 @@ do
     \begin{verbatim}
 #include <stdio.h>
 
-int main(void)
-{
+int main(void) {
     char* name0 = "Alice";
     char* name1 = "Bob";
     char* name2 = "Claire";
@@ -1354,12 +1281,12 @@ int main(void)
     name[1] = name1;
     name[2] = name2;
     name[3] = name3; /* A */
-    for (int i = 0; i < 4; ++i)
-    { /* B */
+    /* B */
+    for (int i = 0; i < 4; ++i) {
         printf("Name%d : %s\n", i, name[i]);
     }
-    for (int i = 0; i < 4; ++i)
-    { /* C */
+    /* C */
+    for (int i = 0; i < 4; ++i) {
         printf("Name%d : %c, %s\n", i, **(name + i), *(name + i));
     }
     return 0;
@@ -1408,10 +1335,9 @@ name[3] = "David"という文字列の先頭アドレス
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(int argc, char* argv[])
-{
-    if (argc != 3)
-    { /* A */
+int main(int argc, char* argv[]) {
+    if (argc != 3) {
+        /* A */
         printf("Usage: sumXY InputFile OutputFile\n");
         exit(1);
     }
@@ -1419,8 +1345,7 @@ int main(int argc, char* argv[])
     const char* const OutputFileName = argv[2];
     /* input */
     FILE* fp = fopen(InputFileName, "r");
-    if (fp == NULL)
-    {
+    if (fp == NULL) {
         printf("Can't open file %s\n", InputFileName);
         exit(1);
     }
@@ -1428,8 +1353,7 @@ int main(int argc, char* argv[])
     double x, y;
     double sumX = 0.0, sumY = 0.0;
     /* read data */
-    while (fscanf(fp, "%lf %lf\n", &x, &y) != EOF)
-    {
+    while (fscanf(fp, "%lf %lf\n", &x, &y) != EOF) {
         sumX += x;
         sumY += y;
         ++counter;
@@ -1437,8 +1361,7 @@ int main(int argc, char* argv[])
     fclose(fp);
     /* output */
     fp = fopen(OutputFileName, "w");
-    if (fp == NULL)
-    {
+    if (fp == NULL) {
         printf("Can't open file %s\n", OutputFileName);
         exit(1);
     }
@@ -1502,21 +1425,17 @@ argv[3] = "10"の先頭アドレス
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]) {
     const int n_element = atoi(argv[1]);
     int* array = (int*)malloc(sizeof(int) * n_element);
-    if (array == NULL)
-    {
+    if (array == NULL) {
         printf("Can't allocate memory.\n");
         exit(1);
     }
-    for (int i = 0; i < n_element; ++i)
-    {
+    for (int i = 0; i < n_element; ++i) {
         array[i] = i * i;
     }
-    for (int i = 0; i < n_element; ++i)
-    {
+    for (int i = 0; i < n_element; ++i) {
         printf("array[%d] = %d\n", i, array[i]);
     }
     return 0;
@@ -1540,22 +1459,17 @@ int main(int argc, char* argv[])
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(int argc, char* argv[])
-{
+int main(int argc, char* argv[]) {
     assert(argc == 2);
     const int n_element = atoi(argv[1]);
-    for (int j = 0; j < 3; ++j)
-    {
+    for (int j = 0; j < 3; ++j) {
         int* array = (int*)malloc(sizeof(int) * n_element);
-        if (array == NULL)
-        {
+        if (array == NULL) {
             printf("Can't allocate memory.\n");
             exit(1);
         }
-        for (int i = 0; i < n_element; ++i)
-        {
-            switch (j)
-            {
+        for (int i = 0; i < n_element; ++i) {
+            switch (j) {
             case 0:
                 array[i] = i;
                 break;
@@ -1566,8 +1480,7 @@ int main(int argc, char* argv[])
                 array[i] = i * i * i;
             }
         }
-        for (int i = 0; i < n_element; ++i)
-        {
+        for (int i = 0; i < n_element; ++i) {
             printf("array[%d] = %d\n", i, array[i]);
         }
         free(array);
@@ -1594,41 +1507,32 @@ double** matrix;
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(void)
-{
+int main(void) {
     const int m = 3;
     const int n = 4;
     double** matrix = (double**)malloc(sizeof(double*) * m);
-    if (matrix == NULL)
-    {
+    if (matrix == NULL) {
         printf("Can't allocate memory.\n");
         exit(1);
     }
-    for (int i = 0; i < m; ++i)
-    {
+    for (int i = 0; i < m; ++i) {
         matrix[i] = (double*)malloc(sizeof(double) * n);
-        if (matrix[i] == NULL)
-        {
+        if (matrix[i] == NULL) {
             printf("Can't allocate memory.\n");
             exit(1);
         }
     }
-    for (int i = 0; i < m; ++i)
-    {
-        for (int j = 0; j < n; ++j)
-        {
+    for (int i = 0; i < m; ++i) {
+        for (int j = 0; j < n; ++j) {
             matrix[i][j] = (i + 1) * (j + 1);
         }
     }
-    for (int i = 0; i < m; ++i)
-    {
-        for (int j = 0; j < n; ++j)
-        {
+    for (int i = 0; i < m; ++i) {
+        for (int j = 0; j < n; ++j) {
             printf("matrix[%d][%d] = %lf\n", i, j, matrix[i][j]);
         }
     }
-    for (int i = 0; i < m; ++i)
-    {
+    for (int i = 0; i < m; ++i) {
         free(matrix[i]);
     }
     free(matrix);
@@ -1648,37 +1552,29 @@ LAPACKなどの数値計算ライブラリでは、行列の要素は全てメ�
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(void)
-{
+int main(void) {
     const int m = 3;
     const int n = 4;
     double** matrix = (double**)malloc(sizeof(double*) * m);
-    if (matrix == NULL)
-    {
+    if (matrix == NULL) {
         printf("Can't allocate memory.\n");
         exit(1);
     }
     matrix[0] = (double*)malloc(sizeof(double) * m * n);
-    if (matrix[0] == NULL)
-    {
+    if (matrix[0] == NULL) {
         printf("Can't allocate memory.\n");
         exit(1);
     }
-    for (int i = 1; i < m; ++i)
-    {
+    for (int i = 1; i < m; ++i) {
         matrix[i] = matrix[i - 1] + n;
     }
-    for (int i = 0; i < m; ++i)
-    {
-        for (int j = 0; j < n; ++j)
-        {
+    for (int i = 0; i < m; ++i) {
+        for (int j = 0; j < n; ++j) {
             matrix[i][j] = (i + 1) * (j + 1);
         }
     }
-    for (int i = 0; i < m; ++i)
-    {
-        for (int j = 0; j < n; ++j)
-        {
+    for (int i = 0; i < m; ++i) {
+        for (int j = 0; j < n; ++j) {
             printf("matrix[%d][%d] = %lf\n", i, j, matrix[i][j]);
         }
     }
@@ -1711,37 +1607,29 @@ C言語上で行列の\((i,j)\)成分を \texttt{A[i][j]} に代入したもの(
 
 #define mat_elem(mat, i, j) (mat)[(j)][(i)]
 
-int main(void)
-{
+int main(void) {
     const int m = 3;
     const int n = 4;
     double** matrix = (double**)malloc(sizeof(double*) * n);
-    if (matrix == NULL)
-    {
+    if (matrix == NULL) {
         printf("Can't allocate memory.\n");
         exit(1);
     }
     matrix[0] = (double*)malloc(sizeof(double) * m * n);
-    if (matrix[0] == NULL)
-    {
+    if (matrix[0] == NULL) {
         printf("Can't allocate memory.\n");
         exit(1);
     }
-    for (int i = 1; i < n; ++i)
-    {
+    for (int i = 1; i < n; ++i) {
         matrix[i] = matrix[i - 1] + m;
     }
-    for (int i = 0; i < m; ++i)
-    {
-        for (int j = 0; j < n; ++j)
-        {
+    for (int i = 0; i < m; ++i) {
+        for (int j = 0; j < n; ++j) {
             mat_elem(matrix, i, j) = (i + 1) * (j + 1);
         }
     }
-    for (int i = 0; i < m; ++i)
-    {
-        for (int j = 0; j < n; ++j)
-        {
+    for (int i = 0; i < m; ++i) {
+        for (int j = 0; j < n; ++j) {
             printf("matrix[%d][%d] = %lf\n", i, j, mat_elem(matrix, i, j));
         }
     }
@@ -1789,14 +1677,11 @@ int main(void)
 #include "cmatrix.h"
 #include <stdio.h>
 
-int main(void)
-{
+int main(void) {
     const int N = 3;
     double** a = alloc_dmatrix(N, N);
-    for (int j = 0; j < N; ++j)
-    {
-        for (int i = 0; i < N; ++i)
-        {
+    for (int j = 0; j < N; ++j) {
+        for (int i = 0; i < N; ++i) {
             mat_elem(a, i, j) = i + j * N;
         }
     }
@@ -1837,11 +1722,10 @@ int main(void)
 #include <assert.h>
 #include <stdio.h>
 
-extern void dgesv_(const int*, const int*, double*, const int*,
-    int*, double*, const int*, int*);
+extern void dgesv_(const int*, const int*, double*, const int*, int*, double*,
+    const int*, int*);
 
-int main(void)
-{
+int main(void) {
     const int N = 3;
     const int NRHS = 1;
     const int LDA = N;
@@ -1849,18 +1733,15 @@ int main(void)
     double** a = alloc_dmatrix(N, N);
     double* b = alloc_dvector(N);
     int* ipiv = alloc_ivector(N);
-    for (int i = 0; i < N; ++i)
-    {
+    for (int i = 0; i < N; ++i) {
         mat_elem(a, i, i) = 1;
-        if (i + 1 != N)
-        {
+        if (i + 1 != N) {
             mat_elem(a, i, i + 1) = -1;
         }
     }
     b[N - 1] = 1;
     int info;
-    dgesv_(&N, &NRHS, mat_ptr(a), &LDA, vec_ptr(ipiv),
-        vec_ptr(b), &LDB, &info);
+    dgesv_(&N, &NRHS, mat_ptr(a), &LDA, vec_ptr(ipiv), vec_ptr(b), &LDB, &info);
     assert(info == 0);
     fprint_dvector(stdout, N, b);
     free_dmatrix(a);
@@ -1916,27 +1797,20 @@ C言語でのプログラミングにおいて有用な外部ツールをいく�
 \begin{verbatim}
 #include <stdio.h>
 
-int main(void)
-{
+int main(void) {
     /* ax+b=0 */
     const double a = 4.0;
     const double b = 1.0;
     printf("ax+b=0\n");
     printf("  a = %lf\n", a);
     printf("  b = %lf\n\n", b);
-    if (a == 0.0)
-    {
-        if (b == 0.0)
-        {
+    if (a == 0.0) {
+        if (b == 0.0) {
             printf("  x = all\n");
-        }
-        else
-        {
+        } else {
             printf("  x = nothing\n");
         }
-    }
-    else
-    {
+    } else {
         printf("  x = %lf\n", -b / a);
     }
     return 0;
@@ -1949,19 +1823,16 @@ int main(void)
 #include <stdio.h>
 #include <stdlib.h>
 
-int main(void)
-{
+int main(void) {
     /* calculate "n!" */
     const int n = 10;
-    if (n < 0)
-    {
+    if (n < 0) {
         printf("Can't calculate n!.\n");
         printf("n = %d\n", n);
         exit(1);
     }
     int ans = 1;
-    for (int i = 1; i <= n; ++i)
-    {
+    for (int i = 1; i <= n; ++i) {
         ans *= i;
     }
     printf("%d! = %d\n", n, ans);
@@ -1974,25 +1845,20 @@ int main(void)
 \begin{verbatim}
 #include <stdio.h>
 
-int main(void)
-{
+int main(void) {
     /* n madeno sosuu. */
     const int n = 100;
     printf("%d madeno sosuu = ", n);
     int ans = 2;
-    while (ans <= n)
-    {
+    while (ans <= n) {
         int flag = 1;
-        for (int i = 2; i < ans; ++i)
-        {
-            if (ans % i == 0)
-            {
+        for (int i = 2; i < ans; ++i) {
+            if (ans % i == 0) {
                 flag = 0;
                 break;
             }
         }
-        if (flag == 1)
-        {
+        if (flag == 1) {
             printf("%d, ", ans);
         }
         ++ans;
@@ -2007,16 +1873,13 @@ int main(void)
 \begin{verbatim}
 #include <stdio.h>
 
-int main(void)
-{
+int main(void) {
     int a[5] = { 1, 2, 3, 4, 5 };
-    for (int i = 0; i < 5; ++i)
-    {
+    for (int i = 0; i < 5; ++i) {
         printf("Start: a[%d] = %d\n", i, a[i]);
     }
     int b[5];
-    for (int i = 0; i < 5; ++i)
-    {
+    for (int i = 0; i < 5; ++i) {
         b[i] = a[i];
         a[i] = 0;
         printf("End  : a[%d] = %d, b[%d] = %d\n", i, a[i], i, b[i]);
@@ -2030,36 +1893,26 @@ int main(void)
 \begin{verbatim}
 #include <stdio.h>
 
-void seki(double a[2][2], double b[2][2], double c[2][2])
-{
+void seki(double a[2][2], double b[2][2], double c[2][2]) {
     c[0][0] = a[0][0] * b[0][0] + a[0][1] * b[1][0];
     c[0][1] = a[0][0] * b[0][1] + a[0][1] * b[1][1];
     c[1][0] = a[1][0] * b[0][0] + a[1][1] * b[1][0];
     c[1][1] = a[1][0] * b[0][1] + a[1][1] * b[1][1];
 }
 
-int main(void)
-{
-    double a[2][2]
-        = { { 1.0, 2.0 },
-              { 3.0, 4.0 } };
-    double b[2][2]
-        = { { -1.0, -2.0 },
-              { -3.0, -4.0 } };
-    for (int i = 0; i < 2; ++i)
-    {
-        for (int j = 0; j < 2; ++j)
-        {
-            printf("a[%d][%d] = %lf, b[%d][%d] = %lf\n",
-                i, j, a[i][j], i, j, b[i][j]);
+int main(void) {
+    double a[2][2] = { { 1.0, 2.0 }, { 3.0, 4.0 } };
+    double b[2][2] = { { -1.0, -2.0 }, { -3.0, -4.0 } };
+    for (int i = 0; i < 2; ++i) {
+        for (int j = 0; j < 2; ++j) {
+            printf("a[%d][%d] = %lf, b[%d][%d] = %lf\n", i, j, a[i][j], i, j,
+                b[i][j]);
         }
     }
     double c[2][2];
     seki(a, b, c);
-    for (int i = 0; i < 2; ++i)
-    {
-        for (int j = 0; j < 2; ++j)
-        {
+    for (int i = 0; i < 2; ++i) {
+        for (int j = 0; j < 2; ++j) {
             printf("(a x b)[%d][%d] = %lf\n", i, j, c[i][j]);
         }
     }
@@ -2074,21 +1927,18 @@ int main(void)
 #include <stdlib.h>
 #include <string.h>
 
-int main(void)
-{
+int main(void) {
     /* calculate "n!" */
     int n;
     printf("Input(int): ");
     scanf("%d", &n);
-    if (n < 0)
-    {
+    if (n < 0) {
         printf("Can't calculate n!.\n");
         printf("n = %d\n", n);
         exit(1);
     }
     int ans = 1;
-    for (int i = 1; i <= n; ++i)
-    {
+    for (int i = 1; i <= n; ++i) {
         ans *= i;
     }
     printf("%d! = %d\n", n, ans);
@@ -2101,20 +1951,16 @@ int main(void)
 \begin{verbatim}
 #include <stdio.h>
 
-int main(void)
-{
+int main(void) {
     int array[10];
     int* p;
-    for (int i = 0; i < 10; ++i)
-    {
+    for (int i = 0; i < 10; ++i) {
         array[i] = i * i;
     }
-    for (int i = 0; i < 10; ++i)
-    {
+    for (int i = 0; i < 10; ++i) {
         printf("array[%d] = %d\n", i, *(array + i));
     }
-    for (int i = 0; i < 10; ++i)
-    {
+    for (int i = 0; i < 10; ++i) {
         p = &(array[i]);
         printf("array[%d] = %d\n", i, *p);
     }
@@ -2127,16 +1973,14 @@ int main(void)
 \begin{verbatim}
 #include <stdio.h>
 
-struct date
-{
+struct date {
     unsigned day, month;
     unsigned days;
 };
 
-int main(void)
-{
-    const unsigned nMonth[12] = { 31, 28, 31, 30, 31, 30,
-        31, 31, 30, 31, 30, 31 };
+int main(void) {
+    const unsigned nMonth[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30,
+        31 };
     struct date inputDay;
     printf("Input(month & day) :\n");
     printf("             month :");
@@ -2144,13 +1988,12 @@ int main(void)
     printf("             day   :");
     scanf("%d", &(inputDay.day));
     inputDay.days = 0;
-    for (int i = 1; i < inputDay.month; ++i)
-    {
+    for (int i = 1; i < inputDay.month; ++i) {
         inputDay.days += nMonth[i - 1];
     }
     inputDay.days += inputDay.day;
-    printf("%d/%d = %d days from 1/1\n", inputDay.month,
-        inputDay.day, inputDay.days);
+    printf("%d/%d = %d days from 1/1\n", inputDay.month, inputDay.day,
+        inputDay.days);
     return 0;
 }
 \end{verbatim}

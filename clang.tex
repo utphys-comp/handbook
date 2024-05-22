@@ -577,7 +577,7 @@ int main(void) {
     if (det == 0.0) {
         printf("inverse matrix does not exist\n");
     } else {
-        const double [2][2]
+        const double inverse[2][2]
             = { { matrix[1][1] / det, -matrix[0][1] / det },
                   { -matrix[1][0] / det, matrix[0][0] / det } };
         printf("inverse[0][0] = %lf\n", inverse[0][0]);

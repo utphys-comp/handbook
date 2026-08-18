@@ -74,20 +74,19 @@ Cのプログラムの最小単位は関数である。``Cのプログラムは�
 \end{quote}
 \begin{description}
     \item[関数名]\mbox{}\\
-          関数の名前は自由につけられる。ここで、Cでプログラム中に使う名前(関数以外でも共通)には
+          関数の名前は自由につけられる。本書では、処理系が使用する予約識別子との衝突を避け、プログラムを読みやすくするため、プログラム中に使う名前(関数以外でも共通)には次の規則を用いる。
           \begin{itemize}
               \item 先頭は英字
               \item 2文字以降は英数字または \texttt{\_} (下線)
               \item \texttt{\_} (下線)を2つ以上連続させてはならない
-              \item 大文字/小文字は区別される
-              \item 名前に重複があってはならない
+              \item 同じ有効範囲内で、同じ種類の名前を重複して定義しない
           \end{itemize}
-          という制約がある。
+          なお、大文字/小文字は区別されることに注意せよ。
     \item[引数]\mbox{}\\
           関数には引数(パラメタ)を渡すことができるが、その型はあらかじめ指定しておかねばならない(具体的な例については\ref{sec:C:function}節参照)。
           渡さない場合には\texttt{void}と書く。
     \item[型]\mbox{}\\
-          関数は何かを処理して最後に値を返す(関数値)もののことである。C言語の関数はあらかじめ決められた型の値しか返すことができない。
+          関数は何らかの処理を行うものであり、戻り値を返す関数と、戻り値を返さない\texttt{void}関数がある。C言語の関数はあらかじめ決められた型の値しか返すことができない。
     \item[処理]\mbox{}\\
           この中で、1) 関数が行う処理内容を書き、2) 最後に関数値を返す。
           関数値を返すには
@@ -110,8 +109,8 @@ Emacsなどのテキストエディタを使って例\ref{ex:hinagata1}の1行�
 \begin{commandline2}
     \prompt \underline{gcc \ref{ex:hinagata1}c -Wall -Wextra}
 \end{commandline2} \noindent
-\texttt{-Wall -Wextra}というのは警告メッセージを最大限出力させるためのオプションであり、必ずつけたほうがよい。
-同一ディレクトリに\texttt{a.out}というファイルができているので、以下のように実行する\footnote{\texttt{.}がカレントディレクトリを表していたことを思い出そう。}。
+ここで、\texttt{-Wall -Wextra}は多くの有用な警告を有効にするオプションであり、必ずつけたほうがよい。
+コンパイルが成功すると、同一ディレクトリに\texttt{a.out}というファイルができているので、以下のように実行する\footnote{\texttt{.}がカレントディレクトリを表していたことを思い出そう。}。
 \begin{commandline2}
     \prompt \underline{./a.out}
 \end{commandline2} \noindent
@@ -470,7 +469,7 @@ int main(void) {
 \end{reidai}
 
 \subsection{\texttt{continue} 文}
-ある条件を満たした場合に\texttt{for}や\texttt{while}の先頭に戻り、次の繰り返しに進みたい場合には、\texttt{continue}を用いる(より正確には、\texttt{continue}から後を実行せずに、次の条件判定を行う)。 例\ref{ex:continue}では、割り切れない場合には\texttt{continue}を実行してすぐに \texttt{i <= number} の判定を行っている。割り切れる場合は \texttt{printf(...)} を実行してから \texttt{i <= number} の判定を行っている。ちなみに、このプログラムは80の全ての約数を出力するものである。
+ある条件を満たした場合に\texttt{for}や\texttt{while}の先頭に戻り、次の繰り返しに進みたい場合には、\texttt{continue}を用いる(より正確には、\texttt{continue}から後を実行せずに、次の条件判定を行う)。 例\ref{ex:continue}では、割り切れない場合には\texttt{continue}以降の処理を省略し、まず反復式\texttt{++i}を実行した後、次の\texttt{i <= number}の判定を行う。割り切れる場合は、\texttt{printf(...)} を実行してから次の繰り返しに進む。ちなみに、このプログラムは80の全ての約数を出力するものである。
 \begin{reidai}\label{ex:continue}
     \begin{verbatim}
 #include <stdio.h>
@@ -478,12 +477,12 @@ int main(void) {
 int main(void) {
     const int number = 80;
     for (int i = 1; i <= number; ++i) {
-        /* 'a % b' yields the residual of a/b */
-        const int residual = number % i;
-        if (residual != 0) {
+        /* 'a % b' yields the remainder of a / b */
+        const int remainder = number % i;
+        if (remainder != 0) {
             continue;
         }
-        printf("%d is a measure(YAKUSUU) of %d\n", i, number);
+        printf("%d is a divisor of %d\n", i, number);
     }
     return 0;
 }
@@ -1026,7 +1025,7 @@ int main(void) {
 
 例\ref{ex:struct1}を見てほしい。個人のデータを取り扱うために \texttt{personal\_data} という一つの箱を準備している。これが構造体である。もし構造体を使わなければ、同じ内容のプログラムを実現するために複数の配列を準備する必要が出てくる。これは見た目にも格好悪いし、拡張性も乏しく複雑になる。例\ref{ex:struct1}では、\texttt{struct personal\_data pdata;} で \texttt{pdata} を構造体とし宣言している。少し分かりにくいかもしれないが、\texttt{int n;}と比べてみると、\texttt{int} と ``\texttt{struct personal\_data}''が同じ立場であって、\texttt{int} と ``\texttt{struct}''が同じ立場というわけではないことに注意してほしい。\texttt{int} という型はあらかじめC言語で決められた型なのに対し、構造体は自分が好きなように使いやすいように決めた型だと考えても構わない。つまり、``\texttt{struct personal\_data}''型というものを自分で作ったと考えるのである。そうすれば、\texttt{struct personal\_data pdata;} という使い方も理解できるはずである。
 
-構造体内の各データには、ドット演算子 (\texttt{.}) を使ってアクセスする。また、年齢を文字列 \texttt{buffer[16]} として受け取っているため、\texttt{atoi} 関数を用いて数字に変換している。\texttt{atoi} は文字列を整数に変換する関数である。詳しくはコマンドラインで \texttt{man atoi} としてみよ。
+構造体内の各データには、ドット演算子 (\texttt{.}) を使ってアクセスする。また、年齢を文字列 \texttt{buffer[16]} として受け取っているため、\texttt{atoi} 関数を用いて数字に変換している。\texttt{atoi} は文字列を整数に変換する関数である。詳しくはコマンドラインで \texttt{man atoi} としてみよ。また、簡単のため、氏名は15文字以内とし、入力が配列に収まらない場合の処理は省略している。
 \begin{reidai}\label{ex:struct1}
     \begin{verbatim}
 #include <stdio.h>
@@ -1042,11 +1041,20 @@ int main(void) {
     struct personal_data pdata;
     char buffer[16];
     printf("Input family name: ");
-    fgets(pdata.family_name, sizeof(pdata.family_name), stdin);
+    if (fgets(pdata.family_name, sizeof(pdata.family_name), stdin) ==  NULL) {
+        printf("Error reading family name.\n");
+        exit(1);
+    }
     printf("Input given name: ");
-    fgets(pdata.given_name, sizeof(pdata.given_name), stdin);
+    if (fgets(pdata.given_name, sizeof(pdata.given_name), stdin) == NULL) {
+        printf("Error reading given name.\n");
+        exit(1);
+    }
     printf("Input age: ");
-    fgets(buffer, sizeof(buffer), stdin);
+    if (fgets(buffer, sizeof(buffer), stdin) == NULL) {
+        printf("Error reading age.\n");
+        exit(1);
+    }
     pdata.age = atoi(buffer);
     printf("Family Name = %s", pdata.family_name);
     printf("Given  Name = %s", pdata.given_name);
@@ -1086,7 +1094,7 @@ int main(void) {
 
 \subsection{ファイルから数字の読み込み}
 
-例\ref{ex:file-read1}がファイルから数字を読み込むときの雛型となる。まず、\texttt{FILE *fp;} でファイルを取り扱うための構造体を宣言する。\texttt{char *filename}の部分でファイル名を宣言する。そして、\texttt{fopen}でファイルを開く。(\texttt{"r"} はread (読み取り専用)でファイルを開くことを示す。) \texttt{if(fp==NULL){}} の部分はエラーが起こったときに処理され、プログラムを強制終了させる\footnote{\texttt{NULL}は特別なポインタで、``なにか異常が起きた結果、ポインタが有効な場所を指さずに宙ぶらりんになっている''ことを表現するためにある。今回の例ではファイルが何らかの原因で読み取れなかったときに\texttt{NULL}が返ってくる。}。\texttt{fscanf}で順番にファイルに書かれている数字を\texttt{double}型で読み取っている。\texttt{fscanf}の使い方は、
+例\ref{ex:file-read1}がファイルから数字を読み込むときの雛型となる。まず、\texttt{FILE *fp;} で、ファイルを表す\texttt{FILE}型オブジェクトへのポインタを宣言する。\texttt{char *filename}の部分でファイル名を宣言する。そして、\texttt{fopen}でファイルを開く。(\texttt{"r"} はread (読み取り専用)でファイルを開くことを示す。) \texttt{if (fp == NULL){}} の部分はエラーが起こったときに処理され、プログラムを強制終了させる\footnote{\texttt{NULL}は、ポインタが有効なオブジェクトを指していないことを表す特別な値である。\texttt{fopen}はファイルを開けなかった場合に\texttt{NULL}ポインタを返す。}。\texttt{fscanf}で順番にファイルに書かれている数字を\texttt{double}型で読み取っている。\texttt{fscanf}の使い方は、
 \begin{quote}
     \begin{verbatim}
 fscanf(ファイル構造体のポインタ, "フォーマット", &変数1, &変数2, ......);
@@ -1228,12 +1236,14 @@ int main(void) {
 \begin{reidai}\label{ex:case}
     \begin{verbatim}
 #include <stdio.h>
-#include <string.h>
 
 int main(void) {
     int i;
     printf("Input(int): ");
-    scanf("%d", &i);
+    if (scanf("%d", &i) != 1) {
+        fprintf(stderr, "Input error.\n");
+        return 1;
+    }
     printf("%d / 3 no amari ha ", i);
     switch (i % 3) {
     case 1:
@@ -1394,7 +1404,7 @@ int main(int argc, char* argv[]) {
     double x, y;
     double sumX = 0.0, sumY = 0.0;
     /* read data */
-    while (fscanf(fp, "%lf %lf\n", &x, &y) == 2) {
+    while (fscanf(fp, "%lf %lf", &x, &y) == 2) {
         sumX += x;
         sumY += y;
         ++counter;
@@ -1511,6 +1521,10 @@ int main(int argc, char* argv[]) {
         exit(1);
     }
     const int n_element = strtol(argv[1], NULL, 10);
+    if (n_element <= 0) {
+        printf("n_element must be positive.\n");
+        exit(1);
+    }
     for (int j = 0; j < 3; ++j) {
         int* array = malloc(sizeof(int) * n_element);
         if (array == NULL) {
@@ -1648,7 +1662,7 @@ C言語上で行列の\((i,j)\)成分を \texttt{A[i][j]} に代入したもの(
 #define mat_elem(mat, i, j) (mat)[(j)][(i)]
 \end{verbatim}
 \end{quote}
-のように \texttt{mat\_elem} マクロを定義することである\footnote{一般的にCプロセッサのマクロの多用は勧められていないが、背に腹は代えられない。}。これにより、プログラム中で行列の\((i,j)\)成分を \texttt{mat\_elem(A, i, j)} と書けるようになる。
+のように \texttt{mat\_elem} マクロを定義することである\footnote{一般的にCプリプロセッサのマクロの多用は勧められていないが、背に腹は代えられない。}。これにより、プログラム中で行列の\((i,j)\)成分を \texttt{mat\_elem(A, i, j)} と書けるようになる。
 \begin{reidai}\label{ex:malloc-2dim-column-major}
     \begin{verbatim}
 #include <stdio.h>

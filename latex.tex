@@ -877,13 +877,13 @@ J_{\mu}^{NC}(\nu) =
 \end{quotation}
 という部分である。ファイル名は\texttt{\{\}}の中で指定する。また \texttt{width=8cm} という記述により図の横幅を指定している。図の表題も表のときと同じく \verb|\caption| コマンドを使う。
 
-\LaTeX は図表を自動的に適切な位置に配置してくれるが、\verb|begin{figure}| の後に \texttt{[h]} を付けると、その場に配置することができる。それでもうまくいかない場合には、\texttt{here}パッケージを使い、\textbf{例題 \ref{reidai:latex:here}}のように\verb|begin{figure}| の後に \texttt{[H]} を付けることにより、強制的に指定の位置に配置することも出来る。
+\LaTeX は図表を自動的に適切な位置に配置してくれるが、\verb|\begin{figure}| の後に \texttt{[h]} を付けると、その場に配置することができる。それでもうまくいかない場合には、\texttt{float}パッケージを使い、\textbf{例題 \ref{reidai:latex:here}}のように\verb|\begin{figure}| の後に \texttt{[H]} を付けることにより、強制的に指定の位置に配置することも出来る。
 \begin{reidai}
     \label{reidai:latex:here}
     \begin{verbatim}
 \documentclass[uplatex,dvipdfmx]{jsarticle}
 \usepackage{graphicx}
-\usepackage{here}
+\usepackage{float}
 
 \begin{document}
 \begin{figure}[H]
@@ -1069,7 +1069,7 @@ J_{\mu}^{NC}(\nu) =
 \begin{kekka}
     \hspace*{0.3cm}第 1 象限内の複素数 \(z\) について、
     \begin{equation}
-        w(z) \equiv \mathrm{e}^{-z^2}\mathrm{erfc}(iz)
+        w(z) \equiv \mathrm{e}^{-z^2}\mathrm{erfc}(-iz)
     \end{equation}
     を近似的に計算するアルゴリズムが存在し[1]、
     その計算誤差は \(10 ^ {-10}\) 以下である。
@@ -1085,7 +1085,7 @@ J_{\mu}^{NC}(\nu) =
 
     \noindent [2] The BELLE Collaboration, KEK Report 95-1 (1995)
 \end{kekka} \noindent
-文章中に書く \verb|\cite| では引用する論文の名前を指定する。論文の名前は自分が覚えやすいものであれば何でも構わないが、\verb|\bibitem| によって名前が定義されている必要がある。\verb|\bibitem| は \verb|\begin{thebibliography}| と \verb|\end{thebibliography}| とで囲まれた領域に書く。この領域は清書すると参考文献の章となる。
+文章中に書く \verb|\cite| では引用する論文の名前を指定する。論文の名前は自分が覚えやすいものであれば何でも構わないが、\verb|\bibitem| によって名前が定義されている必要がある。\verb|\bibitem| は \verb|\begin{thebibliography}| と \verb|\end{thebibliography}| とで囲まれた領域に書く。この領域は清書すると参考文献の節または参考文献リストが表示される。
 \verb|\bibitem| に続く \texttt{\{\}} の中には自分で決めた論文名を書く。この名前が \verb|\cite| によって参照されることになる。その後には、その論文の著者名や収録されている雑誌名などを書く。ここに書いたことは、参考文献の章が清書されるときにそのまま印刷される\footnote{項目が増えてくると直接ファイルに書き込むのが大変になってくるだろう。詳しいやり方は説明しないが、そういった場合は\texttt{.bib}ファイルを使うとより管理しやすくなる。}。
 
 \verb|\cite| と \verb|\ref| を、 \verb|\bibitem| と \verb|\label| を

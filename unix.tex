@@ -163,7 +163,7 @@ drwxr-xr-x  2 s001500 student      512 Apr 16 03:40 Desktop
 \end{tt}
 と書かれるが、カレントディレクトリがホームディレクトリの場合、相対的な指定では\texttt{sample/chap4}と書かれる。そのディレクトリの中にあるファイルも \texttt{/home/s001500/sample/chap4/circle.c}とか\texttt{sample/chap4/circle.c}のように指定することができる。特に一つ上のディレクトリは``\texttt{..}''で、カレントディレクトリは``\texttt{.}''であらわされる。つまり先ほどの\texttt{sample/chap4/circle.c}は\texttt{./../s001500/sample/chap4/circle.c}と書いても同じものを指す。
 
-これで、自由にディレクトリ間を移動することができるようになった。例えば、すでに使った\texttt{ls}コマンドは、\texttt{/usr/bin}あるいは\texttt{/bin}ディレクトリに格納されている\footnote{\underline{\texttt{which ls}}とすることで、\texttt{ls}がどこにあるか調べることができる。}。\underline{\texttt{cd /usr/bin}} として、そこに移動してから\underline{\texttt{ls}}と打ってみよう。たくさんのファイルが置かれているが、\texttt{ls} というファイルは見付かっただろうか\footnote{例えば、\texttt{treasure.here}という名前のファイルを探したい場合、そのファイルがありそうなディレクトリよりも上のディレクトリに行って、\underline{\texttt{find . -name treasure.here -print}}とする。\texttt{find}の直後の \texttt{.} (ピリオド)は「そのファイルがありそうなディレクトリより上のディレクトリのパス」を指定する。またファイル名があやふやな場合でも、\underline{\texttt{find . -name 'tre\(\ast\).here' -print}}のように\(\ast\)を任意の文字列として合致するファイルを表示してくれる。\texttt{find}はとても多機能である。例えば\underline{\texttt{find . -name 'tre\(\ast\).here' -exec cat \textbraceleft \textbraceright} \(\backslash\);}のように、探し出したファイルに対してコマンドを実行することもできる。\texttt{-exec} 以下の書式は コマンドの引数となるファイル名が \textbraceleft \textbraceright となるように書き、最後に \texttt{\(\backslash\);} を加えればよい。\texttt{-exec} の代わりに \texttt{-ok} を使えばコマンドを実行する前に一々聞いて来るので \texttt{rm}などを \texttt{find} で実行したいときには安心である。\underline{\texttt{find\ .\ -mtime -1 -print}}のように\texttt{-mtime}で最終変更期日が1日前以内のものだけ表示させるようなことも可能である。\texttt{-mtime}の引数を\texttt{+1} にすると最終変更期日が1日以上前のものだけが表示される。}。
+これで、自由にディレクトリ間を移動することができるようになった。例えば、すでに使った\texttt{ls}コマンドは、\texttt{/usr/bin}あるいは\texttt{/bin}ディレクトリに格納されている\footnote{\underline{\texttt{which ls}}とすることで、\texttt{ls}がどこにあるか調べることができる。}。\underline{\texttt{cd /usr/bin}} として、そこに移動してから\underline{\texttt{ls}}と打ってみよう。たくさんのファイルが置かれているが、\texttt{ls} というファイルは見付かっただろうか\footnote{例えば、\texttt{treasure.here}という名前のファイルを探したい場合、そのファイルがありそうなディレクトリよりも上のディレクトリに行って、\underline{\texttt{find . -name treasure.here -print}}とする。\texttt{find}の直後の \texttt{.} (ピリオド)は「そのファイルがありそうなディレクトリより上のディレクトリのパス」を指定する。またファイル名があやふやな場合でも、\underline{\texttt{find . -name 'tre\(\ast\).here' -print}}のように\(\ast\)を任意の文字列として合致するファイルを表示してくれる。\texttt{find}はとても多機能である。例えば\underline{\texttt{find . -name 'tre\(\ast\).here' -exec cat \textbraceleft \textbraceright} \(\backslash\);}のように、探し出したファイルに対してコマンドを実行することもできる。\texttt{-exec} 以下の書式は コマンドの引数となるファイル名が \textbraceleft \textbraceright となるように書き、最後に \texttt{\(\backslash\);} を加えればよい。\texttt{-exec} の代わりに \texttt{-ok} を使えばコマンドを実行する前に一々聞いて来るので \texttt{rm}などを \texttt{find} で実行したいときには安心である。\underline{\texttt{find\ .\ -mtime -1 -print}}のように\texttt{-mtime}で最終変更期日が1日前以内のものだけ表示させるようなことも可能である。\texttt{-mtime}の引数を\texttt{+0}にすると24時間以上前、\texttt{+1}にすると48時間以上前に変更されたファイルが表示される。\texttt{find}は経過時間を24時間単位で数えるため、より細かい指定には\texttt{-mmin}を用いるとよい。}。
 
 なお、\underline{\texttt{cd}}とだけ打てば、いつでも自分のホームディレクトリに戻ってくることができる。ホームディレクトリは \(\tilde{\ }\) (チルダ)とも表されるので \underline{\texttt{cd \(\tilde{\ }\)}}としても同じである。他にも特殊な記法として``前のカレントディレクトリ''を表す \texttt{-} (ハイフン)が使用できる。
 
@@ -177,7 +177,7 @@ drwxr-xr-x  2 s001500 student      512 Apr 16 03:40 Desktop
 \begin{commandline2}
     \prompt \underline{more circle.c}
 \end{commandline2} \noindent
-と打つことにより、ちょうどよい所で一旦止めてくれる。\fbox{\texttt{--More--(xx\%)}} のような表示が左下に見えたら、\spc を叩いてみよう。次のページが表示されるはずである。\underline{\texttt{h}}と打つと簡単なヘルプが見られる。\underline{\texttt{b}}か\ctrl{B}で1ページ戻る。また\ret で1行進む。さらに、\underline{\texttt{/}}の後に\underline{\texttt{文字列}}を打つことでファイル中の文字列を検索することができる。検索された文字列を含む行はウインドウの一番上に表示される。\underline{\texttt{n}}と打てばもう一度同じ文字列を探してくれる。また、\underline{\texttt{10d}}のように数字を入れてから\underline{\texttt{d}}を打てば、その数字分だけ進む。\texttt{more}から抜けるには、\underline{\texttt{q}}を入力する。
+と打つことにより、ちょうどよい所で一旦止めてくれる。\fbox{\texttt{-{}-More-{}-(xx\%)}} のような表示が左下に見えたら、\spc を叩いてみよう。次のページが表示されるはずである。\underline{\texttt{h}}と打つと簡単なヘルプが見られる。\underline{\texttt{b}}か\ctrl{B}で1ページ戻る。また\ret で1行進む。さらに、\underline{\texttt{/}}の後に\underline{\texttt{文字列}}を打つことでファイル中の文字列を検索することができる。検索された文字列を含む行はウインドウの一番上に表示される。\underline{\texttt{n}}と打てばもう一度同じ文字列を探してくれる。また、\underline{\texttt{10d}}のように数字を入れてから\underline{\texttt{d}}を打てば、その数字分だけ進む。\texttt{more}から抜けるには、\underline{\texttt{q}}を入力する。
 
 \texttt{more}と似ているが、もう少し使い勝手のよい\texttt{less}\label{sect:less}というコマンドもある。\texttt{less}では上向きにスクロールすることができる。\underline{\texttt{j}}で1行下に、\underline{\texttt{k}}で1行上\footnote{UNIX標準エディター \texttt{vim} のキー操作と同じ。}に進む。\texttt{more}と同じく、スペースバー、\underline{\texttt{h}}、\underline{\texttt{b}}、\underline{\texttt{d}}、\underline{\texttt{/}}、\underline{\texttt{n}}、\underline{\texttt{q}}のようなコマンドも使える。更に \underline{\texttt{g}}でファイルの先頭に、\underline{\texttt{G}}でファイルの最後尾にジャンプすることができる\footnote{\texttt{\underline{tail circle.c}}のようにすれば、ファイルの最後だけ見ることができる。また \underline{\texttt{tail -n 30 circle.c}}のように指定することで最後から30行目以降を見ることができる。}。
 
@@ -259,18 +259,18 @@ rmdir (2)             - Removes a directory file
 \end{commandline2} \noindent
 のように \texttt{man}コマンドの後にセクション番号を書くことで指定することができる。
 
-また、多くのコマンドでは \texttt{-h} オプション、あるいは \texttt{--help} オプションを指定するとマニュアルが表示される。
+また、多くのコマンドでは \texttt{-h} オプション、あるいは \texttt{-{}-help} オプションを指定するとマニュアルが表示される。
 \begin{commandline2}
-    \prompt \underline{less --help}
+    \prompt \underline{less -{}-help}
 \end{commandline2} \noindent
 
 \subsection{プロセスの管理とトラブル時の対策}
 \label{chap: recover}
 この節では、トラブル時の対策を含んだプロセスの管理について説明する。多少面倒な話なので読み飛ばしておいても構わない。
 
-ターミナル上で何かを実行していて止まらなくなったときに最も有効なのは、\ctrl{c}である。\ctrl{c}は実行しているジョブを強制的に終了する。うまくいけばプロンプトが戻って来るはずである。
+ターミナル上で何かを実行していて止まらなくなったときに最も有効なのは、\ctrl{c}である。\ctrl{c}は通常、実行中のフォアグラウンドジョブに割り込みを送り、終了させる。プログラムによっては、この割り込みを捕捉したり無視したりすることもある。
 
-それでも止まらなかった場合には、\ctrl{z}を入力してみよう。\ctrl{z}はプロセスを一時的に停止させるだけなので、その後で終了させるか続行させるか、いずれかを選ぶ必要がある。もしプロンプトが戻って来たら、\underline{\texttt{jobs}}と入力する。おおよそ
+\ctrl{c}でも止まらなかった場合には、\ctrl{z}を入力してみよう。\ctrl{z}はプロセスを一時的に停止させるだけなので、その後で終了させるか続行させるか、いずれかを選ぶ必要がある。もしプロンプトが戻って来たら、\underline{\texttt{jobs}}と入力する。おおよそ
 \begin{commandline2}
     \prompt \underline{jobs}
     \vspace*{-.8em}
@@ -319,7 +319,7 @@ UNIX の設計思想の一つに小さなツールを組み合わせるという
 \begin{commandline2}
     \prompt \underline{ps \(|\) grep emacs}
 \end{commandline2} \noindent
-のように実行する。``\texttt{\(|\)}''はパイプと呼ばれ、パイプの左側のコマンドが出力するデータをパイプの後ろのコマンドの入力に繋いでくれる。ここで使えるのは、画面に結果を書き出すコマンドとキーボードから入力を読み込むコマンド\footnote{\texttt{grep} のマニュアルを見れば分かるが、\texttt{grep} は入力ファイルが指定されずに起動された場合は、標準入力(ふつうはキーボード)を探すと書いてある。}の組み合わせだけであることに注意せよ。
+のように実行する。``\texttt{\(|\)}''はパイプと呼ばれ、パイプの左側のコマンドが出力するデータをパイプの後ろのコマンドの入力に繋いでくれる。パイプは、左側のコマンドの標準出力を、右側のコマンドの標準入力に接続する。したがって、左側のコマンドが標準出力へデータを出力し、右側のコマンドが標準入力からデータを読み込む場合に利用できる\footnote{\texttt{grep} のマニュアルを見れば分かるが、\texttt{grep} は入力ファイルが指定されずに起動された場合は、標準入力(ふつうはキーボード)を探すと書いてある。}。
 
 パイプを使えば、\texttt{ls}などの出力で流れて行ってしまうものを、
 \begin{commandline2}
@@ -479,7 +479,8 @@ UNIXでは、SSH (\textbf{s}ecure \textbf{sh}ellの略)という仕組みを使�
 
 作成された鍵のうち、公開鍵(\texttt{id\_ed25519.pub})をログイン先の計算機に登録する。公開鍵の登録は、リモート計算機の管理者の指示にしたがって行う。繰り返しになるが、秘密鍵(\texttt{id\_ed25519})は絶対に人に知られてはならない。公開鍵の代わりに間違えて秘密鍵を送ってしまわないよう注意が必要である。
 
-\texttt{ssh-keygen}をオプションの指定なしで複数回実行してしまうと、既存の鍵が置き換えられてしまい公開鍵の登録からすべてやり直しになるので十分注意すること。
+\texttt{ssh-keygen}において、既存の鍵と同じ保存先を指定し上書きを承認すると、以前の鍵は失われる。公開鍵の登録からすべてやり直しになるので十分注意すること。
+
 \subsection{リモートログイン}
 
 リモート計算機へSSH接続するには、\texttt{ssh} コマンドを利用する\footnote{同様の機能を持つものに\texttt{telnet}、\texttt{rlogin}というコマンドがあるが、通信内容が平文でネットワーク上を流れるなど、セキュリティ上の問題があるので、今日では使われない。}。例えば、ホスト名が remote.phys.s.u-tokyo.ac.jp という計算機にSSHログインしたい場合、
@@ -488,7 +489,7 @@ UNIXでは、SSH (\textbf{s}ecure \textbf{sh}ellの略)という仕組みを使�
 \end{commandline2} \noindent
 と入力する。現在ログインしている計算機とログイン先のアカウント名が異なるときは、
 \begin{commandline2}
-    \prompt \underline{ssh remote.phys.s.u-tokyo.ac.jp -l \textit{username}}
+    \prompt \underline{ssh  -l \textit{username} remote.phys.s.u-tokyo.ac.jp}
 \end{commandline2} \noindent
 あるいは
 \begin{commandline2}

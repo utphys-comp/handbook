@@ -1,7 +1,7 @@
 \chapter{C言語入門}
 
 \noindent
-プログラミング言語とは、コンピューターに仕事をさせるために、その作業内容を指示するための特別な言語である。この言語で書かれた作業の手順書を「プログラム」とよび、プログラムを作成することを「プログラミング」という。
+プログラミング言語とは、コンピュータに仕事をさせるために、その作業内容を指示するための特別な言語である。この言語で書かれた作業の手順書を「プログラム」とよび、プログラムを作成することを「プログラミング」という。
 プログラミング言語には、さまざまな種類がある。C言語はもともと、UNIX (マルチユーザ、マルチタスクのオペレーティングシステム)を記述するためのシステム言語として開発された。現在は、システムソフトウエアの作成だけでなく、事務処理や科学技術計算、アプリケーションソフトウエア(表計算やワープロなど)の開発など、広く汎用プログラミング言語として使用されている。
 
 \section{C言語の基礎知識}
@@ -50,7 +50,7 @@ C言語の学習において最初の壁となるのは型の概念であろう�
         \texttt{char}     & 文字型
     \end{tabular}
 \end{table} \noindent
-``精度''は変数1つを記憶するのにどれだけのリソースを使うかに深く関係しており、一般にたくさんの bit を使う型のほうが精度や表現能力が高い。よって例えば\texttt{double} でもよい場合はわざわざ精度が低い \texttt{float} を使う利点はない。
+``精度''は変数1つを記憶するのにどれだけのリソースを使うかに深く関係しており、一般にたくさんの bit を使う型のほうが精度や表現能力が高い。本書では精度を優先して\texttt{double}を基本とする。
 
 各型の変数で表現できる値の範囲については状況依存であるが、典型的に以下のようになっている\footnote{整数型は1刻みで誤差がないのに対し、浮動小数点数型は値が大きくなるほど隣接する数字との間隔が増大して精度が低下することに注意せよ。}。
 \begin{table}[H]
@@ -118,7 +118,8 @@ Emacsなどのテキストエディタを使って例\ref{ex:hinagata1}の1行�
 (ただし、現段階のプログラムでは、実行しても何も起こらない。)
 
 \clangpara{\texttt{main}について}
-C言語において必ず必要になる\texttt{main}は``そのプログラムがどんな処理をするか''を記述した関数である。つまり、プログラムを実行した際に実行される部分は\texttt{main}の中身だけであり、他の部分に書いたものは\texttt{main}から何らかの形でアクセスしない限り完全に無視される。\texttt{main}が\texttt{int}型でなくてはならないのは歴史的経緯による\footnote{\texttt{main}が返した値は外部から終了コードとして参照できるようになっていて、\texttt{main}が正常に終了したかを確認することができる。正常終了したときには0を、異常終了したときにはそれ以外を返すのが一般的。}。
+C言語において必ず必要になる\texttt{main}は``そのプログラムがどんな処理をするか''を記述した関数である。プログラムの通常の実行はmainから始まり、そこから呼び出された関数へ処理が進む。
+\texttt{main}が\texttt{int}型でなくてはならないのは歴史的経緯による\footnote{\texttt{main}が返した値は外部から終了コードとして参照できるようになっていて、\texttt{main}が正常に終了したかを確認することができる。正常終了したときには0を、異常終了したときにはそれ以外を返すのが一般的である。}。
 
 \subsection{書式の慣例}
 
@@ -234,7 +235,7 @@ int main(void) {
 
 int main(void) {
     const double angle = 60.0 * M_PI / 180.0;
-    printf("cos(%lf) is %lf\n", angle, cos(angle));
+    printf("cos(%f) is %f\n", angle, cos(angle));
     return 0;
 }
 \end{verbatim}
@@ -278,27 +279,24 @@ int main(void) {
 printf("フォーマット", 変数1, 変数2,......)
 \end{verbatim}
 \end{quote}
-という形で使用する。例\ref{ex:compile2}の場合はフォーマットが ``\texttt{cos(\%lf) is \%lf\textbackslash n}'' になっているので、前者の \texttt{\%lf} の部分が変数1 (\texttt{angle})の値に置きかえられ、後者の \texttt{\%lf} の部分が変数2 (\texttt{cos(angle)})の値に置きかえられて表示される。\texttt{\%lf} の他に \texttt{\%d}, \texttt{\%s}, \texttt{\%f} などがあり、変数の型によって使い分ける必要がある。
+という形で使用する。例\ref{ex:compile2}の場合はフォーマットが ``\texttt{cos(\%f) is \%f\textbackslash n}'' になっているので、前者の \texttt{\%f} の部分が変数1 (\texttt{angle})の値に置きかえられ、後者の \texttt{\%f} の部分が変数2 (\texttt{cos(angle)})の値に置きかえられて表示される。\texttt{\%f} の他に \texttt{\%d}, \texttt{\%s}などがあり、変数の型によって使い分ける必要がある。
 \begin{table}[H]
     \centering
     \begin{tabular}{ll}
         \texttt{\%d}  & \texttt{int}          \\
         \texttt{\%u}  & \texttt{unsigned}     \\
-        \texttt{\%f}  & \texttt{float}        \\
-        \texttt{\%lf} & \texttt{double}       \\
+        \texttt{\%f}  & \texttt{float}, \texttt{double} \\
         \texttt{\%c}  & \texttt{char} 文字    \\
         \texttt{\%s}  & \texttt{char*} 文字列
     \end{tabular}
 \end{table}
-\texttt{\%}の部分では型だけでなく書式の指定もできる。例えば\texttt{\%.20lf}とすると小数点以下20桁が表示されるようになる。
+\texttt{\%}の部分では型だけでなく書式の指定もできる。例えば\texttt{\%.20f}とすると小数点以下20桁が表示されるようになる。
 
 ここから先では他にも様々な標準ライブラリ関数を使用するが、その詳細については基本的に省略する。\texttt{man}やWeb検索で調べてほしい。
 
 \section{制御文}
 \subsection{Cにおける論理値}
-古い規格のCには真(\texttt{true})と偽(\texttt{false})の2値しかとらない論理型(いわゆる\texttt{bool})がない\footnote{新しい規格では一応存在することになっているが、言語機能として備わっているとは言い難い。}。そこで真の代わりに\(\neq 0\) (典型的に\(1\)を用いるが、それ以外でも構わない)、偽の代わりに\(0\)を用いる。
-
-以下の比較演算子・関係演算子が使用できる。
+Cで論理値を扱う場合、\texttt{stdbool.h}をインクルードして\texttt{bool}型や\texttt{true} (真)、\texttt{false} (偽)を使うことができるが、真の代わりに\(\neq 0\) (典型的に\(1\)を用いるが、それ以外でも構わない)の整数、偽の代わりに\(0\)を用いることも多い。また、以下の比較演算子・関係演算子が使用できる。
 \begin{table}[H]
     \centering
     \begin{tabular}{ll}
@@ -310,7 +308,7 @@ printf("フォーマット", 変数1, 変数2,......)
         \texttt{a} は \texttt{b} 以下         & \texttt{a <= b}
     \end{tabular}
 \end{table} \noindent
-浮動小数点に対して\texttt{==}を用いると誤差無しの完全一致を要求すること(数値誤差があるのでほとんど確実に偽である)に注意せよ。
+浮動小数点に対して\texttt{==}を用いると誤差無しの完全一致を要求すること(丸め誤差を含む計算結果同士を比較する場合は、ほとんど確実に偽である)に注意せよ。
 
 また、論理演算子には以下のようなものがある。
 \begin{table}[H]
@@ -412,9 +410,9 @@ int j = ++i;
 \end{verbatim}
           \end{quote}
           ならば、\texttt{j} の値は10ではなく11となる(\texttt{i}を1増やしてから\texttt{j}に代入する)。
-          特別な理由がない限り、\texttt{++i} と \texttt{{-}{-}i} を使うのがよい\footnote{\texttt{i++}は一度もとの\texttt{i}の値を別の場所に保存しておく必要があるので少しだけ計算量が多い。}。
+          特別な理由がない限り、\texttt{++i} と \texttt{{-}{-}i} を使うのがよい。
     \item[複合代入]\mbox{}\\
-          今回使用した\texttt{a += b}は\texttt{a = a + b}と同じ意味の式である。\texttt{+=}を使ったほうが短く書ける上、場合によっては前者のほうが高速になる場合もある\footnote{前者は\texttt{a}を直接置き換えてよいからである。Cでは残念ながら大きな影響はない。}ので、可能な限りこちらを使うほうがよい。
+          今回使用した\texttt{a += b}は\texttt{a = a + b}と同じ意味の式である。\texttt{+=}を使ったほうが短く書ける。
 
           全く同様の記法が加減乗除と剰余全てについて使用できる。
 \end{description}
@@ -461,7 +459,7 @@ int main(void) {
     for (int i = 0; i <= 180; i += 20) {
         const double angle = i * M_PI / 180.0;
         const double cosval = cos(angle);
-        printf("cos(%lf) is %lf\n", angle, cosval);
+        printf("cos(%f) is %f\n", angle, cosval);
         if (cosval < 0.0) {
             break;
         }
@@ -519,16 +517,9 @@ int a[10];
 a[0], a[1],...,a[9]
 \end{verbatim}
 \end{quote}
-の10個の要素を持つ配列が生成される。添字が0から始まっていること、定義した時点では初期化がされていない(何らかの値がすでに入っていることがある)ことに注意せよ。例\ref{ex:array1d}では、\texttt{\#define}によって\texttt{N\_ELEMENT}を10と定義している\footnote{詳しくは、参考書などの「プリプロセッサ」に関する説明を参照のこと。\texttt{N\_ELEMENT}はプログラムの実行中に変化する数ではなく、コンパイル時に定まっている定数である。}。\texttt{for}文によって、配列\texttt{array}に数字が格納されている。あとはそれを順番に表示して終了する。なお、
-\begin{quote}
-    \begin{verbatim}
-int n = 10;
-int a[n];
-\end{verbatim}
-\end{quote}
-はコンパイルエラーとなる。この記法を使うときは、配列のサイズを動的(プログラム実行時)に決めることはできない\footnote{1999年改訂のC標準規格C99では認められているが、2011年改訂のC11では必須機能でなくなってしまった。}。入力値などに応じてサイズを動的に決めたい場合は、\texttt{malloc}と\texttt{free} (\ref{sec:clang:malloc}節)を用いる。
-
+の10個の要素を持つ配列が生成される。添字が0から始まっていること、定義した時点では初期化がされていない(何らかの値がすでに入っていることがある)ことに注意せよ。例\ref{ex:array1d}では、\texttt{\#define}によって\texttt{N\_ELEMENT}を10と定義している\footnote{詳しくは、参考書などの「プリプロセッサ」に関する説明を参照のこと。\texttt{N\_ELEMENT}はプログラムの実行中に変化する数ではなく、コンパイル時に定まっている定数である。}。\texttt{for}文によって、配列\texttt{array}に数字が格納されている。あとはそれを順番に表示して終了する。
 なお、大きすぎる配列(概ね 8MB 以上が目安)を確保するとクラッシュすることがあるので注意せよ。
+
 \begin{reidai}\label{ex:array1d}
     \begin{verbatim}
 #include <stdio.h>
@@ -547,6 +538,15 @@ int main(void) {
 }
 \end{verbatim}
 \end{reidai}
+
+なお、
+\begin{quote}
+    \begin{verbatim}
+int n = 10;
+int array[n];
+\end{verbatim}
+\end{quote}
+のように書くと、可変長配列VLAを表す。VLAはC11では処理系の任意機能であり、スタック使用量や移植性の問題があるため、本書では使用せず \texttt{malloc} (\ref{sec:clang:malloc}節)を用いる。
 
 \subsection{2次元配列}
 2次元配列は、
@@ -580,23 +580,23 @@ int main(void) {
         const double inverse[2][2]
             = { { matrix[1][1] / det, -matrix[0][1] / det },
                   { -matrix[1][0] / det, matrix[0][0] / det } };
-        printf("inverse[0][0] = %lf\n", inverse[0][0]);
-        printf("inverse[0][1] = %lf\n", inverse[0][1]);
-        printf("inverse[1][0] = %lf\n", inverse[1][0]);
-        printf("inverse[1][1] = %lf\n", inverse[1][1]);
+        printf("inverse[0][0] = %f\n", inverse[0][0]);
+        printf("inverse[0][1] = %f\n", inverse[0][1]);
+        printf("inverse[1][0] = %f\n", inverse[1][0]);
+        printf("inverse[1][1] = %f\n", inverse[1][1]);
     }
     return 0;
 }
 \end{verbatim}
 \end{reidai}
-初期化は括弧を用いることでまとめて行うことができる。
+初期化は括弧\{\}を用いることでまとめて行うことができる。
 
 \begin{renshuu}\label{prob:3-1}
     \texttt{int}型で大きさが5の1次元配列 \texttt{a} と \texttt{b} を準備し、配列 \texttt{a} にあらかじめ数字を代入しておく。その配列 \texttt{a} の要素をすべて配列 \texttt{b} に代入し、その後、配列 \texttt{a} をすべて 0 にするプログラムを書きなさい。\texttt{a} と \texttt{b} をすべて表示させて終了すること。
 \end{renshuu}
 
 \begin{renshuu}\label{prob:3-2}
-    \texttt{double} 型で大きさが \(2\times2\) の2次元配列 \texttt{a} と \texttt{b} を準備し、その積を計算するプログラムを書きなさい。\texttt{a} と \texttt{b} とその積を表示させて終了すること。だたし、 \texttt{a} と \texttt{b} はあらかじめプログラムの中で決めてよい。
+    \texttt{double} 型で大きさが \(2\times2\) の2次元配列 \texttt{a} と \texttt{b} を準備し、その積を計算するプログラムを書きなさい。\texttt{a} と \texttt{b} とその積を表示させて終了すること。ただし、 \texttt{a} と \texttt{b} はあらかじめプログラムの中で決めてよい。
 \end{renshuu}
 
 \section{文字列と標準入力}
@@ -631,42 +631,56 @@ char s[] = "Hello";
     \resizebox{0.80\textwidth}{!}{\includegraphics{hello.pdf}}
 \end{figure}
 
-\subsection{標準入力(1) : \texttt{gets}関数}
-例\ref{ex:gets}を作成しコンパイルしてみよう(コンパイラによっては、「\texttt{gets} は危険だ」と警告が出るかもしれないが、実行ファイルはちゃんとできているはずである)。これを実行すると、\texttt{Input:} と表示され入力を促される。ここで、\texttt{uni}などと入力すると、\texttt{uni}と表示されてプログラムが終了する。この場合、\texttt{gets}という関数によって入力された文字列が \texttt{str} にコピーされる。注意すべきことは、\texttt{str} が \texttt{str[20]} と宣言されているので入力すべき文字列は19文字以内に限られるということである。しかし実際には、ユーザーは20字以上入力することができる。その場合、はみ出た文字は用意された領域の外に書き込まれる。もしそこが、別の変数用に使われていたら? これはとても危険なことである。\texttt{gets}を使う場合は注意が必要である\footnote{どうしても\texttt{gets}が使用したいときにはより安全性が高い\texttt{fgets}を使用せよ。}。
-\begin{reidai}\label{ex:gets}
-    \begin{verbatim}
+\subsection{標準入力(1) : \texttt{fgets}関数}
+文字列を標準入力から読み込むには、\texttt{fgets}関数を用いる。
+例\ref{ex:fgets}を作成しコンパイルしてみよう。これを実行すると、\texttt{Input:} と表示されるので、文字列を入力する。入力した文字列がそのまま表示されれば成功である。
+\begin{reidai}\label{ex:fgets}
+\begin{verbatim}
 #include <stdio.h>
 
 int main(void) {
     char str[20];
     printf("Input: ");
-    gets(str);
-    printf("%s\n", str);
+    if (fgets(str, sizeof(str), stdin) == NULL) {
+        printf("Input error.\n"); return 1;
+    }
+    printf("%s", str);
     return 0;
 }
 \end{verbatim}
 \end{reidai}
 
+\texttt{fgets}の第2引数には、配列の大きさを指定する。第3引数には、どこから文字列を読み込むかを指定する。標準入力 (通常はキーボード) から読み込む場合には、\texttt{stdin}を指定する。
+\texttt{fgets}は、指定した配列に収まる範囲で文字列を読み込む。
+配列の大きさが20の場合には、終端文字``\texttt{\textbackslash 0}''のために1文字分が必要なので、読み込まれる文字は最大でも19文字である。
+また、改行文字がその範囲内に現れた場合には、その改行文字も文字列の一部として格納される\footnote{古いCの教科書などで紹介されている\texttt{gets}関数は、入力する文字数に制限がない。そのため、長すぎる文字列を入力すると、用意された配列の外側まで書き込んでしまい、プログラムの異常終了やセキュリティ上の問題を引き起こす可能性がある。このため\texttt{gets}は現在では使用すべきではなく、標準ライブラリからも削除されている。文字列を読み込む場合には、必ず\texttt{fgets}を用いるようにしよう。}。
+
 \subsection{標準入力(2) : \texttt{scanf}関数}
-例\ref{ex:gets}ではたとえ数字(19桁以下)を入力してもそれは文字列として扱われるため、数字として足し算などに用いるためには \texttt{atoi}などの関数を用いる必要がある。別の方法として、\texttt{scanf} を用いて入力した数字をそのまま数字として扱う方法を例\ref{ex:scanf}に示す(ソースコード中の \texttt{\&i} や \texttt{\&x} についている \texttt{\&} については後述する)。
+例\ref{ex:fgets}ではたとえ数字を入力してもそれは文字列として扱われるため、数字として足し算などに用いるためには \texttt{atoi}などの関数を用いる必要がある。別の方法として、\texttt{scanf} を用いて入力した数字をそのまま数字として扱う方法を例\ref{ex:scanf}に示す(ソースコード中の \texttt{\&i} や \texttt{\&x} についている \texttt{\&} については後述する)。
 \begin{reidai}\label{ex:scanf}
     \begin{verbatim}
 #include <stdio.h>
-#include <string.h>
 
 int main(void) {
     int i;
     printf("Input(int): ");
-    scanf("%d", &i);
+    if (scanf("%d", &i) != 1) {
+        printf("Input error.\n");
+        return 1;
+    }
     printf("%d\n", i);
     double x;
     printf("Input(double): ");
-    scanf("%lf", &x);
-    printf("%lf\n", x);
+    if (scanf("%lf", &x) != 1) {
+        printf("Input error.\n");
+        return 1;
+    }
+    printf("%f\n", x);
     return 0;
 }
 \end{verbatim}
 \end{reidai}
+なお、\texttt{scanf}のフォーマットの指定は、\texttt{printf}の場合とほぼ同じであるが、\texttt{float}型、\texttt{double}型の変数を入力する場合は、それぞれ\texttt{\%f}、\texttt{\%lf}としなければならないことに注意が必要である。
 
 \begin{renshuu}\label{prob:4-1}
     練習\ref{prob:2-2}で、標準入力から \(n\) を決定し、その答えを表示するプログラムを書きなさい。
@@ -846,8 +860,8 @@ Cにおいても複素数変数を扱うための型が用意されている\foo
 int main(void) {
     const double complex x = 0 + 1 * I; /* 虚数単位 */
     const double complex y = cexp(x * M_PI);
-    printf("i = (%lf,%lf)\n", creal(x), cimag(x));
-    printf("e^{i*pi} = (%lf,%lf)\n", creal(y), cimag(y));
+    printf("i = (%f,%f)\n", creal(x), cimag(x));
+    printf("e^{i*pi} = (%f,%f)\n", creal(y), cimag(y));
     return 0;
 }
 \end{verbatim}
@@ -863,8 +877,8 @@ C言語では関数名に重複があってはならないので、数学関数�
 
 \ref{sec:C:basic}節でC言語の基本構造を説明したが、\texttt{main(){...}} だけでプログラムを書くことはほとんどない。大きなプログラムになればなるほど関数化を行い、役割分担をはっきりさせるのがよい。
 
-\subsection{あまり良くない例}
-例\ref{ex:non-function}は円の面積の計算するために直接その公式を書いている。しかし、何度も何度も円の面積を計算したいとき、半径を入力すれば面積が返ってくるような関数があれば非常に便利である。
+\subsection{あまりよくない例}
+例\ref{ex:non-function}は円の面積を計算するために直接その公式を書いている。しかし、何度も何度も円の面積を計算したいとき、半径を入力すれば面積が返ってくるような関数があれば非常に便利である。
 \begin{reidai}\label{ex:non-function}
     \begin{verbatim}
 #include <math.h>
@@ -873,7 +887,7 @@ C言語では関数名に重複があってはならないので、数学関数�
 int main(void) {
     const double radius = 2.0;
     const double area = radius * radius * M_PI;
-    printf("Radius: %lf, Area: %lf\n", radius, area);
+    printf("Radius: %f, Area: %f\n", radius, area);
     return 0;
 }
 \end{verbatim}
@@ -894,7 +908,7 @@ double circle_area(double r) {
 int main(void) {
     const double radius = 2.0;
     const double area = circle_area(radius);
-    printf("Radius: %lf, Area: %lf\n", radius, area);
+    printf("Radius: %f, Area: %f\n", radius, area);
     return 0;
 }
 \end{verbatim}
@@ -916,7 +930,7 @@ double circle_area(double);
 int main(void) {
     const double radius = 2.0;
     const double area = circle_area(radius);
-    printf("Radius: %lf, Area: %lf\n", radius, area);
+    printf("Radius: %f, Area: %f\n", radius, area);
     return 0;
 }
 
@@ -935,10 +949,10 @@ double circle_area(double r) {
     \begin{verbatim}
 #include <stdio.h>
 
-void division(int divident, int divisor, int* const quotient,
+void division(int dividend, int divisor, int* const quotient,
     int* const residual) {
-    *quotient = divident / divisor;
-    *residual = divident % divisor;
+    *quotient = dividend / divisor;
+    *residual = dividend % divisor;
 }
 
 int main(void) {
@@ -951,20 +965,21 @@ int main(void) {
 }
 \end{verbatim}
 \end{reidai} \noindent
-ポインタを使う理由がはっきりと分からない場合は、例\ref{ex:function-non-pointer}を作って実行してみてほしい。間違った答えが表示されるだろう。なぜなら、この場合 \texttt{division} という関数では、\texttt{quotient}と\texttt{residual}という二つの一時変数が生成され、それらに計算結果が代入された直後に破棄されるからである。一時変数は関数の処理が終了すると同時に破棄され、値は \texttt{main} の中の \texttt{shou} と \texttt{amari} には引き継がれない\footnote{ブロック中での変数定義の挙動を思い出そう。}。このため、関数に外部から値を渡すだけであれば、例\ref{ex:function-non-pointer}のような引数の宣言方法でよい(「値渡し」と呼ぶ)が、内での計算結果を関数の外で使いたい場合は、ポインタを使って変数のアドレスを渡す(「ポインタ渡し」と呼ぶ)必要がある。
+ポインタを使う理由がはっきりと分からない場合は、例\ref{ex:function-non-pointer}を作って実行してみてほしい。関数呼出し後も\texttt{shou}と\texttt{amari}の値が変化していないことが分かるだろう。この場合 \texttt{division} という関数では、\texttt{quotient}と\texttt{residual}という二つの一時変数が生成され、それらに計算結果が代入された直後に破棄されるからである。一時変数は関数の処理が終了すると同時に破棄され、値は \texttt{main} の中の \texttt{shou} と \texttt{amari} には引き継がれない\footnote{ブロック中での変数定義の挙動を思い出そう。}。このため、関数に外部から値を渡すだけであれば、例\ref{ex:function-non-pointer}のような引数の宣言方法でよい(「値渡し」と呼ぶ)が、呼出し側の変数を変更したい場合には、その変数のアドレスを表すポインタ値を引数として渡す(「ポインタ渡し」と呼ぶ)必要がある。
 \begin{reidai}\label{ex:function-non-pointer}
     \begin{verbatim}
 #include <stdio.h>
 
-void division(int divident, int divisor, int quotient, int residual) {
-    quotient = divident / divisor;
-    residual = divident % divisor;
+void division(int dividend, int divisor, int quotient, int residual) {
+    quotient = dividend / divisor;
+    residual = dividend % divisor;
 }
 
 int main(void) {
     const int josuu = 3;
     const int hi_josuu = 13;
-    int shou, amari;
+    int shou = -1;
+    int amari = -1;
     division(hi_josuu, josuu, shou, amari);
     printf("%d / %d = %d ... %d\n", hi_josuu, josuu, shou, amari);
     return 0;
@@ -985,7 +1000,7 @@ Fortranの関数や手続きの名前をC言語から呼ぶためには、その
 \begin{reidai}\label{ex:fort}
     \begin{verbatim}
       Real*8 CALC(I, X, Y)
-      Interger*4 I
+      Integer*4 I
       Real*4 X
       Real*8 Y
 \end{verbatim}
@@ -1027,14 +1042,14 @@ int main(void) {
     struct personal_data pdata;
     char buffer[16];
     printf("Input family name: ");
-    gets(pdata.family_name);
+    fgets(pdata.family_name, sizeof(pdata.family_name), stdin);
     printf("Input given name: ");
-    gets(pdata.given_name);
+    fgets(pdata.given_name, sizeof(pdata.given_name), stdin);
     printf("Input age: ");
-    gets(buffer);
+    fgets(buffer, sizeof(buffer), stdin);
     pdata.age = atoi(buffer);
-    printf("Family Name = %s\n", pdata.family_name);
-    printf("Given  Name = %s\n", pdata.given_name);
+    printf("Family Name = %s", pdata.family_name);
+    printf("Given  Name = %s", pdata.given_name);
     printf("Age         = %d\n", pdata.age);
     return 0;
 }
@@ -1053,8 +1068,8 @@ struct particle_data {
 int main(void) {
     const struct particle_data pdata = { 0.14, { 1.2, 1.3, 1.4 } };
     const struct particle_data* const qdata = &pdata;
-    printf("Mass = %lf\n", qdata->mass);
-    printf("Momentum = (%lf, %lf, %lf)\n", qdata->p[0], qdata->p[1],
+    printf("Mass = %f\n", qdata->mass);
+    printf("Momentum = (%f, %f, %f)\n", qdata->p[0], qdata->p[1],
         qdata->p[2]);
     return 0;
 }
@@ -1096,12 +1111,18 @@ int main(void) {
     }
     double x1, y1, x2, y2;
     /* read first line */
-    fscanf(fp, "%lf %lf\n", &x1, &y1);
+    if (fscanf(fp, "%lf %lf", &x1, &y1) != 2) {
+        printf("Error reading first line.\n");
+        exit(1);
+    }
     /* read second line */
-    fscanf(fp, "%lf %lf\n", &x2, &y2);
+    if (fscanf(fp, "%lf %lf", &x2, &y2) != 2) {
+        printf("Error reading second line.\n");
+        exit(1);
+    }
     fclose(fp);
     const double p = product(x1, y1, x2, y2);
-    printf("Product of (%lf,%lf) and (%lf,%lf) is %lf\n", x1, y1, x2, y2, p);
+    printf("Product of (%f,%f) and (%f,%f) is %f\n", x1, y1, x2, y2, p);
     return 0;
 }
 \end{verbatim}
@@ -1113,7 +1134,7 @@ int main(void) {
 -1.5    3.5
 \end{verbatim}
 \end{quote}
-例\ref{ex:file-read1}のデータを読み込む部分を、例\ref{ex:file-read2}のように \texttt{while} を使って書き直してみよう。こちらの方がファイルに存在するデータを最後まで読み取るという点で、より汎用性が高い。\texttt{fscanf}はデータの読み込みに失敗すると\texttt{EOF}を返すので、\texttt{EOF}が返ってくるまで読み込みを繰り返している\footnote{\texttt{while}の条件式チェックと読み込みを同時に行っている。}。
+例\ref{ex:file-read1}のデータを読み込む部分を、例\ref{ex:file-read2}のように \texttt{while} を使って書き直してみよう。こちらの方がファイルに存在するデータを最後まで読み取るという点で、より汎用性が高い。\texttt{fscanf}は成功して代入した項目数を返すので、項目数が正常な間はデータを読み取り、それ以外の値が返ってきた時に、ファイル末尾を示す\texttt{EOF}となっていることを確認している。
 \begin{reidai}\label{ex:file-read2}
     \begin{verbatim}
 #include <stdio.h>
@@ -1131,9 +1152,28 @@ int main(void) {
     double x[N_DATA][2];
     int index = 0;
     /* read data */
-    while (fscanf(fp, "%lf %lf\n", &x[index][0], &x[index][1]) != EOF) {
-        printf("Data %d : (%lf, %lf)\n", index, x[index][0], x[index][1]);
+    int result;
+    double x0, x1;
+    while ((result = fscanf(fp, "%lf %lf", &x0, &x1)) == 2) {
+        if (index >= N_DATA) {
+            fprintf(stderr, "Too many data: maximum is %d rows\n", N_DATA);
+            fclose(fp);
+            return 1;
+        }
+        x[index][0] = x0;
+        x[index][1] = x1;
+        printf("Data %d : (%f, %f)\n", index, x[index][0], x[index][1]);
         ++index;
+    }
+    if (ferror(fp)) {
+        fprintf(stderr, "File read error\n");
+        fclose(fp);
+        return 1;
+    }
+    if (result != EOF) {
+        fprintf(stderr, "Malformed input near row %d\n", index + 1);
+        fclose(fp);
+        return 1;
     }
     fclose(fp);
     return 0;
@@ -1170,7 +1210,7 @@ int main(void) {
     for (int i = 1; i <= 10; ++i) {
         const double radius = i;
         const double area = circle_area(radius);
-        fprintf(fp, "%lf -> %lf\n", radius, area);
+        fprintf(fp, "%f -> %f\n", radius, area);
     }
     fclose(fp);
     return 0;
@@ -1307,7 +1347,7 @@ Name2 : C, Claire
 Name3 : D, David
 \end{verbatim}
 \end{quote}
-まず、\texttt{name[0]} の型は \texttt{char*} なので、\texttt{name0} の値などを代入することができる。Aの時点で、\texttt{name} というポインタ配列の各要素にアドレスの代入したことになる。つまり、
+まず、\texttt{name[0]} の型は \texttt{char*} なので、\texttt{name0} の値などを代入することができる。Aの時点で、\texttt{name} というポインタ配列の各要素にアドレスを代入したことになる。つまり、
 \begin{quote}
     \begin{verbatim}
 name[0] = "Alice"という文字列の先頭アドレス
@@ -1354,7 +1394,7 @@ int main(int argc, char* argv[]) {
     double x, y;
     double sumX = 0.0, sumY = 0.0;
     /* read data */
-    while (fscanf(fp, "%lf %lf\n", &x, &y) != EOF) {
+    while (fscanf(fp, "%lf %lf\n", &x, &y) == 2) {
         sumX += x;
         sumY += y;
         ++counter;
@@ -1368,8 +1408,8 @@ int main(int argc, char* argv[]) {
     }
     /* write results */
     fprintf(fp, "Number of Data = %d\n", counter);
-    fprintf(fp, "X Sum = %lf\n", sumX);
-    fprintf(fp, "Y Sum = %lf\n", sumY);
+    fprintf(fp, "X Sum = %f\n", sumX);
+    fprintf(fp, "Y Sum = %f\n", sumY);
     fclose(fp);
     return 0;
 }
@@ -1416,19 +1456,27 @@ argv[3] = "10"の先頭アドレス
 \section{動的な配列の確保: \texttt{malloc}と\texttt{free}}
 \label{sec:clang:malloc}
 
-これまで、ポインタはあらかじめ確保した領域に対してのみ使ってきた。しかし、実行時に、入力値あるいは計算結果を反映して、50個のデータを取り扱いたいときもあれば、100個のデータを取り扱いたいときもある。もちろん、配列を利用してあらかじめ十分な大きさの領域(いまの場合は100個以上の数)を確保しておけばよいかもしれないが、平均的に10個ぐらいしか利用しないのに、たまに100個の場合があるからといって常に100個分の領域を確保しておくことは、無駄のように思える。これを回避するために、動的に、つまり、実行時に領域を確保する手段がある。これが、\texttt{malloc} (\textbf{m}emory \textbf{alloc}cationの略)である。
+これまで、ポインタはあらかじめ確保した領域に対してのみ使ってきた。しかし、実行時に、入力値あるいは計算結果を反映して、50個のデータを取り扱いたいときもあれば、100個のデータを取り扱いたいときもある。もちろん、配列を利用してあらかじめ十分な大きさの領域(いまの場合は100個以上の数)を確保しておけばよいかもしれないが、平均的に10個ぐらいしか利用しないのに、たまに100個の場合があるからといって常に100個分の領域を確保しておくことは、無駄のように思える。これを回避するために、動的に、つまり、実行時に領域を確保する手段がある。これが、\texttt{malloc} (\textbf{m}emory \textbf{alloc}ationの略)である。
 
 \subsection{\texttt{malloc}の使い方}
 
-例\ref{ex:malloc}に\texttt{malloc}の使い方の雛型を示す\footnote{簡単のため、コマンドライン引数のチェックは行っていない。実際のプログラムでは、配列を確保する前に確保しようとしているサイズを確認すべきである。}。\texttt{malloc}は領域を確保できた場合はその領域の先頭アドレスを返すが、領域が確保できなかった場合は\texttt{NULL}を返す。\texttt{NULL}の場合は、何らかのエラー処理を行う必要がある。例\ref{ex:malloc}では、プログラムを強制的に終了している。\texttt{sizeof}関数は型の大きさ(バイト数)を調べる関数である。この場合は\texttt{int}の大きさ(通常4)を調べている。\texttt{double}を大きさを調べたい場合は\texttt{sizeof(double)}のように使う。例\ref{ex:malloc}では、\texttt{int} の領域を \texttt{n\_element} 個分確保したいので、\texttt{sizeof(int) * n\_element}を\texttt{malloc}に与えている\footnote{\texttt{malloc}はあらゆる型に対して使えるように要素数ではなくバイト数単位で必要メモリ量を指定する設計になっている。引数に\(0\)を与えてはならない。}。
+例\ref{ex:malloc}に\texttt{malloc}の使い方の雛型を示す\footnote{簡単のため、コマンドライン引数のチェックは行っていない。実際のプログラムでは、配列を確保する前に確保しようとしているサイズを確認すべきである。}。\texttt{malloc}は領域を確保できた場合はその領域の先頭アドレスを返すが、領域が確保できなかった場合は\texttt{NULL}を返す。\texttt{NULL}の場合は、何らかのエラー処理を行う必要がある。例\ref{ex:malloc}では、プログラムを強制的に終了している。\texttt{sizeof}は型の大きさ(バイト数)を調べる演算子である。この場合は\texttt{int}の大きさ(通常4)を調べている。\texttt{double}の大きさを調べたい場合は\texttt{sizeof(double)}のように使う。例\ref{ex:malloc}では、\texttt{int} の領域を \texttt{n\_element} 個分確保したいので、\texttt{sizeof(int) * n\_element}を\texttt{malloc}に与えている\footnote{\texttt{malloc}はあらゆる型に対して使えるように要素数ではなくバイト数単位で必要メモリ量を指定する設計になっている。}。
 \begin{reidai}\label{ex:malloc}
     \begin{verbatim}
 #include <stdio.h>
 #include <stdlib.h>
 
 int main(int argc, char* argv[]) {
-    const int n_element = atoi(argv[1]);
-    int* array = (int*)malloc(sizeof(int) * n_element);
+    if (argc != 2) {
+        printf("Usage: %s n_element\n", argv[0]);
+        exit(1);
+    }
+    const int n_element = strtol(argv[1], NULL, 10);
+    if (n_element <= 0) {
+        printf("n_element must be positive.\n");
+        exit(1);
+    }
+    int* array = malloc(sizeof(int) * n_element);
     if (array == NULL) {
         printf("Can't allocate memory.\n");
         exit(1);
@@ -1443,7 +1491,6 @@ int main(int argc, char* argv[]) {
 }
 \end{verbatim}
 \end{reidai} \noindent
-なお、コンパイル時に、\texttt{malloc}の部分で``型の不整合'' という警告が出ることを防ぐために、\texttt{malloc}の返り値を明示的に\texttt{int*}型に変換している。これをキャスト(型変換)という。
 
 \subsection{\texttt{free}の使い方}
 
@@ -1452,19 +1499,20 @@ int main(int argc, char* argv[]) {
 \begin{verbatim}
      free(array);
 \end{verbatim}
-と1行書けばよい\footnote{\texttt{free}を同じ対象に対して複数回呼んではならない。}。例\ref{ex:malloc}を若干変更し、\texttt{free}が重要となる例を考えよう。なお、今回は\texttt{assert.h}を用いて簡易的な\texttt{argc}のチェック機構をつけてある(\texttt{argc == 2}が満たされないとエラーメッセージを表示したのち異常終了する)。
-\texttt{assert}機能はデバッグの際極めて重宝するので、覚えておくとよい\footnote{もちろんチェックにはそれなりの計算コストがかかるが、\texttt{-DNDEBUG}をつけてコンパイルするとまとめて除去できるので安心してたくさん使ってほしい。}。
+と1行書けばよい\footnote{\texttt{free}を同じ対象に対して複数回呼んではならない。}。例\ref{ex:malloc}を若干変更し、\texttt{free}が重要となる例を考えよう。
 \begin{reidai}\label{ex:malloc-free}
     \begin{verbatim}
-#include <assert.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 int main(int argc, char* argv[]) {
-    assert(argc == 2);
-    const int n_element = atoi(argv[1]);
+    if (argc != 2) {
+        printf("Usage: %s n_element\n", argv[0]);
+        exit(1);
+    }
+    const int n_element = strtol(argv[1], NULL, 10);
     for (int j = 0; j < 3; ++j) {
-        int* array = (int*)malloc(sizeof(int) * n_element);
+        int* array = malloc(sizeof(int) * n_element);
         if (array == NULL) {
             printf("Can't allocate memory.\n");
             exit(1);
@@ -1511,13 +1559,13 @@ double** matrix;
 int main(void) {
     const int m = 3;
     const int n = 4;
-    double** matrix = (double**)malloc(sizeof(double*) * m);
+    double** matrix = malloc(sizeof(double*) * m);
     if (matrix == NULL) {
         printf("Can't allocate memory.\n");
         exit(1);
     }
     for (int i = 0; i < m; ++i) {
-        matrix[i] = (double*)malloc(sizeof(double) * n);
+        matrix[i] = malloc(sizeof(double) * n);
         if (matrix[i] == NULL) {
             printf("Can't allocate memory.\n");
             exit(1);
@@ -1530,7 +1578,7 @@ int main(void) {
     }
     for (int i = 0; i < m; ++i) {
         for (int j = 0; j < n; ++j) {
-            printf("matrix[%d][%d] = %lf\n", i, j, matrix[i][j]);
+            printf("matrix[%d][%d] = %f\n", i, j, matrix[i][j]);
         }
     }
     for (int i = 0; i < m; ++i) {
@@ -1541,7 +1589,7 @@ int main(void) {
 }
 \end{verbatim}
 \end{reidai} \noindent
-この例では、\(3 \times 4\)の2次元配列(行列)を宣言している。まず、\texttt{matrix} に長さ3の1次元配列(要素はdouble*型)を確保する。さらに、各行を格納する長さ4の1次元配列(要素はdouble型)を3個確保し、その先頭アドレスを \texttt{matrix} に格納する。配列の\((i,j)\)成分へのアクセスは、静的な2次元配列の場合と同じく \texttt{matrix[i][j]} と書けばよい。\texttt{matrix[i][j]} は \texttt{*(*(matrix + i) + j)} と等価であることに注意せよ。\texttt{*(matrix + i)} により \(i\) 行目の先頭アドレスが得られ、それに \(j\) を足したアドレスの中身を参照することで、\((i,j)\)成分が得られる。確保したメモリの解放の際は、まず各行に対応する1次元配列を解放した後、最後にそれらの先頭先頭アドレスを格納していたdoubleポインタ型の1次元配列を解放する必要がある\footnote{解放の順番を間違うとエラーとなる。その理由を考えてみよ。}。
+この例では、\(3 \times 4\)の2次元配列(行列)を宣言している。まず、\texttt{matrix} に長さ3の1次元配列(要素はdouble*型)を確保する。さらに、各行を格納する長さ4の1次元配列(要素はdouble型)を3個確保し、その先頭アドレスを \texttt{matrix} に格納する。配列の\((i,j)\)成分へのアクセスは、静的な2次元配列の場合と同じく \texttt{matrix[i][j]} と書けばよい。\texttt{matrix[i][j]} は \texttt{*(*(matrix + i) + j)} と等価であることに注意せよ。\texttt{*(matrix + i)} により \(i\) 行目の先頭アドレスが得られ、それに \(j\) を足したアドレスの中身を参照することで、\((i,j)\)成分が得られる。確保したメモリの解放の際は、まず各行に対応する1次元配列を解放した後、最後にそれらの先頭アドレスを格納していたdoubleポインタ型の1次元配列を解放する必要がある\footnote{解放の順番を間違うとエラーとなる。その理由を考えてみよ。}。
 
 上記の方法で動的な2次元配列を取り扱えるようになるが、実際に行列としてLAPACKなどの数値計算ライブラリと組み合わせて使うには、二つの問題がある。一つ目は行列の要素の連続性の問題、二つ目は要素の並ぶ順番である。
 
@@ -1556,12 +1604,12 @@ LAPACKなどの数値計算ライブラリでは、行列の要素は全てメ�
 int main(void) {
     const int m = 3;
     const int n = 4;
-    double** matrix = (double**)malloc(sizeof(double*) * m);
+    double** matrix = malloc(sizeof(double*) * m);
     if (matrix == NULL) {
         printf("Can't allocate memory.\n");
         exit(1);
     }
-    matrix[0] = (double*)malloc(sizeof(double) * m * n);
+    matrix[0] = malloc(sizeof(double) * m * n);
     if (matrix[0] == NULL) {
         printf("Can't allocate memory.\n");
         exit(1);
@@ -1576,7 +1624,7 @@ int main(void) {
     }
     for (int i = 0; i < m; ++i) {
         for (int j = 0; j < n; ++j) {
-            printf("matrix[%d][%d] = %lf\n", i, j, matrix[i][j]);
+            printf("matrix[%d][%d] = %f\n", i, j, matrix[i][j]);
         }
     }
     free(matrix[0]);
@@ -1600,7 +1648,7 @@ C言語上で行列の\((i,j)\)成分を \texttt{A[i][j]} に代入したもの(
 #define mat_elem(mat, i, j) (mat)[(j)][(i)]
 \end{verbatim}
 \end{quote}
-のように \texttt{mat\_elem} 関数を定義することである\footnote{一般的にCプロセッサのマクロの多用は勧められていないが、背に腹は代えられない。}。これにより、プログラム中で行列の\((i,j)\)成分を \texttt{mat\_elem(A, i, j)} と書けるようになる。
+のように \texttt{mat\_elem} マクロを定義することである\footnote{一般的にCプロセッサのマクロの多用は勧められていないが、背に腹は代えられない。}。これにより、プログラム中で行列の\((i,j)\)成分を \texttt{mat\_elem(A, i, j)} と書けるようになる。
 \begin{reidai}\label{ex:malloc-2dim-column-major}
     \begin{verbatim}
 #include <stdio.h>
@@ -1611,12 +1659,12 @@ C言語上で行列の\((i,j)\)成分を \texttt{A[i][j]} に代入したもの(
 int main(void) {
     const int m = 3;
     const int n = 4;
-    double** matrix = (double**)malloc(sizeof(double*) * n);
+    double** matrix = malloc(sizeof(double*) * n);
     if (matrix == NULL) {
         printf("Can't allocate memory.\n");
         exit(1);
     }
-    matrix[0] = (double*)malloc(sizeof(double) * m * n);
+    matrix[0] = malloc(sizeof(double) * m * n);
     if (matrix[0] == NULL) {
         printf("Can't allocate memory.\n");
         exit(1);
@@ -1631,7 +1679,7 @@ int main(void) {
     }
     for (int i = 0; i < m; ++i) {
         for (int j = 0; j < n; ++j) {
-            printf("matrix[%d][%d] = %lf\n", i, j, mat_elem(matrix, i, j));
+            printf("matrix[%d][%d] = %f\n", i, j, mat_elem(matrix, i, j));
         }
     }
     free(matrix[0]);
@@ -1720,7 +1768,6 @@ int main(void) {
 \begin{reidai}\label{ex:ext_lib}
     \begin{verbatim}
 #include "cmatrix.h"
-#include <assert.h>
 #include <stdio.h>
 
 extern void dgesv_(const int*, const int*, double*, const int*, int*, double*,
@@ -1743,7 +1790,10 @@ int main(void) {
     b[N - 1] = 1;
     int info;
     dgesv_(&N, &NRHS, mat_ptr(a), &LDA, vec_ptr(ipiv), vec_ptr(b), &LDB, &info);
-    assert(info == 0);
+    if (info != 0) {
+        printf("dgesv_ failed with info = %d\n", info);
+        exit(1);
+    }
     fprint_dvector(stdout, N, b);
     free_dmatrix(a);
     free_dvector(b);
@@ -1803,8 +1853,8 @@ int main(void) {
     const double a = 4.0;
     const double b = 1.0;
     printf("ax+b=0\n");
-    printf("  a = %lf\n", a);
-    printf("  b = %lf\n\n", b);
+    printf("  a = %f\n", a);
+    printf("  b = %f\n\n", b);
     if (a == 0.0) {
         if (b == 0.0) {
             printf("  x = all\n");
@@ -1812,7 +1862,7 @@ int main(void) {
             printf("  x = nothing\n");
         }
     } else {
-        printf("  x = %lf\n", -b / a);
+        printf("  x = %f\n", -b / a);
     }
     return 0;
 }
@@ -1906,7 +1956,7 @@ int main(void) {
     double b[2][2] = { { -1.0, -2.0 }, { -3.0, -4.0 } };
     for (int i = 0; i < 2; ++i) {
         for (int j = 0; j < 2; ++j) {
-            printf("a[%d][%d] = %lf, b[%d][%d] = %lf\n", i, j, a[i][j], i, j,
+            printf("a[%d][%d] = %f, b[%d][%d] = %f\n", i, j, a[i][j], i, j,
                 b[i][j]);
         }
     }
@@ -1914,7 +1964,7 @@ int main(void) {
     seki(a, b, c);
     for (int i = 0; i < 2; ++i) {
         for (int j = 0; j < 2; ++j) {
-            printf("(a x b)[%d][%d] = %lf\n", i, j, c[i][j]);
+            printf("(a x b)[%d][%d] = %f\n", i, j, c[i][j]);
         }
     }
     return 0;
@@ -1985,15 +2035,29 @@ int main(void) {
     struct date inputDay;
     printf("Input(month & day) :\n");
     printf("             month :");
-    scanf("%d", &(inputDay.month));
+    if (scanf("%u", &(inputDay.month)) != 1) {
+        printf("Error reading month.\n");
+        return 1;
+    }
+    if (inputDay.month < 1 || inputDay.month > 12) {
+        printf("Invalid month.\n");
+        return 1;
+    }
     printf("             day   :");
-    scanf("%d", &(inputDay.day));
+    if (scanf("%u", &(inputDay.day)) != 1) {
+        printf("Error reading day.\n");
+        return 1;
+    }
+    if (inputDay.day < 1 || inputDay.day > nMonth[inputDay.month - 1]) {
+        printf("Invalid day.\n");
+        return 1;
+    }
     inputDay.days = 0;
     for (int i = 1; i < inputDay.month; ++i) {
         inputDay.days += nMonth[i - 1];
     }
     inputDay.days += inputDay.day;
-    printf("%d/%d = %d days from 1/1\n", inputDay.month, inputDay.day,
+    printf("%u/%u = %u days from 1/1\n", inputDay.month, inputDay.day,
         inputDay.days);
     return 0;
 }

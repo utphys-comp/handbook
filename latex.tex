@@ -26,7 +26,7 @@
     \prompt \underline{uplatex ex.tex}\\
     \prompt \underline{dvipdfmx ex.dvi}
 \end{commandline2} \noindent
-1行目の \texttt{platex}コマンドでDVIファイル(\texttt{ex.dvi})が生成される。DVIは{\textbf{d}e\textbf{v}ice-\textbf{i}ndependent file format}の略で、最終的な出力形式(今の例ではPDF)に依存しない出力形式である。\texttt{dvipdfmx}コマンドは、このDVIファイルからPDF形式のファイルを生成する。これらのコマンドの実行後、\texttt{ex.pdf}というファイルができていれば成功である。では処理結果を見てみよう。macOSで作業している場合には、
+1行目の \texttt{uplatex}コマンドでDVIファイル(\texttt{ex.dvi})が生成される。DVIは{\textbf{d}e\textbf{v}ice-\textbf{i}ndependent file format}の略で、最終的な出力形式(今の例ではPDF)に依存しない出力形式である。\texttt{dvipdfmx}コマンドは、このDVIファイルからPDF形式のファイルを生成する。これらのコマンドの実行後、\texttt{ex.pdf}というファイルができていれば成功である。では処理結果を見てみよう。macOSで作業している場合には、
 \begin{commandline2}
     \prompt \underline{open ex.pdf}
 \end{commandline2} \noindent
@@ -45,7 +45,7 @@ Linuxで作業している場合には、
     \vspace{0pt}
 \end{kekka}
 
-\paragraph{この章のまとめ}
+\paragraph{この節のまとめ}
 
 \begin{itemize}
     \item \LaTeX ファイルの拡張子は\texttt{.tex}である。
@@ -130,7 +130,7 @@ Linuxで作業している場合には、
 \section{フォント}
 \label{sec:latex:font}
 
-印刷される文字を強調するために、文字を太くしたり(ボールド体)、ななめにしたり(斜体)することがある。印刷される文字の形状のことをフォントといい、その形状を変更することをフォントを変更するといいう。ちなみに、通常のフォントは立体と呼ばれる。
+印刷される文字を強調するために、文字を太くしたり(ボールド体)、ななめにしたり(斜体)することがある。印刷される文字の形状のことをフォントといい、その形状を変更することをフォントを変更するという。ちなみに、通常のフォントは立体と呼ばれる。
 
 ボールド体はとくに強調したい言葉に使う。文章中でフォントを変更するには、
 \begin{reidai}
@@ -222,7 +222,7 @@ Linuxで作業している場合には、
     \begin{verbatim}
 \section{C 言語}
 C 言語は、
-Brain Kernighan と Dennis Ritchie によって開発された
+主として Dennis Ritchie によって開発された
 プログラミング言語である。
 簡潔性と柔軟性の両方を備えたこの言語は、
 さまざまな分野のソフトウェア開発に広く利用されている。
@@ -243,7 +243,7 @@ C 言語は Algol と呼ばれるプログラミング言語の流れを受け�
 
 \subsubsection{構造化プログラミング言語}
 C 言語にはデータのまとまりを表す構造体と呼ばれるデータ型がある。
-データを集合として扱う構造データ型は FORTRAN にはなかった。
+データを集合として扱う構造データ型は FORTRAN 77など初期の規格にはなかった。
 
 \dots
 
@@ -262,13 +262,13 @@ FORTRAN は FORmula TRANslator の名が示すとおり、
 \dots
 \end{verbatim}
 \end{reidai} \noindent
-このように、章や節にタイトルを付けるには、\verb|\chapter{}|、\verb|\section{}|、\verb|\subsection{}|、\verb|\subsubsection{}|を使う。タイトルを\verb|{}|の中に書き、そのあとには本文となる文章を続ける。章や節の番号は\LaTeX が自動的に振ってくれる。
+このように、節にタイトルを付けるには、\verb|\section{}|、\verb|\subsection{}|、\verb|\subsubsection{}|を使う。タイトルを\verb|{}|の中に書き、そのあとには本文となる文章を続ける。章や節の番号は\LaTeX が自動的に振ってくれる。
 結果は次のようになる。
 \begin{kekka}
     \noindent{\textbf{\Large 1 \ C 言語}} \\[.2em]
 
     C 言語は、
-    Brain Kernighan と Dennis Ritchie によって開発された
+    主として Dennis Ritchie によって開発された
     プログラミング言語である。
     簡潔性と柔軟性の両方を備えたこの言語は、
     さまざまな分野のソフトウェア開発に広く利用されている。
@@ -292,7 +292,7 @@ FORTRAN は FORmula TRANslator の名が示すとおり、
     \noindent{\textbf{1.2.1 構造化プログラミング言語}} \\[.2em]
 
     C 言語にはデータのまとまりを表す構造体と呼ばれるデータ型がある。
-    データを集合として扱う構造データ型は FORTRAN にはなかった。
+    データを集合として扱う構造データ型は FORTRAN 77など初期の規格にはなかった。
 
     \dots \\[.2em]
 
@@ -317,8 +317,8 @@ FORTRAN は FORmula TRANslator の名が示すとおり、
 
 \begin{itemize}
     \item 論文の表題は、\verb|\title{}| 、\verb|\author{}| 、\verb|\date{}| などで指定する。
-    \item 表題を出力するには、\verb|\maketile|を使う。
-    \item 章や節のタイトルを付けるには、\verb|\chapter{}|、\verb|\section{}|、 \verb|\subsection{}|、 \verb|\subsubsection{}| などを用いる。
+    \item 表題を出力するには、\verb|\maketitle|を使う。
+    \item 節のタイトルを付けるには、\verb|\section{}|、\verb|\subsection{}|、\verb|\subsubsection{}| などを用いる。
 \end{itemize}
 
 \section{箇条書き}
@@ -361,11 +361,11 @@ FORTRAN は FORmula TRANslator の名が示すとおり、
     \begin{verbatim}
 この講義の評価について該当するものに丸を付けて下さい。
 \begin{enumerate}
-    \item 大変良かった。
-    \item まあまあ良かった。
+    \item 大変よかった。
+    \item まあまあよかった。
     \item 普通だった。
-    \item あまり良くなかった。
-    \item かなり良くなかった。
+    \item あまりよくなかった。
+    \item かなりよくなかった。
 \end{enumerate}
 \end{verbatim}
 \end{reidai}
@@ -373,11 +373,11 @@ FORTRAN は FORmula TRANslator の名が示すとおり、
 \begin{kekka}
     この講義の評価について該当するものに丸を付けて下さい。
     \begin{enumerate}
-        \item 大変良かった。
-        \item まあまあ良かった。
+        \item 大変よかった。
+        \item まあまあよかった。
         \item 普通だった。
-        \item あまり良くなかった。
-        \item かなり良くなかった。
+        \item あまりよくなかった。
+        \item かなりよくなかった。
     \end{enumerate}
 \end{kekka}
 
@@ -524,12 +524,12 @@ FORTRAN は FORmula TRANslator の名が示すとおり、
     \(a \ne 0\) であるものを\(x\)の2次関数といいます。
 \end{verbatim}
 \end{reidai} \noindent
-以降の例題中ではスペースの都合上、二つ以上の数式を並べて書いてある場合があるが、、実際には一つずつ\verb|\begin{equation}|と\verb|\end{equation}|とで囲むか、\texttt{\textbackslash(}と\texttt{\textbackslash)}とで囲まなくてならない。
+以降の例題中ではスペースの都合上、二つ以上の数式を並べて書いてある場合があるが、実際には一つずつ\verb|\begin{equation}|と\verb|\end{equation}|とで囲むか、\texttt{\textbackslash(}と\texttt{\textbackslash)}とで囲まなくてはならない。
 
 \subsection{添え字}
 \label{sec:latex:index}
 
-上付き添え字は\texttt{\^}で、上付き添え字は\texttt{\_}で表現する。
+上付き添え字は\texttt{\^}で、下付き添え字は\texttt{\_}で表現する。
 \begin{reidai}
     \begin{verbatim}
 y = a x ^ 2 + b x + c
@@ -550,13 +550,13 @@ S_n = a_1 + a_2 + a_3 + \cdots + a_n
 \begin{reidai}
     \label{reidai:latex:2let_index}
     \begin{verbatim}
-Tr\,A = A_{11} + A_{22} + A_{33} + \cdots + A_{ii} + \cdots + A_{nn}
+\mathrm{Tr}\,A = A_{11} + A_{22} + A_{33} + \cdots + A_{ii} + \cdots + A_{nn}
 \end{verbatim}
 \end{reidai}
 \vspace*{-1.5em}
 \begin{kekka}
     \begin{equation*}
-        Tr\,A = A_{11} + A_{22} + A_{33} + \cdots + A_{ii} + \cdots + A_{nn}
+        \mathrm{Tr}\,A = A_{11} + A_{22} + A_{33} + \cdots + A_{ii} + \cdots + A_{nn}
     \end{equation*}
     \vspace{0pt}
 \end{kekka} \noindent
@@ -834,7 +834,7 @@ J_{\mu}^{NC}(\nu) =
 \section{図の貼り込み}
 \label{sec:latex:picture}
 
-\LaTeX では、Gnuplot~(\ref{sec:unix:gnuplot}節)などで生成した図のファイル(PDFなど)を文章中に貼り込むことが可能である。
+\LaTeX では、gnuplot~(\ref{sec:unix:gnuplot}節)などで生成した図のファイル(PDFなど)を文章中に貼り込むことが可能である。
 
 \subsection{パッケージについて}
 \label{sec:latex:package}
@@ -850,7 +850,7 @@ J_{\mu}^{NC}(\nu) =
 \end{reidai} \noindent
 以後断りなく\texttt{graphicx}の機能を使うので注意すること。
 
-\texttt{graphicx}以外にもよく使われるパッケージとして、様々な機能を追加し実質的に公式機能と見なされている\texttt{amsmath}、後に出てくる\texttt{here}、物理でよく使う表現を簡単に入力できる\texttt{physics}、ハイパーリンク機能を提供する\texttt{hyperref}などがある。これらのパッケージは\texttt{texlive-full}をインストールすれば特に何も設定をせずとも使えるはずだ。
+\texttt{graphicx}以外にもよく使われるパッケージとして、様々な機能を追加し実質的に公式機能と見なされている\texttt{amsmath}、後に出てくる\texttt{here}、物理でよく使う表現を簡単に入力できる\texttt{physics}、ハイパーリンク機能を提供する\texttt{hyperref}などがある。これらのパッケージはTeX Liveのパッケージ一式をインストール(Ubuntuではtexlive-full、macOSではMacTeXなど)すれば特に何も設定をせずとも使えるはずだ。
 
 \subsection{PDFファイルの貼り込み}
 \label{sec:latex:include_pdf}
@@ -952,7 +952,7 @@ J_{\mu}^{NC}(\nu) =
     \(n\) は媒質の屈折率、\(m\) は物質の質量、\(p\) は物質の運動量である。\\
 \end{kekka} \noindent
 \textbf{例題 \ref{reidai:latex:noref}} ではチェレンコフ光の発生条件の式を
-本文中に「式(1)」とハードコーティングしている。
+本文中に「式(1)」とハードコーディングしている。
 
 さて、 \textbf{例題 \ref{reidai:latex:noref}} の式の前に別の式を挿入することになったとする。すると、式の番号はすべて 1 つずつ繰り下がるので、文章中で「式(1)」と書いているところをすべて「式(2)」に書き直さなければならない。このような番号の付け替えを手で行うのはとても大変であるし、間違いが起こりやすい。
 
@@ -1047,7 +1047,7 @@ J_{\mu}^{NC}(\nu) =
     \begin{verbatim}
 第 1 象限内の複素数 \(z\) について、
 \begin{equation}
-    w(z) \equiv \mathrm{e}^{-z^2}\mathrm{erfc}(z)
+    w(z) \equiv \mathrm{e}^{-z^2}\mathrm{erfc}(-iz)
 \end{equation}
 を近似的に計算するアルゴリズムが存在し \cite{wofz}、
 その計算誤差は \(10 ^ {-10}\) 以下である。
@@ -1069,7 +1069,7 @@ J_{\mu}^{NC}(\nu) =
 \begin{kekka}
     \hspace*{0.3cm}第 1 象限内の複素数 \(z\) について、
     \begin{equation}
-        w(z) \equiv \mathrm{e}^{-z^2}\mathrm{erfc}(z)
+        w(z) \equiv \mathrm{e}^{-z^2}\mathrm{erfc}(iz)
     \end{equation}
     を近似的に計算するアルゴリズムが存在し[1]、
     その計算誤差は \(10 ^ {-10}\) 以下である。
@@ -1086,7 +1086,7 @@ J_{\mu}^{NC}(\nu) =
     \noindent [2] The BELLE Collaboration, KEK Report 95-1 (1995)
 \end{kekka} \noindent
 文章中に書く \verb|\cite| では引用する論文の名前を指定する。論文の名前は自分が覚えやすいものであれば何でも構わないが、\verb|\bibitem| によって名前が定義されている必要がある。\verb|\bibitem| は \verb|\begin{thebibliography}| と \verb|\end{thebibliography}| とで囲まれた領域に書く。この領域は清書すると参考文献の章となる。
-\verb|\bibitem| に続く \texttt{\{\}} の中には自分で決めた論文名を書く。この名前が \verb|\cite| によって参照されることになる。その後あとには、その論文の著者名や収録されている雑誌名などを書く。ここに書いたことは、参考文献の章が清書されるときにそのまま印刷される\footnote{項目が増えてくると直接ファイルに書き込むのが大変になってくるだろう。詳しいやり方は説明しないが、そういった場合は\texttt{.bib}ファイルを使うとより管理しやすくなる。}。
+\verb|\bibitem| に続く \texttt{\{\}} の中には自分で決めた論文名を書く。この名前が \verb|\cite| によって参照されることになる。その後には、その論文の著者名や収録されている雑誌名などを書く。ここに書いたことは、参考文献の章が清書されるときにそのまま印刷される\footnote{項目が増えてくると直接ファイルに書き込むのが大変になってくるだろう。詳しいやり方は説明しないが、そういった場合は\texttt{.bib}ファイルを使うとより管理しやすくなる。}。
 
 \verb|\cite| と \verb|\ref| を、 \verb|\bibitem| と \verb|\label| を
 それぞれ対応付けて覚えておこう。
@@ -1121,14 +1121,14 @@ J_{\mu}^{NC}(\nu) =
 \begin{reidai}
     \begin{verbatim}
 #!/usr/bin/env perl
-@default_files    = ('example.tex');
-$latex            = 'uplatex -synctex=1 -halt-on-error';
-$latex_silent     = 'uplatex -synctex=1 -halt-on-error -interaction=batchmode';
-$bibtex           = 'upbibtex';
-$dvipdf           = 'dvipdfmx %O -o %D %S';
-$makeindex        = 'mendex %O -o %D %S';
-$max_repeat       = 5;
-$pdf_mode         = 3;
+@default_files       = ('example.tex');
+$latex               = 'uplatex -synctex=1 -halt-on-error %O %S';
+$latex_silent_switch = '-interaction=batchmode';
+$bibtex              = 'upbibtex';
+$dvipdf              = 'dvipdfmx %O -o %D %S';
+$makeindex           = 'mendex %O -o %D %S';
+$max_repeat          = 5;
+$pdf_mode            = 3;
 $pvc_view_file_via_temporary = 0;
 \end{verbatim}
 \end{reidai}

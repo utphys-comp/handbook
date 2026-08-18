@@ -2,7 +2,7 @@
 
 \noindent
 この章では、UNIXと呼ばれるOS (オペレーティングシステム)の操作法について学ぶ。通常、macOSやWindowsでは、マウスを使って画面を操作する。実は、macOSの内部ではDarwinと呼ばれるUNIX系のOSが動作しており、「ターミナル」アプリケーションを立ち上げることにより、UNIXの様々な機能に直接アクセスすることができる。また、ワークステーションやスーパーコンピュータなど、より大きな規模の計算を行うことのできる計算機も、ほぼ全てLinuxなどのUNIX系OSである。
-UNIX系のOSの特徴としては、シンプル、柔軟かつオープンであり、ネットワークに強いことが挙げられる。シェルやスクリプト言語を組み合わせることにより、簡単なコマンドで複雑な処理を実現することができる。また、ネットワーク経由で使用することが前提となっており、実際に計算機がどこにあるかを意識することなしに、透過的に利用できる。UNIXを取得することにより、目の前のPCだけでなく世界中の計算機を利用することが可能となり、計算能力が一気に増えることになる。
+UNIX系のOSの特徴としては、シンプル、柔軟かつオープンであり、ネットワークに強いことが挙げられる。シェルやスクリプト言語を組み合わせることにより、簡単なコマンドで複雑な処理を実現することができる。また、ネットワーク経由で使用することが前提となっており、実際に計算機がどこにあるかを意識することなしに、透過的に利用できる。UNIXを習得することにより、目の前のPCだけでなく世界中の計算機を利用することが可能となり、計算能力が一気に増えることになる。
 
 \section{UNIX のコマンド}
 
@@ -102,7 +102,7 @@ drwxr-xr-x  2 s001500 student      512 Apr 16 03:40 Desktop
 -rw-r--r--  1 s001500 student      372 Apr 16 03:43 circle.c
 \end{verbatim}
 \end{commandline2} \noindent
-のように、より詳細な情報\footnote{表示の1行目は、左端の \texttt{d} が、そのファイルがディレクトリであることを示し、次の\texttt{rwx}はファイルの所有者が読み取り可能(\texttt{r})、書き込み可能(\texttt{w})、実行可能(\texttt{x})であることを示している。(ディレクトリが読み取り可能であるとは、そのディレクトリにどのようなファイルが入っているかを\textbf{ls}コマンドで調べられることをいい、ディレクトリが書き込み可能とは、そのディレクトリに新しくファイルやディレクトリを新しく作ったり、すでにあるファイルなどを消したりできることをいう。さらに、ディレクトリが実行可能であるとは、そのディレクトリ内部のファイルを操作できたり、そのディレクトリに移動するとか、そのディレクトリの名前をパスに含めることができることを意味する。) 次の\texttt{r-x}は同じグループに所属する人が、読み取りと実行可能であることを示し、その次の\texttt{r-x}はそのほかすべての人が読み取りと実行可能であることを示している。隣のカラムの\texttt{s001500}は、そのファイルの所有者が\texttt{s001500}であることを示し、次のカラムは所有グループを示している。次の\texttt{512}は、そのファイルの大きさが512 byteであることを示している。\texttt{Apr 16 03:40}は、そのファイルに最後に変更を加えた日時を示す。そして最後がファイルの名前である。}を得ることができる。この\texttt{-l}をオプション(あるいはコマンドラインオプション)と呼ぶ。
+のように、より詳細な情報\footnote{表示の1行目は、左端の \texttt{d} が、そのファイルがディレクトリであることを示し、次の\texttt{rwx}はファイルの所有者が読み取り可能(\texttt{r})、書き込み可能(\texttt{w})、実行可能(\texttt{x})であることを示している。(ディレクトリが読み取り可能であるとは、そのディレクトリにどのようなファイルが入っているかを\textbf{ls}コマンドで調べられることをいい、ディレクトリが書き込み可能とは、そのディレクトリにファイルやディレクトリを新しく作ったり、すでにあるファイルなどを消したりできることをいう。さらに、ディレクトリが実行可能であるとは、そのディレクトリ内部のファイルを操作できたり、そのディレクトリに移動するとか、そのディレクトリの名前をパスに含めることができることを意味する。) 次の\texttt{r-x}は同じグループに所属する人が、読み取りと実行可能であることを示し、その次の\texttt{r-x}はそのほかすべての人が読み取りと実行可能であることを示している。隣のカラムの\texttt{s001500}は、そのファイルの所有者が\texttt{s001500}であることを示し、次のカラムは所有グループを示している。次の\texttt{512}は、そのファイルの大きさが512 byteであることを示している。\texttt{Apr 16 03:40}は、そのファイルに最後に変更を加えた日時を示す。そして最後がファイルの名前である。}を得ることができる。この\texttt{-l}をオプション(あるいはコマンドラインオプション)と呼ぶ。
 オプションを指定することでプログラムの動作を変えることができる。
 \texttt{ls}コマンドには他にも様々なオプションが用意されている。\texttt{-F} オプションをつければ、ファイルの名前の後にファイルの種別を表す文字をつけてくれる。ディレクトリには \texttt{/} が、実行可能ファイルには\texttt{\( \ast\)} がつく。\texttt{-R} オプションをつければ、カレントディレクトリ以下のすべてのディレクトリの中身を見ることができる。また、\texttt{-a} とすると、通常表示されない . (ピリオド)から始まるファイルも見ることができるようになる。
 
@@ -122,7 +122,7 @@ drwxr-xr-x  2 s001500 student      512 Apr 16 03:40 Desktop
 \end{commandline2} \noindent
 のように\texttt{-i}オプションをつけるとよい。ファイルごとに消してよいかどうかの確認をしてくれるので安心である。
 
-さて、ここまでディレクトリという言葉が何度か出てきた。UNIXでは、ディレクトリという特殊なファイルを使って、たくさんのファイルをtree状に管理することができる。ディレクトリとは書類をまとめる書類箱だと思えばよいだろう。ときに大きな書類箱のなかに小さな書類箱が入っていることもあるわけで、ディレクトリの中にディレクトリがあってもいっこうに構わない。
+さて、ここまでディレクトリという言葉が何度か出てきた。UNIXでは、ディレクトリという特殊なファイルを使って、たくさんのファイルをツリー状に管理することができる。ディレクトリとは書類をまとめる書類箱だと思えばよいだろう。ときに大きな書類箱のなかに小さな書類箱が入っていることもあるわけで、ディレクトリの中にディレクトリがあってもいっこうに構わない。
 
 ログインして最初にいるディレクトリのことをホームディレクトリと呼ぶ。今いるディレクトリ\footnote{カレントディレクトリ、あるいはワーキングディレクトリと呼ぶ。}がどこかを知るには、\texttt{pwd}コマンド(\textbf{p}rint \textbf{w}orking \textbf{d}irectoryの略)を使う。\texttt{/home/s001500} と表示されれば ルートディレクトリ\footnote{ルートディレクトリとは一番上のディレクトリのことであり、最初の\texttt{/}がルートディレクトリを表す。}の下の \texttt{home} というディレクトリの下の、\texttt{s001500}というディレクトリにいるということが分かる。
 
@@ -157,13 +157,13 @@ drwxr-xr-x  2 s001500 student      512 Apr 16 03:40 Desktop
     \put(0,-72){\fbox{chap4}}\put(25,-72){\fbox{chap5} ... }
 \end{picture}
 
-\noindent このツリーの中の位置は、一番上の \texttt{/} で表されるルートディレクトリから順にたどることより指定することができる。これを「絶対パス」と呼ぶ。あるいは、今いるディレクトリ(カレントディレクトリ)からの相対的な位置で指定する方法もある。これを「相対パス」と呼ぶ。例えば、ホームディレクトリの下の\texttt{sample}の下の\texttt{chap4}ディレクトリは、絶対的な指定では
+\noindent このツリーの中の位置は、一番上の \texttt{/} で表されるルートディレクトリから順にたどることにより指定することができる。これを「絶対パス」と呼ぶ。あるいは、今いるディレクトリ(カレントディレクトリ)からの相対的な位置で指定する方法もある。これを「相対パス」と呼ぶ。例えば、ホームディレクトリの下の\texttt{sample}の下の\texttt{chap4}ディレクトリは、絶対的な指定では
 \begin{tt}
     /home/s001500/sample/chap4
 \end{tt}
 と書かれるが、カレントディレクトリがホームディレクトリの場合、相対的な指定では\texttt{sample/chap4}と書かれる。そのディレクトリの中にあるファイルも \texttt{/home/s001500/sample/chap4/circle.c}とか\texttt{sample/chap4/circle.c}のように指定することができる。特に一つ上のディレクトリは``\texttt{..}''で、カレントディレクトリは``\texttt{.}''であらわされる。つまり先ほどの\texttt{sample/chap4/circle.c}は\texttt{./../s001500/sample/chap4/circle.c}と書いても同じものを指す。
 
-これで、自由にディレクトリ間を移動することができるようになった。例えば、すでに使った\texttt{ls}コマンドは、\texttt{/usr/bin}あるいは\texttt{/bin}ディレクトリに格納されている\footnote{\underline{\texttt{which ls}}とすることで、\texttt{ls}がどこにあるか調べることができる。}。\underline{\texttt{cd /usr/bin}} として、そこに移動してから\underline{\texttt{ls}}と打ってみよう。たくさんのファイルが置かれているが、\texttt{ls} というファイルは見付かっただろうか\footnote{例えば、\texttt{treasure.here}という名前のファイルを探したい場合、そのファイルがありそうなディレクトリよりも上のディレクトリに行って、\underline{\texttt{find . -name treasure.here -print}}とする。\texttt{find}の直後の \texttt{.} (ピリオド)は「そのファイルがありそうなディレクトリより上のディレクトリのパス」を指定する。またファイル名があやふやな場合でも、\underline{\texttt{find . -name 'tre\(\ast\).here' -print}}のように\(\ast\)を任意の文字列として合致するファイルを表示してくれる。\texttt{find}はとても多機能である。例えば\underline{\texttt{find . -name 'tre\(\ast\).here' -exec cat \textbraceleft \textbraceright} \(\backslash\);}のように、探し出したファイルに対してコマンドを実行することもできる。\texttt{-exec} 以下の書式は コマンドの引数となるファイル名が \textbraceleft \textbraceright となるように書き、最後に \texttt{\(\backslash\);} を加えればよい。\texttt{-exec} の代わりに \texttt{-ok} を使えばコマンドを実行する前に一々聞いて来るので \texttt{rm}などを \texttt{find} で実行したいときには安心である。\underline{\texttt{find\ .\ -ctime -1 -print}}のように\texttt{-ctime}で最終変更期日が1日前以内のものだけ表示させるようなことも可能である。\texttt{-ctime}の引数を\texttt{+1} にすると最終変更期日が1日以上前のものだけが表示される。}。
+これで、自由にディレクトリ間を移動することができるようになった。例えば、すでに使った\texttt{ls}コマンドは、\texttt{/usr/bin}あるいは\texttt{/bin}ディレクトリに格納されている\footnote{\underline{\texttt{which ls}}とすることで、\texttt{ls}がどこにあるか調べることができる。}。\underline{\texttt{cd /usr/bin}} として、そこに移動してから\underline{\texttt{ls}}と打ってみよう。たくさんのファイルが置かれているが、\texttt{ls} というファイルは見付かっただろうか\footnote{例えば、\texttt{treasure.here}という名前のファイルを探したい場合、そのファイルがありそうなディレクトリよりも上のディレクトリに行って、\underline{\texttt{find . -name treasure.here -print}}とする。\texttt{find}の直後の \texttt{.} (ピリオド)は「そのファイルがありそうなディレクトリより上のディレクトリのパス」を指定する。またファイル名があやふやな場合でも、\underline{\texttt{find . -name 'tre\(\ast\).here' -print}}のように\(\ast\)を任意の文字列として合致するファイルを表示してくれる。\texttt{find}はとても多機能である。例えば\underline{\texttt{find . -name 'tre\(\ast\).here' -exec cat \textbraceleft \textbraceright} \(\backslash\);}のように、探し出したファイルに対してコマンドを実行することもできる。\texttt{-exec} 以下の書式は コマンドの引数となるファイル名が \textbraceleft \textbraceright となるように書き、最後に \texttt{\(\backslash\);} を加えればよい。\texttt{-exec} の代わりに \texttt{-ok} を使えばコマンドを実行する前に一々聞いて来るので \texttt{rm}などを \texttt{find} で実行したいときには安心である。\underline{\texttt{find\ .\ -mtime -1 -print}}のように\texttt{-mtime}で最終変更期日が1日前以内のものだけ表示させるようなことも可能である。\texttt{-mtime}の引数を\texttt{+1} にすると最終変更期日が1日以上前のものだけが表示される。}。
 
 なお、\underline{\texttt{cd}}とだけ打てば、いつでも自分のホームディレクトリに戻ってくることができる。ホームディレクトリは \(\tilde{\ }\) (チルダ)とも表されるので \underline{\texttt{cd \(\tilde{\ }\)}}としても同じである。他にも特殊な記法として``前のカレントディレクトリ''を表す \texttt{-} (ハイフン)が使用できる。
 
@@ -179,7 +179,7 @@ drwxr-xr-x  2 s001500 student      512 Apr 16 03:40 Desktop
 \end{commandline2} \noindent
 と打つことにより、ちょうどよい所で一旦止めてくれる。\fbox{\texttt{--More--(xx\%)}} のような表示が左下に見えたら、\spc を叩いてみよう。次のページが表示されるはずである。\underline{\texttt{h}}と打つと簡単なヘルプが見られる。\underline{\texttt{b}}か\ctrl{B}で1ページ戻る。また\ret で1行進む。さらに、\underline{\texttt{/}}の後に\underline{\texttt{文字列}}を打つことでファイル中の文字列を検索することができる。検索された文字列を含む行はウインドウの一番上に表示される。\underline{\texttt{n}}と打てばもう一度同じ文字列を探してくれる。また、\underline{\texttt{10d}}のように数字を入れてから\underline{\texttt{d}}を打てば、その数字分だけ進む。\texttt{more}から抜けるには、\underline{\texttt{q}}を入力する。
 
-\texttt{more}と似ているが、もう少し使い勝手のよい\texttt{less}\label{sect:less}というコマンドもある。\texttt{less}では上向きにスクロールすることができる。\underline{\texttt{j}}で1行下に、\underline{\texttt{k}}で1行上\footnote{UNIX標準エディター \texttt{vim} のキー操作と同じ。}に進む。\texttt{more}と同じく、スペースバー、\underline{\texttt{h}}、\underline{\texttt{b}}、\underline{\texttt{d}}、\underline{\texttt{/}}、\underline{\texttt{n}}、\underline{\texttt{q}}のようなコマンドも使える。更に \underline{\texttt{g}}でファイルの先頭に、\underline{\texttt{G}}でファイルの最後尾にジャンプすることができる\footnote{\texttt{\underline{tail circle.c}}のようにすれば、ファイルの最後だけ見ることができる。また \underline{\texttt{tail -30}}のように指定することで最後から30行目以降を見ることができる。}。
+\texttt{more}と似ているが、もう少し使い勝手のよい\texttt{less}\label{sect:less}というコマンドもある。\texttt{less}では上向きにスクロールすることができる。\underline{\texttt{j}}で1行下に、\underline{\texttt{k}}で1行上\footnote{UNIX標準エディター \texttt{vim} のキー操作と同じ。}に進む。\texttt{more}と同じく、スペースバー、\underline{\texttt{h}}、\underline{\texttt{b}}、\underline{\texttt{d}}、\underline{\texttt{/}}、\underline{\texttt{n}}、\underline{\texttt{q}}のようなコマンドも使える。更に \underline{\texttt{g}}でファイルの先頭に、\underline{\texttt{G}}でファイルの最後尾にジャンプすることができる\footnote{\texttt{\underline{tail circle.c}}のようにすれば、ファイルの最後だけ見ることができる。また \underline{\texttt{tail -n 30 circle.c}}のように指定することで最後から30行目以降を見ることができる。}。
 
 次に、たくさんあるファイルの中に特定の文字列が含まれているか調べてみよう。
 \begin{commandline2}
@@ -192,7 +192,7 @@ drwxr-xr-x  2 s001500 student      512 Apr 16 03:40 Desktop
 \begin{commandline2}
     \prompt \underline{chmod o-r circle.c}
 \end{commandline2} \noindent
-とすれば自分と、自分と同じグループに属する人以外はそのファイルを見ることができなくなる\footnote{\texttt{o}は other の頭文字で、他の人にも見えるようにするには \underline{\texttt{o-r}} を\underline{\texttt{o+r}} に変えて実行する。\underline{\texttt{chmod u=rwx,g+x,o-r circle.c}}のように指定することもできる。そのほか \texttt{g} (group) は 同じグループ、\texttt{u} (user) は所有者、\texttt{a} (all)はユーザーも含めた全員を表し、\texttt{r} 、\texttt{w} 、\texttt{x} はそれぞれ、read, write, execute を表す。}。
+とすれば自分と、自分と同じグループに属する人以外はそのファイルを見ることができなくなる\footnote{\texttt{o}は other の頭文字で、他の人にも見えるようにするには \underline{\texttt{o-r}} を\underline{\texttt{o+r}} に変えて実行する。\underline{\texttt{chmod u=rwx,g+x,o-r circle.c}}のように指定することもできる。そのほか \texttt{g} (group) は 同じグループ、\texttt{u} (user) は所有者、\texttt{a} (all)はユーザも含めた全員を表し、\texttt{r} 、\texttt{w} 、\texttt{x} はそれぞれ、read, write, execute を表す。}。
 \begin{commandline2}
     \prompt \underline{chmod g-r circle.c}
 \end{commandline2} \noindent
@@ -266,7 +266,7 @@ rmdir (2)             - Removes a directory file
 
 \subsection{プロセスの管理とトラブル時の対策}
 \label{chap: recover}
-この節では、ここではトラブル時の対策を含んだプロセスの管理について説明する。多少面倒な話なので読み飛ばしておいても構わない。
+この節では、トラブル時の対策を含んだプロセスの管理について説明する。多少面倒な話なので読み飛ばしておいても構わない。
 
 ターミナル上で何かを実行していて止まらなくなったときに最も有効なのは、\ctrl{c}である。\ctrl{c}は実行しているジョブを強制的に終了する。うまくいけばプロンプトが戻って来るはずである。
 
@@ -304,11 +304,11 @@ rmdir (2)             - Removes a directory file
 \begin{commandline2}
     \prompt \underline{kill 28123}
 \end{commandline2} \noindent
-として、そのプロセスを終了する。 28123 は \texttt{./a.out} のプロセスの ID 番号である。ちゃんとプロンプトが帰ってくれば一件落着である。それでもだめなときは、
+として、そのプロセスを終了する。 28123 は \texttt{./a.out} のプロセスの ID 番号である。ちゃんとプロンプトが帰ってくれば一件落着である。少し待ってもプロンプトが帰ってこないときには、
 \begin{commandline2}
-    \prompt \underline{kill -HUP 28123}
+    \prompt \underline{kill -KILL 28123}
 \end{commandline2} \noindent
-としてみる。まだだめな場合は \underline{\texttt{-HUP}} を \underline{\texttt{-QUIT }}\footnote{\underline{\texttt{-QUIT}} を使うとプロセス (この場合は \texttt{a.out}) が実行中だったディレクトリに\texttt{core} というとても大きなファイルができることがある。通常は必要ないので消してしまってかまわない。}にしてみよう。それでもうまくいかない場合は \underline{\texttt{-QUIT}} を \underline{\texttt{-KILL}} にするが、\underline{\texttt{-KILL}} は最後の手段と考えて、無闇に使わないほうが無難である。
+としてみる。
 
 \subsection{パイプとリダイレクション}
 
@@ -332,7 +332,7 @@ UNIX の設計思想の一つに小さなツールを組み合わせるという
 \begin{commandline2}
     \prompt \underline{ls -laF \(>\) ls.dat}
 \end{commandline2} \noindent
-のようにすれば、\texttt{ls -laF}の結果がls.datに書き出される。また、Cのプログラムでの計算結果をいったんファイルに落とし、Gnuplot~(\ref{sec:unix:gnuplot}節)で図にプロットするというといった作業も行うことができる。
+のようにすれば、\texttt{ls -laF}の結果がls.datに書き出される。また、Cのプログラムでの計算結果をいったんファイルに落とし、gnuplot~(\ref{sec:unix:gnuplot}節)で図にプロットするといった作業も行うことができる。
 
 \subsection{コマンドヒストリとコマンドライン補完}
 
@@ -357,7 +357,7 @@ UNIX の設計思想の一つに小さなツールを組み合わせるという
 ./          excellent-bitmaps/  work/
 ../         save/
 archive/    TeX/
-    emacs.doc   temp.out\(\ast\)
+emacs.doc   temp.out*
 \end{verbatim}
 \end{commandline2} \noindent
 のような状況で次のようなコマンドを打ちたいとする。
@@ -372,11 +372,11 @@ archive/    TeX/
 \begin{commandline2}
     \prompt \underline{chm}od\ \cursor
 \end{commandline2} \noindent
-のように変わる。つまり、自動的にコマンドの一部を補完してくれるのである。さらにこの機能はコマンドだけではなく、ファイルやディレクトリの名前、ユーザー名にも使える。さっきの例では
+のように変わる。つまり、自動的にコマンドの一部を補完してくれるのである。さらにこの機能はコマンドだけではなく、ファイルやディレクトリの名前、ユーザ名にも使える。さっきの例では
 \begin{commandline2}
     \prompt \underline{chm}od \underline{o-rx ex}
 \end{commandline2} \noindent
-まで打った時点で、\ovalbox{Tab}\footnote{\ovalbox{Tab}でなく、\ctrl{d}を押せば、補完可能な候補の一覧が表示される。}を押せば、自動的に
+まで打った時点で、\ovalbox{Tab}を押せば、自動的に
 \begin{commandline2}
     \prompt \underline{\texttt{chm}}od \underline{o-rx ex}cellent-bitmaps
 \end{commandline2} \noindent
@@ -420,7 +420,7 @@ archive/    TeX/
           \end{commandline2} \noindent
           のように実行すると、\textit{origin}というファイルが消えて、\textit{origin}\texttt{.gz}というファイル\footnote{ファイルの最後に \texttt{.gz} が付く。逆にもし、ファイルの最後が \texttt{.gz} になっているファイルがあれば、それは \texttt{gzip} で圧縮されていると思ってよい。}が作成される。解凍\footnote{圧縮を元に戻すことである。}するには、
           \begin{commandline2}
-              \prompt \underline{gzip -d \textit{oringin}.gz}
+              \prompt \underline{gzip -d \textit{origin}.gz}
           \end{commandline2} \noindent
           あるいは
           \begin{commandline2}
@@ -434,7 +434,7 @@ archive/    TeX/
           \begin{commandline2}
               \prompt \underline{ln \textit{filename} \textit{linkname}}
           \end{commandline2} \noindent
-          のように実行する\footnote{{\texttt{cp}} と同じ順序で引数を指定する。}と\textit{filename} というファイルは\textit{linkname}という名前でもアクセスできるようになる。これをリンク、とくにこの場合はハードリンクと呼ぶ。ハードリンクがコピーと違うのは、\textit{filename} の内容を変更した場合、自動的に \textit{linkname}の内容も変更される\footnote{ハードリンクを作ると \textit{filename} と \textit{linkname} の区別はなくなり、両者は対等の関係になる。}ことと、ディスクの使用量がハードリンクを作っても(ほとんど)かわらないことである。また誤って \textit{filename} か \textit{linkname} のどちらかを消してしまっても一方は残っているので、バックアップの役にも立つ。しかし、ハードリンクは「自分のホームディレクトリ内」のように限られた空間\footnote{同一パーティション内のこと。}内でしか利用できない。
+          のように実行する\footnote{{\texttt{cp}} と同じ順序で引数を指定する。}と\textit{filename} というファイルは\textit{linkname}という名前でもアクセスできるようになる。これをリンク、とくにこの場合はハードリンクと呼ぶ。ハードリンクがコピーと違うのは、\textit{filename} の内容を変更した場合、自動的に \textit{linkname}の内容も変更される\footnote{ハードリンクを作ると \textit{filename} と \textit{linkname} の区別はなくなり、両者は対等の関係になる。}ことと、ディスクの使用量がハードリンクを作っても(ほとんど)かわらないことである。また、誤って \textit{filename} か \textit{linkname} のどちらかを消してしまっても他方の名前からアクセスできるが、独立したバックアップではない。ハードリンクは「自分のホームディレクトリ内」のように限られた空間\footnote{同一パーティション内のこと。}内でしか利用できない。
 
           ハードリンクに対して、シンボリックリンクというものもある。シンボリックリンクは
           \begin{commandline2}
@@ -455,53 +455,55 @@ archive/    TeX/
 \section{リモートログインとファイル転送}
 \label{sec:ssh}
 
-UNIXでは、SSH (\textbf{s}ecure \textbf{sh}ellの略)という仕組みを使うことで、ある計算機(ログイン元、あるいはローカル計算機と呼ぶ)から別の計算機(ログイン先、あるいはリモート計算機と呼ぶ)にインターネット経由でリモートログインして作業することができる。例えば、ECCSの端末(iMac)から、物理学教室のワークステーション、あるいは地理的に離れた場所にあるスーパーコンピュータにログインして、あたかもその計算機が手元にあるかのように利用することができる。リモート計算機のホスト名やアカウントに関する情報は、あらかじめ、リモート計算機の管理者から入手しておく必要がある。
+UNIXでは、SSH (\textbf{s}ecure \textbf{sh}ellの略)という仕組みを使うことで、ある計算機(ログイン元、あるいはローカル計算機と呼ぶ)から別の計算機(ログイン先、あるいはリモート計算機と呼ぶ)にインターネット経由でリモートログインして作業することができる。例えば、手元のPCから、物理学教室のワークステーション、あるいは地理的に離れた場所にあるスーパーコンピュータにログインして、あたかもその計算機が手元にあるかのように利用することができる。リモート計算機のホスト名やアカウントに関する情報は、あらかじめ、リモート計算機の管理者から入手しておく必要がある。
 
-SSHでは現在、2種類の認証方式が使われている。ユーザ名とパスワードの組による認証と、公開鍵暗号による認証である。後者の方がよりセキュリティーが高く、近年は公開鍵暗号のみに制限している計算機も多い。以下では、公開鍵暗号によるSSH接続について説明する。
+本節では、代表的なパスワード認証と公開鍵認証のうち、公開鍵認証を説明する。公開鍵認証を使うことで、パスワードを入力することなく、より安全にリモート計算機にログインすることができる。
 
 \subsection{公開鍵暗号方式}
 
-従来の暗号(共通鍵暗号)では、暗号化と復号化に同一の鍵を用いるが、公開鍵暗号では、単一の共通鍵ではなく秘密鍵と公開鍵をペアを使う。この二つの鍵は、秘密鍵で暗号化したデータは公開鍵でのみ復号化でき、逆に公開鍵で暗号化されたデータは秘密鍵でのみ復号化できるという著しい性質を持つ。公開鍵暗号にもとづくSSHでは、ローカル計算機であらかじめ秘密鍵と公開鍵のペアを作成し、そのうち公開鍵のみをログイン先のリモート計算機に登録しておく。実際の接続においては、まずリモート計算機側でユーザの公開鍵を使ってあるランダムな文字列が暗号化され、それが手元のローカル計算機に送られてくる。ローカル計算機で、その文字列をユーザの秘密鍵を使って復号してみせることで、そのユーザが登録された公開鍵の所有者であることを証明する。このようにして認証を行った上で、さらにその後の通信についても全て暗号化された上で行われる\footnote{公開鍵暗号の仕組みは、暗号化だけでなく電子署名にも用いられる}。
+従来の暗号(共通鍵暗号)では、暗号化と復号化に同一の鍵を用いるが、公開鍵暗号では、単一の共通鍵ではなく秘密鍵と公開鍵のペアを使う。暗号化では公開鍵で暗号化し秘密鍵で復号する。電子署名では秘密鍵で署名し公開鍵で検証する。
 
-重要な点は、リモート計算機に登録する公開鍵が仮に盗まれたり、他人に知られてしまっても、秘密鍵が知られない限り、なりすましや通信内容の傍受などの心配がないということである。一方、秘密鍵の方は絶対に人に知られてはならない。
+公開鍵認証では、利用者はローカル計算機に秘密鍵を保持し、対応する公開鍵をリモート計算機に登録しておく。接続時には、SSHクライアントが秘密鍵を用いて認証要求に電子署名し、SSHサーバが登録済みの公開鍵を用いて署名を検証する。秘密鍵そのものがネットワーク上に送信されることはない。公開鍵は他人に知られても差し支えないが、秘密鍵は厳重に管理しなければならない。なお、通信内容の暗号化と完全性保護は、ユーザ認証より先に確立されるSSHトランスポート層によって行われる。
 
 \subsection{鍵の作成と登録}
 
-秘密鍵と公開鍵の鍵ペアの作成は、ローカル計算機(ECCSのiMacなど)上で、\texttt{ssh-keygen}コマンドにより行う。
+秘密鍵と公開鍵の鍵ペアの作成は、手元のPC上で、\texttt{ssh-keygen}コマンドにより行う。
 \begin{commandline2}
-    \prompt \underline{ssh-keygen -t rsa} \\
-    Generating public/private rsa key pair.\\
-    Enter file in which to save the key (/xxx/.ssh/id\_rsa):\underline{(何も入力せずreturn)}\\
+    \prompt \underline{ssh-keygen -t ed25519} \\
+    Generating public/private ed25519 key pair.\\
+    Enter file in which to save the key (/xxx/.ssh/id\_ed25519):\underline{(何も入力せずreturn)}\\
     Enter passphrase (empty for no passphrase):\underline{(パスフレーズを入力)}\\
     Enter same passphrase again:\underline{(パスフレーズを再度入力)}
 \end{commandline2} \noindent
-秘密鍵が \texttt{\~{}/.ssh/id\_rsa}に、公開鍵が \texttt{\~{}/.ssh/id\_rsa.pub}に作成される。ここで入力する「パスフレーズ」は、手元の計算機にログインするための「パスワード」とは別のものである。「パスフレーズ」は自分で決める文字列であり、「パスワード」とは異なるものでなければならない。また、設定した「パスフレーズ」は忘れずに覚えておく必要がある。
+秘密鍵が \texttt{\~{}/.ssh/id\_ed25519}に、公開鍵が \texttt{\~{}/.ssh/id\_ed25519.pub}に作成される。ここで入力する「パスフレーズ」は、手元のPCにログインするための「パスワード」とは別のものである。「パスフレーズ」は自分で決める文字列であり、「パスワード」とは異なるものでなければならない。また、設定した「パスフレーズ」は忘れずに覚えておく必要がある。
 
-作成された鍵のうち、公開鍵(\texttt{id\_rsa.pub})をログイン先の計算機に登録する。公開鍵の登録は、リモート計算機の管理者の指示にしたがって行う。繰り返しになるが、秘密鍵(\texttt{id\_rsa})は絶対に人に知られてはならない。公開鍵の代わりに間違えて秘密鍵を送ってしまわないよう注意が必要である。
+作成された鍵のうち、公開鍵(\texttt{id\_ed25519.pub})をログイン先の計算機に登録する。公開鍵の登録は、リモート計算機の管理者の指示にしたがって行う。繰り返しになるが、秘密鍵(\texttt{id\_ed25519})は絶対に人に知られてはならない。公開鍵の代わりに間違えて秘密鍵を送ってしまわないよう注意が必要である。
 
 \texttt{ssh-keygen}をオプションの指定なしで複数回実行してしまうと、既存の鍵が置き換えられてしまい公開鍵の登録からすべてやり直しになるので十分注意すること。
 \subsection{リモートログイン}
 
-リモート計算機へSSH接続するには、\texttt{ssh} コマンドを利用する\footnote{同様の機能を持つものに\texttt{telnet}、\texttt{rlogin}というコマンドがあるが、通信内容が平文でネットワーク上を流れるなど、セキュリティー上の問題があるので、今日では使われない。}。例えば、ホスト名が remote.phys.s.u-tokyo.ac.jp という計算機にSSHログインしたい場合、
+リモート計算機へSSH接続するには、\texttt{ssh} コマンドを利用する\footnote{同様の機能を持つものに\texttt{telnet}、\texttt{rlogin}というコマンドがあるが、通信内容が平文でネットワーク上を流れるなど、セキュリティ上の問題があるので、今日では使われない。}。例えば、ホスト名が remote.phys.s.u-tokyo.ac.jp という計算機にSSHログインしたい場合、
 \begin{commandline2}
-    \prompt \underline{ssh -X remote.phys.s.u-tokyo.ac.jp}
+    \prompt \underline{ssh remote.phys.s.u-tokyo.ac.jp}
 \end{commandline2} \noindent
 と入力する。現在ログインしている計算機とログイン先のアカウント名が異なるときは、
 \begin{commandline2}
-    \prompt \underline{ssh -X remote.phys.s.u-tokyo.ac.jp -l \textit{username}}
+    \prompt \underline{ssh remote.phys.s.u-tokyo.ac.jp -l \textit{username}}
 \end{commandline2} \noindent
 あるいは
 \begin{commandline2}
-    \prompt \underline{ssh -X \textit{username}@remote.phys.s.u-tokyo.ac.jp}
+    \prompt \underline{ssh \textit{username}@remote.phys.s.u-tokyo.ac.jp}
 \end{commandline2} \noindent
-のようにする。\textit{username}はログイン先のアカウント名である。なお、\texttt{-X}オプションは、リモート計算機上で実行するEmacs、Gnuplot、Evinceなどのウィンドウをローカル計算機の画面で開くためのもの(X11 forwarding)である。
+のようにする。\textit{username}はログイン先のアカウント名である。なお、リモート計算機上で実行するEmacs、gnuplot、Evinceなどのウィンドウをローカル計算機の画面で開きたい場合には、\texttt{-X}オプションを付ける(X11 forwarding)。
 
 次に、パスフレーズを入力するように求められるので、鍵の作成時に設定したパスフレーズを入力すると、remote.phys.s.u-tokyo.ac.jp に接続され、プロンプトが表示される。ただし、初めて接続する計算機の場合、次のようなメッセージが出力される。
 \begin{commandline2}
+    The authenticity of host 'remote.phys.s.u-tokyo.ac.jp (xx.xx.xx.xx)' can't be established.\\
+    ED25519 key fingerprint is: SHA256:Qbxkef...\\
     Host key not found from the list of known hosts.\\
     Are you sure you want to continue connecting (yes/no)?
 \end{commandline2} \noindent
-ここで、\texttt{yes} と答えると、先に進むことができる。ログイン後、入力する命令は、すべてリモート計算機上で実行される。
+管理者が別経路で提示したホスト鍵フィンガープリントと照合し、一致を確認してからyesと答える。ログイン後、入力する命令は、すべてリモート計算機上で実行される。
 
 作業終了後は、
 \begin{commandline2}
@@ -513,17 +515,13 @@ SSH接続して作業していると、リモートとローカル、どちら�
 
 \subsection{多段SSH}
 
-セキュリティの関係上、複数回のSSHを繰り返すことでしかログインできないこともある。この場合、途中経由する踏み台のリモートに対してローカルにある公開鍵を転送する必要がある。
+セキュリティの関係上、複数回のSSHを繰り返すことでしかログインできないこともある。この場合、途中経由する踏み台のリモートに対しても公開鍵を登録しておく必要がある。
 
 例として2段SSHの場合を示すと、
 \begin{commandline2}
-    \prompt \underline{ssh -X -A \textit{username1}@remote1.phys.s.u-tokyo.ac.jp}
+    \prompt \underline{ssh -J \textit{username1}@remote1.phys.s.u-tokyo.ac.jp \textit{username2}@remote2.phys.s.u-tokyo.ac.jp}
 \end{commandline2} \noindent
-のようにして\texttt{ -A }をつけて1段目のSSHを行い、更にそこから
-\begin{commandline2}
-    \prompt \underline{ssh -X \textit{username2}@remote2.phys.s.u-tokyo.ac.jp}
-\end{commandline2} \noindent
-のようにして2段目のSSHを行えばよい。最終段では\texttt{ -A }がなくても構わない。
+のようにして、\texttt{-J}オプションで踏み台のリモートを指定することで、1段目のSSHを経由して2段目のSSHを行うことができる。
 
 \subsection{ファイルの転送}
 
@@ -577,7 +575,7 @@ Emacs のコマンドの多くは
 \ctrl{なんとか} と \esc{なんとか}\footnote{\ovalbox{Esc} は \ovalbox{Control} と違い、一旦 \ovalbox{Esc} を押して離した後に、他のキーを押す。}にキー定義されている。
 
 Emacsのチュートリアル自体も、
-\ctrl{h} \ovalbox{T} に割り当てられている。\ctrl{h} \ovalbox{T} を押すときは、まず\ctrl{h}を押してコントロールキーを離してから T を押す。ここで T は大文字なので \ovalbox{Shift} キーと同時に押すことを忘れないこと。また、本来のコマンド名 \esc{x} \texttt{help-with-tutorial} と打ってももちろんかまわない。以下、キーバインドの後にカッコ中に太字で書いてあるのがコマンドで、すべてのコマンドは \esc{x} \underline{コマンド名} と打つことでも、実行が可能である。
+\ctrl{h} \ovalbox{t} に割り当てられている。\ctrl{h} \ovalbox{t} を押すときは、まず\ctrl{h}を押してコントロールキーを離してから t を押す。また、本来のコマンド名 \esc{x} \texttt{help-with-tutorial} と打ってももちろんかまわない。以下、キーバインドの後にカッコ中に太字で書いてあるのがコマンドで、すべてのコマンドは \esc{x} \underline{コマンド名} と打つことでも、実行が可能である。
 このチュートリアルは基本的な事柄を網羅しているので、載っているキー定義を覚えてしまえば相当 Emacs が使いやすくなるはずである。
 
 Emacs を使っていて何か困ったと思ったときは、まず \ctrl{g} (\textbf{keyboard-quit})
@@ -617,8 +615,8 @@ Emacs を使っていて何か困ったと思ったときは、まず \ctrl{g} (
             \ctrl{x} \ovalbox{5}\ovalbox{0} & delete-frame            & 現在のフレームを消す                                                     \\
             \ctrl{x} \ovalbox{b}            & switch-to-buffer        & 他のバッファにスウィッチする                                             \\
             \ctrl{x} \ctrl{b}               & list-buffers            & 現在のバッファ一覧を出す                                                 \\
-            \ctrl{l}                        & recenter                & ウインドウをリフレッシュし、カーソル行をウインドウ中央に移動する         \\
-            \ctrl{\(\backslash\)}           & toggle-egg-mode         & かな変換モードを on/off する                                             \\
+            \ctrl{l}                        & recenter-top-bottom                & ウインドウをリフレッシュし、カーソル行をウインドウ中央に移動する         \\
+            \ctrl{\(\backslash\)}           & toggle-input-method         & かな変換モードを on/off する                                             \\
             \ctrl{x} \ovalbox{(}            & start-kbd-macro         & キーボードマクロの定義を開始する                                         \\
             \ctrl{x} \ovalbox{)}            & end-kbd-macro           & キーボードマクロの定義を終了する                                         \\
             \ctrl{x} \ovalbox{e}            & call-last-kbd-macro     & 一番最近定義したキーボードマクロを実行する                               \\
@@ -667,18 +665,18 @@ Emacs には実に様々なコマンドがあるが、その中でも使用頻�
 
 ある領域を削除、移動、コピーしたいときには領域の先端でマークし、領域の終端までカーソルを移動した後、\ctrl{w}を押して領域を削除する。移動したいときには、さらに移動先までカーソルを持って行き、そこで\ctrl{y}を押す。コピーしたいときには、削除した直後に\ctrl{y}を押して復旧し、さらにコピー先までカーソルを持って行って、\ctrl{y}を押してコピーする。つまり一旦\ctrl{w}でためておいてから\footnote{実は\esc{w}だと削除しないでためるだけなので、こちらの方が楽である。}、\ctrl{y}であちこちにコピーする。また、\ctrl{k}を連続して使って消した場合も、\ctrl{y}でまとめてペーストすることができる。そのほか便利な機能としては、\esc{x} \texttt{goto-line}で指定行に飛ぶなどが挙げられる。
 
-\section{Gnuplotを使う}
+\section{gnuplotを使う}
 \label{sec:unix:gnuplot}
 
-計算結果をグラフに変換するツールはいろいろあるが、UNIXで最もよく使われているものの一つにGnuplotがある。この節では、Gnuplotの基本的な使い方を解説する。
+計算結果をグラフに変換するツールはいろいろあるが、UNIXで最もよく使われているものの一つにgnuplotがある。この節では、gnuplotの基本的な使い方を解説する。
 
-\subsection{Gnuplotの起動とデータのプロット}
+\subsection{gnuplotの起動とデータのプロット}
 
 ターミナルで
 \begin{commandline2}
     \prompt \underline{gnuplot}
 \end{commandline2} \noindent
-と入力すると、Gnuplotが起動し、プロンプトが表示される。
+と入力すると、gnuplotが起動し、プロンプトが表示される。
 \begin{commandline2}
     gnuplot>
 \end{commandline2} \noindent
@@ -710,7 +708,7 @@ Emacs には実に様々なコマンドがあるが、その中でも使用頻�
 \end{commandline2} \noindent
 と入力するとプロットされる。 データファイルには1行に「横軸の値と縦軸の値」を入れる。グラフの右上にデータセット名(デフォルトではファイル名)を示す「data.dat」が表示される。これは任意の名前あるいは非表示に変更できる。
 
-上の例では、データファイルdata.datが置いてあるディレクトリでGnuplotを起動している。別ディレクトリにあるデータファイルをプロットするには、絶対パスか相対パスでファイル名を指定するか、
+上の例では、データファイルdata.datが置いてあるディレクトリでgnuplotを起動している。別ディレクトリにあるデータファイルをプロットするには、絶対パスか相対パスでファイル名を指定するか、
 \begin{commandline2}
     gnuplot> \underline{cd '\textit{directory}'}
 \end{commandline2} \noindent
@@ -722,11 +720,11 @@ Emacs には実に様々なコマンドがあるが、その中でも使用頻�
 
 \subsection{スクリプトファイルの読み込み、書き出し}
 
-Gnuplotは1行ずつコマンドを実行しプロットしていく対話型スタイルが基本であるが、複雑なプロットの場合には、実行したいコマンドをスクリプトファイルの形でにあらかじめ用意しておき、一括して読み込む方が便利である。例えば、EmacsやVimなどのエディタを使って、plot.pltという名前で、中身が
+gnuplotは1行ずつコマンドを実行しプロットしていく対話型スタイルが基本であるが、複雑なプロットの場合には、実行したいコマンドをスクリプトファイルの形であらかじめ用意しておき、一括して読み込む方が便利である。例えば、EmacsやVimなどのエディタを使って、plot.pltという名前で、中身が
 \begin{quote}
     plot 'data.dat'
 \end{quote}
-のようなファイルを用意し、Gnuplotの中で
+のようなファイルを用意し、gnuplotの中で
 \begin{commandline2}
     gnuplot> \underline{load 'plot.plt'}
 \end{commandline2} \noindent
@@ -760,7 +758,7 @@ Gnuplotは1行ずつコマンドを実行しプロットしていく対話型ス
 \end{commandline2} \noindent
 関数の値のサンプリングのピッチを変えるには、
 \begin{commandline2}
-    gnuplot> \underline{set sample 10000}
+    gnuplot> \underline{set samples 10000}
 \end{commandline2} \noindent
 とする。
 
@@ -778,7 +776,7 @@ Gnuplotは1行ずつコマンドを実行しプロットしていく対話型ス
           データセットの2列目の値を10倍したものを\(y\)座標としてプロットする
     \item \texttt{using 1:(\$2+f(\$1))} \\\
           関数\(f(x)\)を定義しておき、その関数値をプロットすることもできる
-    \item \texttt{with line} \ (\texttt{w l}と省略可) \\
+    \item \texttt{with lines} \ (\texttt{w l}と省略可) \\
           データを線で結ぶ
     \item \texttt{with linespoints} \\
           データをシンボルで表示し、さらに線で結ぶ
@@ -792,8 +790,8 @@ Gnuplotは1行ずつコマンドを実行しプロットしていく対話型ス
           凡例をつけない
     \item \texttt{linewidth 3} \ (\texttt{lw 3}と省略可) \\
           線の幅を3倍にする(論文用の図としては\texttt{lw 3}くらいがよい)
-    \item \texttt{linecolor 7} \ (\texttt{lc 7}と省略可) \\
-          線の色を指定する。青は6、赤は7など。
+    \item \texttt{linecolor rgb 'blue'} (\texttt{lc rgb 'blue'}と省略可) \\
+          線の色を指定する
     \item \texttt{dashtype 2} \ (\texttt{dt 2}と省略可) \\
           2から5まで4種類の破線や点線が選べる
     \item \texttt{pointtype 2} \ (\texttt{pt 2}と省略可) \\
@@ -801,11 +799,11 @@ Gnuplotは1行ずつコマンドを実行しプロットしていく対話型ス
 \end{itemize}
 これらを応用すると、次のようなことができる。
 \begin{commandline2}
-    gnuplot> \underline{plot 'data.dat' with line linecolor 6, 'data2.dat' linecolor 7}
+    gnuplot> \underline{plot 'data.dat' with lines linecolor rgb 'blue', 'data2.dat' linecolor rgb 'red'}
 \end{commandline2} \noindent
 では、data.datの点は青線でつながり、data2.datは赤点のみでプロットされる(data2.datも自分で用意すること)。また、点ではなく常につながった線で表示させるには、
 \begin{commandline2}
-    gnuplot> \underline{set style data line}\\
+    gnuplot> \underline{set style data lines}\\
     gnuplot> \underline{plot 'data.dat', 'data2.dat'}
 \end{commandline2} \noindent
 とする。
@@ -899,7 +897,7 @@ Gnuplotは1行ずつコマンドを実行しプロットしていく対話型ス
 \begin{commandline2}
     gnuplot> \underline{set size square}
 \end{commandline2} \noindent
-図の縦横比を 1:1.5 にするには、
+図の縦横比を 1.5:1 にするには、
 \begin{commandline2}
     gnuplot> \underline{set size ratio 1.5}
 \end{commandline2} \noindent
@@ -925,7 +923,7 @@ Gnuplotは1行ずつコマンドを実行しプロットしていく対話型ス
           36ポイントの大きさで表示される
     \item \texttt{'\{/=36 \{/Arial-Italic E\}\}'} \\
           36ポイント斜体で\(E\)のように表示される
-    \item \texttt{\{/=36 \{/Symbol D\}\}'} \\
+    \item \texttt{'\{/=36 \{/Symbol D\}\}'} \\
           ギリシャ文字の\(\Delta\)
     \item \texttt{'\{/=36 \{/Symbol c\}\^{}\{total\}\_e\}'} \\
           \(\chi^{\rm total}_{\rm e}\)
